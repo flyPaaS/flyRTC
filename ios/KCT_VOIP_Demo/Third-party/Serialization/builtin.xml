@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<metainfo prefix="SK" filename="Builtin" magic="10000">
+
+	<struct name="BuiltinInt32" id="257">
+		<field name="Val" type="int32" id="1" />
+	</struct>
+
+	<struct name="BuiltinUint32" id="258">
+		<field name="Val" type="uint32" id="1" />
+	</struct>
+
+	<struct name="BuiltinChar" id="259">
+		<field name="Val" type="char" id="1" />
+	</struct>
+
+	<struct name="BuiltinUchar" id="260">
+		<field name="Val" type="uchar" id="1" />
+	</struct>
+
+	<struct name="BuiltinInt8" id="261">
+		<field name="Val" type="int8" id="1" />
+	</struct>
+
+	<struct name="BuiltinUint8" id="262">
+		<field name="Val" type="uint8" id="1" />
+	</struct>
+
+	<struct name="BuiltinInt16" id="263">
+		<field name="Val" type="int16" id="1" />
+	</struct>
+
+	<struct name="BuiltinUint16" id="264">
+		<field name="Val" type="uint16" id="1" />
+	</struct>
+
+	<struct name="BuiltinInt64" id="265">
+		<field name="Val" type="int64" id="1" />
+	</struct>
+
+	<struct name="BuiltinUint64" id="266">
+		<field name="Val" type="uint64" id="1" />
+	</struct>
+
+	<struct name="BuiltinFloat32" id="267">
+		<field name="Val" type="float" id="1" />
+	</struct>
+
+	<struct name="BuiltinDouble64" id="268">
+		<field name="Val" type="double" id="1" />
+	</struct>
+
+	<struct name="BuiltinBuffer" id="270">
+		<field name="Len" type="int32" id="1" />
+		<field name="Buff" type="*char" id="2"  referto="Len" />
+	</struct>
+
+	<struct name="BuiltinString" id="271">
+		<field name="Buff" type="*char" id="1"  referto="strlen" />
+	</struct>
+
+	<struct name="qs_uin" id="269">
+		<field name="Val" type="uint32" id="1" />
+	</struct>
+
+</metainfo>
+
