@@ -1,0 +1,393 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		5A21BB7C1E232FF600010FC5 /* .DS_Store */ = {isa = PBXFileReference; lastKnownFileType = file; path = .DS_Store; sourceTree = "<group>"; };
+		5A21BB7D1E232FF600010FC5 /* aes.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = aes.c; sourceTree = "<group>"; };
+		5A21BB7E1E232FF600010FC5 /* aes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
+		5A21BB7F1E232FF600010FC5 /* bat.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = bat.sh; sourceTree = "<group>"; };
+		5A21BB801E232FF600010FC5 /* bignum.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = bignum.cpp; sourceTree = "<group>"; };
+		5A21BB811E232FF600010FC5 /* bignum.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bignum.h; sourceTree = "<group>"; };
+		5A21BB821E232FF600010FC5 /* bn_mul.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bn_mul.h; sourceTree = "<group>"; };
+		5A21BB831E232FF600010FC5 /* buffertools.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = buffertools.cpp; sourceTree = "<group>"; };
+		5A21BB841E232FF600010FC5 /* buffertools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = buffertools.h; sourceTree = "<group>"; };
+		5A21BB851E232FF600010FC5 /* builtin.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = builtin.xml; sourceTree = "<group>"; };
+		5A21BB861E232FF600010FC5 /* CommonDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonDefine.h; sourceTree = "<group>"; };
+		5A21BB871E232FF600010FC5 /* config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		5A21BB881E232FF600010FC5 /* Crypt.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Crypt.cpp; sourceTree = "<group>"; };
+		5A21BB891E232FF600010FC5 /* Crypt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Crypt.h; sourceTree = "<group>"; };
+		5A21BB8A1E232FF600010FC5 /* des.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = des.c; sourceTree = "<group>"; };
+		5A21BB8B1E232FF600010FC5 /* des.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = des.h; sourceTree = "<group>"; };
+		5A21BB8C1E232FF600010FC5 /* fakemeta.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = fakemeta.xml; sourceTree = "<group>"; };
+		5A21BB8D1E232FF600010FC5 /* iErrno.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iErrno.h; sourceTree = "<group>"; };
+		5A21BB8E1E232FF600010FC5 /* iFile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = iFile.cpp; sourceTree = "<group>"; };
+		5A21BB8F1E232FF600010FC5 /* iFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iFile.h; sourceTree = "<group>"; };
+		5A21BB901E232FF600010FC5 /* iFileFunc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iFileFunc.h; sourceTree = "<group>"; };
+		5A21BB911E232FF600010FC5 /* iHash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iHash.h; sourceTree = "<group>"; };
+		5A21BB921E232FF600010FC5 /* iLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iLog.h; sourceTree = "<group>"; };
+		5A21BB931E232FF600010FC5 /* iMd5.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = iMd5.cpp; sourceTree = "<group>"; };
+		5A21BB941E232FF600010FC5 /* iMd5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iMd5.h; sourceTree = "<group>"; };
+		5A21BB951E232FF600010FC5 /* IMmsgstruct.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IMmsgstruct.cpp; sourceTree = "<group>"; };
+		5A21BB961E232FF600010FC5 /* IMmsgstruct.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IMmsgstruct.h; sourceTree = "<group>"; };
+		5A21BB971E232FF600010FC5 /* iMsgBodyXP.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = iMsgBodyXP.cpp; sourceTree = "<group>"; };
+		5A21BB981E232FF600010FC5 /* iMsgBodyXP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iMsgBodyXP.h; sourceTree = "<group>"; };
+		5A21BB991E232FF600010FC5 /* iMsgHeadXP.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = iMsgHeadXP.cpp; sourceTree = "<group>"; };
+		5A21BB9A1E232FF600010FC5 /* iMsgHeadXP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iMsgHeadXP.h; sourceTree = "<group>"; };
+		5A21BB9B1E232FF600010FC5 /* iProtocolXP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iProtocolXP.h; sourceTree = "<group>"; };
+		5A21BB9C1E232FF600010FC5 /* iQsUin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iQsUin.h; sourceTree = "<group>"; };
+		5A21BB9D1E232FF600010FC5 /* iSKTLVBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = iSKTLVBuffer.cpp; sourceTree = "<group>"; };
+		5A21BB9E1E232FF600010FC5 /* iSKTLVBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iSKTLVBuffer.h; sourceTree = "<group>"; };
+		5A21BB9F1E232FF600010FC5 /* iSKTLVMergePack.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = iSKTLVMergePack.cpp; sourceTree = "<group>"; };
+		5A21BBA01E232FF600010FC5 /* iSKTLVMergePack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iSKTLVMergePack.h; sourceTree = "<group>"; };
+		5A21BBA11E232FF600010FC5 /* iSKTLVPack.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = iSKTLVPack.cpp; sourceTree = "<group>"; };
+		5A21BBA21E232FF600010FC5 /* iSKTLVPack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iSKTLVPack.h; sourceTree = "<group>"; };
+		5A21BBA31E232FF600010FC5 /* iTLVFastReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = iTLVFastReader.cpp; sourceTree = "<group>"; };
+		5A21BBA41E232FF600010FC5 /* iTLVFastReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iTLVFastReader.h; sourceTree = "<group>"; };
+		5A21BBA51E232FF600010FC5 /* iTLVItem.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = iTLVItem.cpp; sourceTree = "<group>"; };
+		5A21BBA61E232FF600010FC5 /* iTLVItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iTLVItem.h; sourceTree = "<group>"; };
+		5A21BBA71E232FF600010FC5 /* iTlvMsgXP.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = iTlvMsgXP.cpp; sourceTree = "<group>"; };
+		5A21BBA81E232FF600010FC5 /* iTlvMsgXP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iTlvMsgXP.h; sourceTree = "<group>"; };
+		5A21BBA91E232FF600010FC5 /* iTLVPack.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = iTLVPack.cpp; sourceTree = "<group>"; };
+		5A21BBAA1E232FF600010FC5 /* iTLVPack.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iTLVPack.h; sourceTree = "<group>"; };
+		5A21BBAB1E232FF600010FC5 /* iTLVPickle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iTLVPickle.h; sourceTree = "<group>"; };
+		5A21BBAC1E232FF600010FC5 /* iTypeXP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iTypeXP.h; sourceTree = "<group>"; };
+		5A21BBAD1E232FF600010FC5 /* iVByte.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = iVByte.cpp; sourceTree = "<group>"; };
+		5A21BBAE1E232FF600010FC5 /* iVByte.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iVByte.h; sourceTree = "<group>"; };
+		5A21BBAF1E232FF600010FC5 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
+		5A21BBB01E232FF600010FC5 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		5A21BBB11E232FF600010FC5 /* Makefile.stlport */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.stlport; sourceTree = "<group>"; };
+		5A21BBB21E232FF600010FC5 /* Makefile_xyssl */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile_xyssl; sourceTree = "<group>"; };
+		5A21BBB31E232FF600010FC5 /* md5.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = md5.c; sourceTree = "<group>"; };
+		5A21BBB41E232FF600010FC5 /* md5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
+		5A21BBB51E232FF600010FC5 /* md5_loc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = md5_loc.h; sourceTree = "<group>"; };
+		5A21BBB61E232FF600010FC5 /* oldrbdes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = oldrbdes.cpp; sourceTree = "<group>"; };
+		5A21BBB71E232FF600010FC5 /* oldrbdes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = oldrbdes.h; sourceTree = "<group>"; };
+		5A21BBB81E232FF600010FC5 /* package.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = package.cpp; sourceTree = "<group>"; };
+		5A21BBB91E232FF600010FC5 /* package.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = package.h; sourceTree = "<group>"; };
+		5A21BBBA1E232FF600010FC5 /* PackageHeader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PackageHeader.cpp; sourceTree = "<group>"; };
+		5A21BBBB1E232FF600010FC5 /* PackageHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PackageHeader.h; sourceTree = "<group>"; };
+		5A21BBBC1E232FF600010FC5 /* padlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = padlock.h; sourceTree = "<group>"; };
+		5A21BBBD1E232FF600010FC5 /* ProxyProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProxyProtocol.h; sourceTree = "<group>"; };
+		5A21BBBE1E232FF600010FC5 /* rbbuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = rbbuffer.cpp; sourceTree = "<group>"; };
+		5A21BBBF1E232FF600010FC5 /* rbbuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rbbuffer.h; sourceTree = "<group>"; };
+		5A21BBC01E232FF600010FC5 /* rbdes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = rbdes.cpp; sourceTree = "<group>"; };
+		5A21BBC11E232FF600010FC5 /* rbdes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rbdes.h; sourceTree = "<group>"; };
+		5A21BBC21E232FF600010FC5 /* rsa.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = rsa.cpp; sourceTree = "<group>"; };
+		5A21BBC31E232FF600010FC5 /* rsa.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rsa.h; sourceTree = "<group>"; };
+		5A21BBC41E232FF600010FC5 /* Serialization.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Serialization.xcodeproj; sourceTree = "<group>"; };
+		5A21BBC71E232FF600010FC5 /* sha1.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sha1.cpp; sourceTree = "<group>"; };
+		5A21BBC81E232FF600010FC5 /* sha1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sha1.h; sourceTree = "<group>"; };
+		5A21BBC91E232FF600010FC5 /* sk_builtin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sk_builtin.cpp; sourceTree = "<group>"; };
+		5A21BBCA1E232FF600010FC5 /* sk_builtin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sk_builtin.h; sourceTree = "<group>"; };
+		5A21BBCB1E232FF600010FC5 /* skalloc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = skalloc.cpp; sourceTree = "<group>"; };
+		5A21BBCC1E232FF600010FC5 /* skalloc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skalloc.h; sourceTree = "<group>"; };
+		5A21BBCD1E232FF600010FC5 /* skbuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = skbuffer.cpp; sourceTree = "<group>"; };
+		5A21BBCE1E232FF600010FC5 /* skbuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skbuffer.h; sourceTree = "<group>"; };
+		5A21BBCF1E232FF600010FC5 /* skbuildinclass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = skbuildinclass.cpp; sourceTree = "<group>"; };
+		5A21BBD01E232FF600010FC5 /* skbuildinclass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skbuildinclass.h; sourceTree = "<group>"; };
+		5A21BBD11E232FF600010FC5 /* skbuiltintype.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = skbuiltintype.cpp; sourceTree = "<group>"; };
+		5A21BBD21E232FF600010FC5 /* skbuiltintype.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skbuiltintype.h; sourceTree = "<group>"; };
+		5A21BBD31E232FF600010FC5 /* skcomm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skcomm.h; sourceTree = "<group>"; };
+		5A21BBD41E232FF600010FC5 /* skfakemetastruct.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = skfakemetastruct.cpp; sourceTree = "<group>"; };
+		5A21BBD51E232FF600010FC5 /* skfakemetastruct.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skfakemetastruct.h; sourceTree = "<group>"; };
+		5A21BBD61E232FF600010FC5 /* skinnerstruct.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = skinnerstruct.cpp; sourceTree = "<group>"; };
+		5A21BBD71E232FF600010FC5 /* skinnerstruct.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skinnerstruct.h; sourceTree = "<group>"; };
+		5A21BBD81E232FF600010FC5 /* skmetainfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skmetainfo.h; sourceTree = "<group>"; };
+		5A21BBD91E232FF600010FC5 /* skmetainfofinder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = skmetainfofinder.cpp; sourceTree = "<group>"; };
+		5A21BBDA1E232FF600010FC5 /* skmetainfofinder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skmetainfofinder.h; sourceTree = "<group>"; };
+		5A21BBDB1E232FF600010FC5 /* skmetautils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = skmetautils.cpp; sourceTree = "<group>"; };
+		5A21BBDC1E232FF600010FC5 /* skmetautils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skmetautils.h; sourceTree = "<group>"; };
+		5A21BBDD1E232FF600010FC5 /* skpbdecoder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = skpbdecoder.cpp; sourceTree = "<group>"; };
+		5A21BBDE1E232FF600010FC5 /* skpbdecoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skpbdecoder.h; sourceTree = "<group>"; };
+		5A21BBDF1E232FF600010FC5 /* skpbencoder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = skpbencoder.cpp; sourceTree = "<group>"; };
+		5A21BBE01E232FF600010FC5 /* skpbencoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skpbencoder.h; sourceTree = "<group>"; };
+		5A21BBE11E232FF600010FC5 /* skpbhelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = skpbhelper.cpp; sourceTree = "<group>"; };
+		5A21BBE21E232FF600010FC5 /* skpbhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skpbhelper.h; sourceTree = "<group>"; };
+		5A21BBE31E232FF600010FC5 /* skpbpickle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = skpbpickle.cpp; sourceTree = "<group>"; };
+		5A21BBE41E232FF600010FC5 /* skpbpickle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skpbpickle.h; sourceTree = "<group>"; };
+		5A21BBE51E232FF600010FC5 /* skprotohelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = skprotohelper.cpp; sourceTree = "<group>"; };
+		5A21BBE61E232FF600010FC5 /* skprotohelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = skprotohelper.h; sourceTree = "<group>"; };
+		5A21BBE71E232FF600010FC5 /* sktlvhelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sktlvhelper.cpp; sourceTree = "<group>"; };
+		5A21BBE81E232FF600010FC5 /* sktlvhelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sktlvhelper.h; sourceTree = "<group>"; };
+		5A21BBE91E232FF600010FC5 /* sktlvpickle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sktlvpickle.cpp; sourceTree = "<group>"; };
+		5A21BBEA1E232FF600010FC5 /* sktlvpickle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sktlvpickle.h; sourceTree = "<group>"; };
+		5A21BBEB1E232FF600010FC5 /* tlvport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tlvport.h; sourceTree = "<group>"; };
+		5A21BBEC1E232FF600010FC5 /* typexp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = typexp.cpp; sourceTree = "<group>"; };
+		5A21BBED1E232FF600010FC5 /* typexp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = typexp.h; sourceTree = "<group>"; };
+		5A21BBEE1E232FF600010FC5 /* typexp_xyssl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = typexp_xyssl.cpp; sourceTree = "<group>"; };
+		5A21BBEF1E232FF600010FC5 /* typexp_xyssl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = typexp_xyssl.h; sourceTree = "<group>"; };
+		5A21BBF01E232FF600010FC5 /* UcsByteBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UcsByteBuffer.h; sourceTree = "<group>"; };
+		5A21BBF11E232FF600010FC5 /* ucscompress.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ucscompress.cpp; sourceTree = "<group>"; };
+		5A21BBF21E232FF600010FC5 /* ucscompress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ucscompress.h; sourceTree = "<group>"; };
+		5A21BBF31E232FF600010FC5 /* ucspkg.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ucspkg.cpp; sourceTree = "<group>"; };
+		5A21BBF41E232FF600010FC5 /* ucspkg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ucspkg.h; sourceTree = "<group>"; };
+		5A21BBF51E232FF600010FC5 /* ucssyncdef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ucssyncdef.h; sourceTree = "<group>"; };
+		5A21BBF61E232FF600010FC5 /* UcsUtil.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UcsUtil.cpp; sourceTree = "<group>"; };
+		5A21BBF71E232FF600010FC5 /* UcsUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UcsUtil.h; sourceTree = "<group>"; };
+		5A21BBF81E232FF600010FC5 /* xml2pb.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = xml2pb.py; sourceTree = "<group>"; };
+		5A21BBF91E232FF600010FC5 /* xyssl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xyssl.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		5A21BB761E232FF600010FC5 = {
+			isa = PBXGroup;
+			children = (
+				5A21BB7C1E232FF600010FC5 /* .DS_Store */,
+				5A21BB7D1E232FF600010FC5 /* aes.c */,
+				5A21BB7E1E232FF600010FC5 /* aes.h */,
+				5A21BB7F1E232FF600010FC5 /* bat.sh */,
+				5A21BB801E232FF600010FC5 /* bignum.cpp */,
+				5A21BB811E232FF600010FC5 /* bignum.h */,
+				5A21BB821E232FF600010FC5 /* bn_mul.h */,
+				5A21BB831E232FF600010FC5 /* buffertools.cpp */,
+				5A21BB841E232FF600010FC5 /* buffertools.h */,
+				5A21BB851E232FF600010FC5 /* builtin.xml */,
+				5A21BB861E232FF600010FC5 /* CommonDefine.h */,
+				5A21BB871E232FF600010FC5 /* config.h */,
+				5A21BB881E232FF600010FC5 /* Crypt.cpp */,
+				5A21BB891E232FF600010FC5 /* Crypt.h */,
+				5A21BB8A1E232FF600010FC5 /* des.c */,
+				5A21BB8B1E232FF600010FC5 /* des.h */,
+				5A21BB8C1E232FF600010FC5 /* fakemeta.xml */,
+				5A21BB8D1E232FF600010FC5 /* iErrno.h */,
+				5A21BB8E1E232FF600010FC5 /* iFile.cpp */,
+				5A21BB8F1E232FF600010FC5 /* iFile.h */,
+				5A21BB901E232FF600010FC5 /* iFileFunc.h */,
+				5A21BB911E232FF600010FC5 /* iHash.h */,
+				5A21BB921E232FF600010FC5 /* iLog.h */,
+				5A21BB931E232FF600010FC5 /* iMd5.cpp */,
+				5A21BB941E232FF600010FC5 /* iMd5.h */,
+				5A21BB951E232FF600010FC5 /* IMmsgstruct.cpp */,
+				5A21BB961E232FF600010FC5 /* IMmsgstruct.h */,
+				5A21BB971E232FF600010FC5 /* iMsgBodyXP.cpp */,
+				5A21BB981E232FF600010FC5 /* iMsgBodyXP.h */,
+				5A21BB991E232FF600010FC5 /* iMsgHeadXP.cpp */,
+				5A21BB9A1E232FF600010FC5 /* iMsgHeadXP.h */,
+				5A21BB9B1E232FF600010FC5 /* iProtocolXP.h */,
+				5A21BB9C1E232FF600010FC5 /* iQsUin.h */,
+				5A21BB9D1E232FF600010FC5 /* iSKTLVBuffer.cpp */,
+				5A21BB9E1E232FF600010FC5 /* iSKTLVBuffer.h */,
+				5A21BB9F1E232FF600010FC5 /* iSKTLVMergePack.cpp */,
+				5A21BBA01E232FF600010FC5 /* iSKTLVMergePack.h */,
+				5A21BBA11E232FF600010FC5 /* iSKTLVPack.cpp */,
+				5A21BBA21E232FF600010FC5 /* iSKTLVPack.h */,
+				5A21BBA31E232FF600010FC5 /* iTLVFastReader.cpp */,
+				5A21BBA41E232FF600010FC5 /* iTLVFastReader.h */,
+				5A21BBA51E232FF600010FC5 /* iTLVItem.cpp */,
+				5A21BBA61E232FF600010FC5 /* iTLVItem.h */,
+				5A21BBA71E232FF600010FC5 /* iTlvMsgXP.cpp */,
+				5A21BBA81E232FF600010FC5 /* iTlvMsgXP.h */,
+				5A21BBA91E232FF600010FC5 /* iTLVPack.cpp */,
+				5A21BBAA1E232FF600010FC5 /* iTLVPack.h */,
+				5A21BBAB1E232FF600010FC5 /* iTLVPickle.h */,
+				5A21BBAC1E232FF600010FC5 /* iTypeXP.h */,
+				5A21BBAD1E232FF600010FC5 /* iVByte.cpp */,
+				5A21BBAE1E232FF600010FC5 /* iVByte.h */,
+				5A21BBAF1E232FF600010FC5 /* libcrypto.a */,
+				5A21BBB01E232FF600010FC5 /* Makefile */,
+				5A21BBB11E232FF600010FC5 /* Makefile.stlport */,
+				5A21BBB21E232FF600010FC5 /* Makefile_xyssl */,
+				5A21BBB31E232FF600010FC5 /* md5.c */,
+				5A21BBB41E232FF600010FC5 /* md5.h */,
+				5A21BBB51E232FF600010FC5 /* md5_loc.h */,
+				5A21BBB61E232FF600010FC5 /* oldrbdes.cpp */,
+				5A21BBB71E232FF600010FC5 /* oldrbdes.h */,
+				5A21BBB81E232FF600010FC5 /* package.cpp */,
+				5A21BBB91E232FF600010FC5 /* package.h */,
+				5A21BBBA1E232FF600010FC5 /* PackageHeader.cpp */,
+				5A21BBBB1E232FF600010FC5 /* PackageHeader.h */,
+				5A21BBBC1E232FF600010FC5 /* padlock.h */,
+				5A21BBBD1E232FF600010FC5 /* ProxyProtocol.h */,
+				5A21BBBE1E232FF600010FC5 /* rbbuffer.cpp */,
+				5A21BBBF1E232FF600010FC5 /* rbbuffer.h */,
+				5A21BBC01E232FF600010FC5 /* rbdes.cpp */,
+				5A21BBC11E232FF600010FC5 /* rbdes.h */,
+				5A21BBC21E232FF600010FC5 /* rsa.cpp */,
+				5A21BBC31E232FF600010FC5 /* rsa.h */,
+				5A21BBC41E232FF600010FC5 /* Serialization.xcodeproj */,
+				5A21BBC71E232FF600010FC5 /* sha1.cpp */,
+				5A21BBC81E232FF600010FC5 /* sha1.h */,
+				5A21BBC91E232FF600010FC5 /* sk_builtin.cpp */,
+				5A21BBCA1E232FF600010FC5 /* sk_builtin.h */,
+				5A21BBCB1E232FF600010FC5 /* skalloc.cpp */,
+				5A21BBCC1E232FF600010FC5 /* skalloc.h */,
+				5A21BBCD1E232FF600010FC5 /* skbuffer.cpp */,
+				5A21BBCE1E232FF600010FC5 /* skbuffer.h */,
+				5A21BBCF1E232FF600010FC5 /* skbuildinclass.cpp */,
+				5A21BBD01E232FF600010FC5 /* skbuildinclass.h */,
+				5A21BBD11E232FF600010FC5 /* skbuiltintype.cpp */,
+				5A21BBD21E232FF600010FC5 /* skbuiltintype.h */,
+				5A21BBD31E232FF600010FC5 /* skcomm.h */,
+				5A21BBD41E232FF600010FC5 /* skfakemetastruct.cpp */,
+				5A21BBD51E232FF600010FC5 /* skfakemetastruct.h */,
+				5A21BBD61E232FF600010FC5 /* skinnerstruct.cpp */,
+				5A21BBD71E232FF600010FC5 /* skinnerstruct.h */,
+				5A21BBD81E232FF600010FC5 /* skmetainfo.h */,
+				5A21BBD91E232FF600010FC5 /* skmetainfofinder.cpp */,
+				5A21BBDA1E232FF600010FC5 /* skmetainfofinder.h */,
+				5A21BBDB1E232FF600010FC5 /* skmetautils.cpp */,
+				5A21BBDC1E232FF600010FC5 /* skmetautils.h */,
+				5A21BBDD1E232FF600010FC5 /* skpbdecoder.cpp */,
+				5A21BBDE1E232FF600010FC5 /* skpbdecoder.h */,
+				5A21BBDF1E232FF600010FC5 /* skpbencoder.cpp */,
+				5A21BBE01E232FF600010FC5 /* skpbencoder.h */,
+				5A21BBE11E232FF600010FC5 /* skpbhelper.cpp */,
+				5A21BBE21E232FF600010FC5 /* skpbhelper.h */,
+				5A21BBE31E232FF600010FC5 /* skpbpickle.cpp */,
+				5A21BBE41E232FF600010FC5 /* skpbpickle.h */,
+				5A21BBE51E232FF600010FC5 /* skprotohelper.cpp */,
+				5A21BBE61E232FF600010FC5 /* skprotohelper.h */,
+				5A21BBE71E232FF600010FC5 /* sktlvhelper.cpp */,
+				5A21BBE81E232FF600010FC5 /* sktlvhelper.h */,
+				5A21BBE91E232FF600010FC5 /* sktlvpickle.cpp */,
+				5A21BBEA1E232FF600010FC5 /* sktlvpickle.h */,
+				5A21BBEB1E232FF600010FC5 /* tlvport.h */,
+				5A21BBEC1E232FF600010FC5 /* typexp.cpp */,
+				5A21BBED1E232FF600010FC5 /* typexp.h */,
+				5A21BBEE1E232FF600010FC5 /* typexp_xyssl.cpp */,
+				5A21BBEF1E232FF600010FC5 /* typexp_xyssl.h */,
+				5A21BBF01E232FF600010FC5 /* UcsByteBuffer.h */,
+				5A21BBF11E232FF600010FC5 /* ucscompress.cpp */,
+				5A21BBF21E232FF600010FC5 /* ucscompress.h */,
+				5A21BBF31E232FF600010FC5 /* ucspkg.cpp */,
+				5A21BBF41E232FF600010FC5 /* ucspkg.h */,
+				5A21BBF51E232FF600010FC5 /* ucssyncdef.h */,
+				5A21BBF61E232FF600010FC5 /* UcsUtil.cpp */,
+				5A21BBF71E232FF600010FC5 /* UcsUtil.h */,
+				5A21BBF81E232FF600010FC5 /* xml2pb.py */,
+				5A21BBF91E232FF600010FC5 /* xyssl.h */,
+			);
+			sourceTree = "<group>";
+		};
+		5A21BBC51E232FF600010FC5 /* Products */ = {
+			isa = PBXGroup;
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		5A21BB7B1E232FF600010FC5 /* Serialization */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = 5A21BBFA1E232FF600010FC5 /* Build configuration list for PBXLegacyTarget "Serialization" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = /Users/kcmac/Desktop/Serialization;
+			dependencies = (
+			);
+			name = Serialization;
+			passBuildSettingsInEnvironment = 1;
+			productName = Serialization;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		5A21BB771E232FF600010FC5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+			};
+			buildConfigurationList = 5A21BB7A1E232FF600010FC5 /* Build configuration list for PBXProject "Serialization 2" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 5A21BB761E232FF600010FC5;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 5A21BBC51E232FF600010FC5 /* Products */;
+					ProjectRef = 5A21BBC41E232FF600010FC5 /* Serialization.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				5A21BB7B1E232FF600010FC5 /* Serialization */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		5A21BB781E232FF600010FC5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		5A21BB791E232FF600010FC5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+		5A21BBFB1E232FF600010FC5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = Serialization;
+			};
+			name = Debug;
+		};
+		5A21BBFC1E232FF600010FC5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = Serialization;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5A21BB7A1E232FF600010FC5 /* Build configuration list for PBXProject "Serialization 2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A21BB781E232FF600010FC5 /* Debug */,
+				5A21BB791E232FF600010FC5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5A21BBFA1E232FF600010FC5 /* Build configuration list for PBXLegacyTarget "Serialization" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A21BBFB1E232FF600010FC5 /* Debug */,
+				5A21BBFC1E232FF600010FC5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5A21BB771E232FF600010FC5 /* Project object */;
+}
