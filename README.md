@@ -1,1 +1,1 @@
-Ôö¼Ó Android ºÍ iOS °æ±¾µÄSDK Demo
+å¢žåŠ  Android å’Œ iOS ç‰ˆæœ¬çš„SDK Demo
