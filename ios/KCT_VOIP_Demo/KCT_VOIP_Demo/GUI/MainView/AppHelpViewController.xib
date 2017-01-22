@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="GA1-aT-OFM">
-                    <rect key="frame" x="10" y="40" width="355" height="527"/>
+                    <rect key="frame" x="10" y="40" width="355" height="522"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <string key="text">测试登录用户名：119140589@qq.com  密码：kc123456     
 使用2台ios设备同时登录，然后在其中一个app选择体验账号78533051196418
@@ -29,7 +29,8 @@
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NQ1-sc-z8g">
-                    <rect key="frame" x="172" y="617" width="31" height="30"/>
+                    <rect key="frame" x="168" y="612" width="39" height="35"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
                     <state key="normal" title="关闭"/>
                     <connections>
                         <action selector="close:" destination="-1" eventType="touchUpInside" id="OnM-LN-ftl"/>

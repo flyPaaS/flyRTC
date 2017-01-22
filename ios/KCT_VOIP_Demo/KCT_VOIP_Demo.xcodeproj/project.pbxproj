@@ -166,15 +166,15 @@
 		5A21BCAE1E23318D00010FC5 /* KctUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5A21BCA01E23318D00010FC5 /* KctUtil.cpp */; };
 		5A41B6201E286A8C000B9A49 /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A41B61E1E286A8C000B9A49 /* libstdc++.6.tbd */; };
 		5A41B6211E286A8C000B9A49 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A41B61F1E286A8C000B9A49 /* libstdc++.tbd */; };
+		5A6221E61E34504B008483C8 /* checkbox_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A6221E41E34504B008483C8 /* checkbox_on.png */; };
+		5A6221E71E34504B008483C8 /* checkbox_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A6221E51E34504B008483C8 /* checkbox_off.png */; };
 		5A6C41BF1E31BB9300AD7488 /* mytoast.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C41BE1E31BB9300AD7488 /* mytoast.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5A6C41C21E31BCF900AD7488 /* login_unenable@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A6C41C01E31BCF900AD7488 /* login_unenable@2x.png */; };
 		5A6C41C31E31BCF900AD7488 /* login_unenable@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A6C41C11E31BCF900AD7488 /* login_unenable@3x.png */; };
 		5A6C41CC1E32123A00AD7488 /* KCConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6C41CB1E32123A00AD7488 /* KCConst.m */; };
 		5A755F4B1E207E2F003D6777 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A755F4A1E207E2F003D6777 /* main.m */; };
 		5A755F4E1E207E30003D6777 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A755F4D1E207E30003D6777 /* AppDelegate.m */; };
-		5A755F541E207E30003D6777 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A755F521E207E30003D6777 /* Main.storyboard */; };
 		5A755F561E207E30003D6777 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A755F551E207E30003D6777 /* Assets.xcassets */; };
-		5A755F591E207E30003D6777 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A755F571E207E30003D6777 /* LaunchScreen.storyboard */; };
 		5A755F801E208E30003D6777 /* GetClientViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A755F7E1E208E30003D6777 /* GetClientViewController.m */; };
 		5A755F811E208E30003D6777 /* GetClientViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A755F7F1E208E30003D6777 /* GetClientViewController.xib */; };
 		5A755F881E209CB2003D6777 /* TimeUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A755F871E209CB2003D6777 /* TimeUtil.m */; };
@@ -504,6 +504,8 @@
 		5A21BCA21E23318D00010FC5 /* xyssl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xyssl.h; sourceTree = "<group>"; };
 		5A41B61E1E286A8C000B9A49 /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
 		5A41B61F1E286A8C000B9A49 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		5A6221E41E34504B008483C8 /* checkbox_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_on.png; sourceTree = "<group>"; };
+		5A6221E51E34504B008483C8 /* checkbox_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox_off.png; sourceTree = "<group>"; };
 		5A6C41BD1E31BB9300AD7488 /* mytoast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mytoast.h; sourceTree = "<group>"; };
 		5A6C41BE1E31BB9300AD7488 /* mytoast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mytoast.m; sourceTree = "<group>"; };
 		5A6C41C01E31BCF900AD7488 /* login_unenable@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_unenable@2x.png"; sourceTree = "<group>"; };
@@ -514,9 +516,7 @@
 		5A755F4A1E207E2F003D6777 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5A755F4C1E207E2F003D6777 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5A755F4D1E207E30003D6777 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		5A755F531E207E30003D6777 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5A755F551E207E30003D6777 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		5A755F581E207E30003D6777 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5A755F5A1E207E30003D6777 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A755F7D1E208E30003D6777 /* GetClientViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetClientViewController.h; sourceTree = "<group>"; };
 		5A755F7E1E208E30003D6777 /* GetClientViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetClientViewController.m; sourceTree = "<group>"; };
@@ -752,6 +752,8 @@
 		5A1125B01E237D3100201D50 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				5A6221E41E34504B008483C8 /* checkbox_on.png */,
+				5A6221E51E34504B008483C8 /* checkbox_off.png */,
 				5A6C41C01E31BCF900AD7488 /* login_unenable@2x.png */,
 				5A6C41C11E31BCF900AD7488 /* login_unenable@3x.png */,
 				5ACCECE01E2DD0CC0093A8D5 /* checkBtn@2x.png */,
@@ -1043,9 +1045,7 @@
 				5A755F6F1E20872F003D6777 /* Resource */,
 				5A755F4C1E207E2F003D6777 /* AppDelegate.h */,
 				5A755F4D1E207E30003D6777 /* AppDelegate.m */,
-				5A755F521E207E30003D6777 /* Main.storyboard */,
 				5A755F551E207E30003D6777 /* Assets.xcassets */,
-				5A755F571E207E30003D6777 /* LaunchScreen.storyboard */,
 				5A755F5A1E207E30003D6777 /* Info.plist */,
 				5A755F491E207E2F003D6777 /* Supporting Files */,
 			);
@@ -1561,7 +1561,6 @@
 			files = (
 				5A1127491E237D3100201D50 /* 3-down@2x.png in Resources */,
 				5A1127461E237D3100201D50 /* 2-down@3x.png in Resources */,
-				5A755F591E207E30003D6777 /* LaunchScreen.storyboard in Resources */,
 				5A11278C1E237D3100201D50 /* 视频信号3@3x.png in Resources */,
 				5A1127631E237D3100201D50 /* 9@2x.png in Resources */,
 				5A11273F1E237D3100201D50 /* 12-down@2x.png in Resources */,
@@ -1585,6 +1584,7 @@
 				5A1127911E237D3100201D50 /* 通话信号2@2x.png in Resources */,
 				5A1127041E237D3100201D50 /* login_enable@2x.png in Resources */,
 				5A6C41C31E31BCF900AD7488 /* login_unenable@3x.png in Resources */,
+				5A6221E71E34504B008483C8 /* checkbox_off.png in Resources */,
 				5A11275F1E237D3100201D50 /* 8@2x.png in Resources */,
 				5A1127401E237D3100201D50 /* 12-down@3x.png in Resources */,
 				5A1127761E237D3100201D50 /* 挂断-down@3x.png in Resources */,
@@ -1632,6 +1632,7 @@
 				5ACCECDF1E2DCC7A0093A8D5 /* Icon.png in Resources */,
 				5A1127421E237D3100201D50 /* 12@3x.png in Resources */,
 				5A1127701E237D3100201D50 /* 扬声器@3x.png in Resources */,
+				5A6221E61E34504B008483C8 /* checkbox_on.png in Resources */,
 				5A11277E1E237D3100201D50 /* 接听-down@3x.png in Resources */,
 				5A7784E11E2CC9770006B344 /* common_list_back.png in Resources */,
 				5A1127471E237D3100201D50 /* 2@2x.png in Resources */,
@@ -1694,7 +1695,6 @@
 				5A1127591E237D3100201D50 /* 7-down@2x.png in Resources */,
 				5A11276D1E237D3100201D50 /* 扬声器-down@2x.png in Resources */,
 				5ACCECDB1E2DCC430093A8D5 /* Icon-60@2x.png in Resources */,
-				5A755F541E207E30003D6777 /* Main.storyboard in Resources */,
 				5A1127431E237D3100201D50 /* 1@2x.png in Resources */,
 				5A11278E1E237D3100201D50 /* 通话信号-无@3x.png in Resources */,
 				5A7784D31E2CB1830006B344 /* head1_small.png in Resources */,
@@ -1825,25 +1825,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		5A755F521E207E30003D6777 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5A755F531E207E30003D6777 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		5A755F571E207E30003D6777 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5A755F581E207E30003D6777 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		5A755F5B1E207E30003D6777 /* Debug */ = {
