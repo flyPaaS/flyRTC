@@ -25,6 +25,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -33,6 +34,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -130,19 +132,22 @@ public class VideoConverseActivity extends ConverseActivity{
 			}else if(intent.getAction().equals(UIDfineAction.ACTION_NETWORK_STATE)){
 				switch (intent.getIntExtra("state", 0)) {
 				case 0:
-					converse_network.setText("无法获取网络状态");
-					break;
-				case 1:
 					converse_network.setText("网络状态极好");
 					break;
-				case 2:
+				case 1:
 					converse_network.setText("网络状态良好");
 					break;
-				case 3:
+				case 2:
 					converse_network.setText("网络状态一般");
+					break;
+				case 3:
+					converse_network.setText("网络状态较差");
 					break;
 				case 4:
 					converse_network.setText("网络状态极差");
+					break;
+				default:
+					converse_network.setText("无法获取网络状态");
 					break;
 				}
 				// 显示网络参数
@@ -174,13 +179,13 @@ public class VideoConverseActivity extends ConverseActivity{
 							+ " ice:" + obj.getInt("ice")
 							+ " rtt:" + obj.getInt("rtt")
 							+ " lost:" + obj.getInt("ul") + "(s) " + obj.getInt("dl") + "(r)"
-							+ " jt:" + obj.getInt("jt")
 							+ " sb: " + obj.getInt("sb")
 							+ " sf: " + obj.getInt("sf")
 							+ " rb: " + obj.getInt("rb")
-							+ " sw: " + obj.getInt("sw")
-							+ " sh: " + obj.getInt("sh");
+							+ " sres: " + obj.getInt("sw") + "x" + obj.getInt("sh")
+							+ " rres: " + obj.getInt("dw") + "x" + obj.getInt("dh");
 					
+					converse_network_status.setTextColor(Color.rgb(255, 0, 0));
 					converse_network_status.setText(strMsg);
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -403,13 +408,12 @@ public class VideoConverseActivity extends ConverseActivity{
 			        converse_network_status.setVisibility(View.GONE);
 	                return;
 			    }
-			    
 			    clickList.add(SystemClock.uptimeMillis());
 			    if (clickList.size() == 2) {
-			        //5次连击打开
+			        //2次连击打开
 			        if (clickList.get(clickList.size()-1)-clickList.get(0) < 2000) {
 			            clickList.clear();
-			            bShowNetMsg = true;	          
+						bShowNetMsg = true;	          
 			            converse_network_status.setText("");
 			            converse_network_status.setVisibility(View.VISIBLE);
 			        }
