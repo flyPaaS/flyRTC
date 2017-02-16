@@ -182,6 +182,7 @@ public class VideoConverseActivity extends ConverseActivity{
 							+ " sb: " + obj.getInt("sb")
 							+ " sf: " + obj.getInt("sf")
 							+ " rb: " + obj.getInt("rb")
+							+ " rf: " + obj.getInt("df")
 							+ " sres: " + obj.getInt("sw") + "x" + obj.getInt("sh")
 							+ " rres: " + obj.getInt("dw") + "x" + obj.getInt("dh");
 					
@@ -512,14 +513,36 @@ public class VideoConverseActivity extends ConverseActivity{
 				y = e.values[SensorManager.DATA_Y];
 				z = e.values[SensorManager.DATA_Z];
 				setTitle("x=" + (int) x + "," + "y=" + (int) y + "," + "z=" + (int) z);
-				if (y > 6)
+				
+				UCSCall.videoSetSendReciveRotation(0, 0);
+				/*if (y > 6)
 					UCSCall.videoSetSendReciveRotation(0, 0);
 				else if (x > 6)
 					UCSCall.videoSetSendReciveRotation(90, 90);
 				else if (x < -6)
 					UCSCall.videoSetSendReciveRotation(270, 270);
 				else if (y < -6)
-					UCSCall.videoSetSendReciveRotation(180, 180);
+					UCSCall.videoSetSendReciveRotation(180, 180);*/
+				
+				/*if ((x > -4)&&(x < 4)&&(y >= -1))
+				{
+					mUGoManager.pub_UGoVideoSetSendReciveRotation(0, 0);
+				}
+				else if (x >= 6)
+				{
+					mUGoManager.pub_UGoVideoSetSendReciveRotation(90, 90);
+				}
+				else if (x <= -6)
+				{
+					mUGoManager.pub_UGoVideoSetSendReciveRotation(270, 270);
+				}
+				else if ((x > -4)&&(x < 4)&&(y < -2))
+				{
+					mUGoManager.pub_UGoVideoSetSendReciveRotation(180,180);
+				}
+				else
+				{
+				}*/
 			}
 
 			@Override

@@ -25,27 +25,20 @@ import com.kctdemo.tools.DataTools;
 import com.yzx.tools.CustomLog;
 
 public abstract class AbsRestClient {
-
-	// public static String ip = "172.16.10.32";
-	// public static int port = 8080;
-	//public static String ip = "api.ucpaas.com";
-	//public static String ip = "113.31.89.144";
-
+	
 	public static String version = "2014-06-30";
 
 	public StringBuffer getStringBuffer() {
-		//StringBuffer sb = new StringBuffer("https://");
 		StringBuffer sb = new StringBuffer("http://");
-		if(DataTools.istest){
-			//测试用
-			//sb.append("113.31.89.144").append(":").append("443");
-		}else{
-			//开发者使用
-			//sb.append("60.205.137.243").append(":").append("8443");
+		if (DataTools.istest) {
+			
+		} else {
+			// 开发者使用(外网)
 			sb.append("60.205.137.243").append(":").append("80");
-			//sb.append("192.168.0.123").append(":").append("8443");
+			
+			// 测试用
+			//sb.append("192.168.0.8").append(":").append("8445");
 		}
-		
 		return sb;
 	}
 

@@ -87,6 +87,8 @@
         </receiver>
         <receiver android:name="com.yzx.service.MsgBackReceiver" >
         </receiver>
+        <receiver android:name="com.yzx.service.RtppReceiver" >
+        </receiver>
     </application>
 
 </manifest>
