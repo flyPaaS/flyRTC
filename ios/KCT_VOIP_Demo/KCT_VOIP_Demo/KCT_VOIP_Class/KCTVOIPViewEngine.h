@@ -118,16 +118,6 @@ typedef enum{
 
 
 /**
- @author WLS, 16-01-4 14:12:47
- 
- 根据userId查询通讯录名称
- 
- @param userId userid或者手机号
- */
-- (NSString *)getAddressListNameFromUserId:(NSString *)userId;
-
-
-/**
  @author WLS, 16-01-11 18:01:51
  
  写入文件

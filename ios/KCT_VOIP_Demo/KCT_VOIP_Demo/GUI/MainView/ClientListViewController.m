@@ -77,12 +77,21 @@
     __weak __typeof(self)weakSelf = self;
     [[KCTTcpClient sharedTcpClientManager] connect:main_account accountToken:main_token clientNumber:uid clientPwd:pwd success:^(NSString *userId) {
         
+        BOOL isIpv6 = [[KCTTcpClient sharedTcpClientManager] isSocketIPV6];
+        if (isIpv6)
+        {
+            [[KCTFuncEngine getInstance] setSocketIpv6:isIpv6];
+        }
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideAllHUDsForView:weakSelf.view animated:YES];
             [mytoast showWithText:@"成功"];
             
             [sourceArrays removeObjectAtIndex:self.currentIndexPath.row];
             NSArray *arrays = [NSArray arrayWithArray:sourceArrays];
+            
+            
+            
             self.loginBlock(uidDic,arrays);
             [weakSelf dismissViewControllerAnimated:YES completion:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:TCPConnectStateNotification object:KCTCPDidConnectNotification];

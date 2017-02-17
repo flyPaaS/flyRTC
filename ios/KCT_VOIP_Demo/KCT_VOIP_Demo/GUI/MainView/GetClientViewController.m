@@ -17,9 +17,11 @@
 
 @interface GetClientViewController ()
 {
-    
+    BOOL isRember;
+    NSUserDefaults *defaults;
 }
 @property(weak,nonatomic)IBOutlet UITableView *tableView;
+@property(weak,nonatomic)IBOutlet UIButton *remberBtn;
 
 @end
 
@@ -40,7 +42,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    defaults = [NSUserDefaults standardUserDefaults];
+    isRember = [defaults boolForKey:kIsRemberPwdKey];
+    [self changeRemeberBtnState:isRember];
+    
     [_tableView registerNib:[UINib nibWithNibName:@"LoginTableViewCell" bundle:nil] forCellReuseIdentifier:@"loginCell"];
+    
     
     // Do any additional setup after loading the view from its nib.
 }
@@ -65,16 +72,26 @@
     }
     if (indexPath.row == 0) {
         cell.textField.placeholder = @"输入用户名";
-#ifdef DEBUG
+        if (isRember) {
+            NSString *userid = [defaults objectForKey:kUserNameKey];
+            if (userid) {
+                cell.textField.text = userid;
+                
+            }
+        }
         cell.textField.text = @"119140589@qq.com";
-#endif
         cell.leftImageView.image = [UIImage imageNamed:@"login_admin.png"];
         
     } else {
         cell.textField.placeholder = @"输入密码";
-#ifdef DEBUG
+        if (isRember) {
+            NSString *pwd = [defaults objectForKey:kUserPwdKey];
+            if (pwd) {
+                cell.textField.text = pwd;
+                
+            }
+        }
         cell.textField.text = @"kc123456";
-#endif
         cell.textField.secureTextEntry = YES;
         cell.leftImageView.image = [UIImage imageNamed:@"login_pwd.png"];
     }
@@ -82,6 +99,21 @@
 }
 
 
+#pragma mark ---------private------------
+
+- (void)changeRemeberBtnState:(BOOL)isRemberT
+{
+    UIImage *image = nil;
+    
+    if (isRemberT) {
+        image = [UIImage imageNamed:@"checkbox_on.png"];
+    } else {
+        image = [UIImage imageNamed:@"checkbox_off.png"];
+    }
+    
+    [self.remberBtn setImage:image forState:UIControlStateNormal];
+    [self.remberBtn setImage:image forState:UIControlStateHighlighted];
+}
 
 #pragma mark ----------UIButton Event--------
 
@@ -91,6 +123,11 @@
     [self presentViewController:controller animated:YES completion:nil];
 }
 
+- (IBAction)remeberPwd:(id)sender {
+    isRember = !isRember;
+    [self changeRemeberBtnState:isRember];
+    
+}
 
 - (IBAction)getClientIDList:(id)sender {
     LoginTableViewCell *row0 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
@@ -110,6 +147,21 @@
         NSDictionary *respDic = [responseDict objectForKey:@"resp"];
         NSNumber *nRespCode = [respDic objectForKey:@"respCode"];
         if ([nRespCode intValue] == 0 && nRespCode != nil) {
+            
+            if (isRember) {
+                [defaults setBool:YES forKey:kIsRemberPwdKey];
+                [defaults setObject:userId forKey:kUserNameKey];
+                [defaults setObject:pwd forKey:kUserPwdKey];
+            } else {
+                [defaults setBool:NO forKey:kIsRemberPwdKey];
+                [defaults setObject:nil forKey:kUserNameKey];
+                [defaults setObject:nil forKey:kUserPwdKey];
+            }
+            [defaults synchronize];
+            
+            [MBProgressHUD hideAllHUDsForView:weakSelf.view animated:YES];
+            [mytoast showWithText:@"登录成功"];
+            
             NSArray *array = [respDic objectForKey:@"client"];
             ClientListViewController *controller = [[ClientListViewController alloc] init];
             controller.dataArray = array;
@@ -117,9 +169,6 @@
             [dic setObject:[respDic objectForKey:@"sid"] forKey:@"sid"];
             [dic setObject:[respDic objectForKey:@"token"] forKey:@"token"];
             controller.accountInfoDic = dic;
-            
-            [MBProgressHUD hideAllHUDsForView:weakSelf.view animated:YES];
-            [mytoast showWithText:@"登录成功"];
             
             controller.loginBlock = ^(NSDictionary *dic,NSArray *arrays) {
                 CalledListViewController *controller = [[CalledListViewController alloc] init];

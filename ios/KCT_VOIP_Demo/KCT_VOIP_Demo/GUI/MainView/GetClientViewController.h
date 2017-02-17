@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "LoginTableViewCell.h"
 
+#define kIsRemberPwdKey  @"remberpwd"
+#define kUserNameKey     @"userName"
+#define kUserPwdKey      @"userPwd"
+
 
 @interface GetClientViewController : UIViewController
 

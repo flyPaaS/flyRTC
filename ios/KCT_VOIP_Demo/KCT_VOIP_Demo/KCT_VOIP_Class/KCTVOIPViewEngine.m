@@ -22,7 +22,7 @@
 #import "InfoManager.h"
 #import "Contact.h"
 #import "NSDictionary+JsonBase64.h"
-#import "AddressBookManager.h"
+
 
 static SystemSoundID shake_sound_enter_id = 0;
 
@@ -152,17 +152,20 @@ KCTVOIPViewEngine * kctVoipViewEngine = nil;
     
     
     NSString * nickName = callName;
-    if ([self getAddressListNameFromUserId:callNumber]) {
-        nickName = [self getAddressListNameFromUserId:callNumber];
-    }else{
-        
-        if ([self getNickNameFromeUserId:callNumber]) {
-            nickName = [self getNickNameFromeUserId:callNumber];
-        }else{
-            nickName = callUserid;
-        }
-        
-    }
+//    if ([self getAddressListNameFromUserId:callNumber]) {
+//        nickName = [self getAddressListNameFromUserId:callNumber];
+//    }else{
+//        
+//        if ([self getNickNameFromeUserId:callNumber]) {
+//            nickName = [self getNickNameFromeUserId:callNumber];
+//        }else{
+//            nickName = callUserid;
+//        }
+//        
+//    }
+    //因为不需要匹配通讯录，所以nickName默认就是userid（wenqinglin 2017-01-21）
+    nickName = callUserid;
+    
     
     [[KCTVOIPViewEngine getInstance] WriteToSandBox:[NSString stringWithFormat:@"发起通话：%@---%@---%@",callUserid,callName,nickName]];
 
@@ -406,13 +409,15 @@ KCTVOIPViewEngine * kctVoipViewEngine = nil;
      
      主叫的昵称，暂时为通讯录里面的名字。
      */
-    NSString * nickName = [self getAddressListNameFromUserId:caller];
-    if (nickName == nil) {
-        nickName = [self getNickNameFromeUserId:caller];
-        if (nickName == nil) {
-            nickName = caller;
-        }
-    }
+//    NSString * nickName = [self getAddressListNameFromUserId:caller];
+//    if (nickName == nil) {
+//        nickName = [self getNickNameFromeUserId:caller];
+//        if (nickName == nil) {
+//            nickName = caller;
+//        }
+//    }
+    //因为不需要匹配通讯录，所以nickName默认就是userid（wenqinglin 2017-01-21）
+    NSString *nickName = caller;
     
     [[KCTVOIPViewEngine getInstance] WriteToSandBox:@"收到来电"];
     
@@ -754,35 +759,6 @@ KCTVOIPViewEngine * kctVoipViewEngine = nil;
     
     
     return errorDescription;
-}
-
-#pragma mark - 根据userid查询通讯录名字 查询昵称
-
-- (NSString *)getAddressListNameFromUserId:(NSString *)userId{
-    
-    if (self.addressListArray == nil) {
-        [[AddressBookManager sharedInstance] allContacts];
-    }
-    
-
-    for (AddressBook * book in self.addressListArray) {
-        
-        for (NSString * key in book.phones.allKeys) {
-            NSString * phoneNumber = book.phones[key];
-            if ([phoneNumber rangeOfString:userId].location != NSNotFound) {
-                /**
-                 @author WLS, 15-12-19 11:12:36
-                 
-                 说明这个userid存在于通讯录中
-                 */
-
-                return book.name;
-            }
-        }
-        
-    }
-    
-    return nil;
 }
 
 

@@ -27,11 +27,13 @@
 
 //是否跟随屏幕旋转
 -(BOOL)shouldAutorotate{
-    return self.topViewController.shouldAutorotate;
+    //return self.topViewController.shouldAutorotate;
+    return NO;
 }
 //支持旋转的方向有哪些
 -(UIInterfaceOrientationMask)supportedInterfaceOrientations{
-    return [self.topViewController supportedInterfaceOrientations];
+    //return [self.topViewController supportedInterfaceOrientations];
+    return UIInterfaceOrientationMaskPortrait;
 }
 
 /*

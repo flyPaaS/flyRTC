@@ -117,6 +117,7 @@ static NSString * const KCTCPNoNetWorkNotification = @"KCTCPNoNetWorkNotificatio
 - (void)login_uninitWithFlag:(BOOL)flag;
 
 
+- (BOOL)isSocketIPV6;
 
 #pragma mark 透传
 

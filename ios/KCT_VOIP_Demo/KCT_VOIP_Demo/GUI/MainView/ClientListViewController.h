@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KCTFuncEngine.h"
 
 typedef enum _clientType {
     clientTypeCalling,

@@ -1145,6 +1145,11 @@
 
 //获取屏幕旋转 add by WLS
 - (void)getRotationAngle{
+    
+    //组件固定一个方向  add by wenqinglin
+    [self rotationCameraAngle:0];
+    
+    /*
     //获得设备方向
     UIDeviceOrientation deviceOrientation = [UIDevice currentDevice].orientation;
     
@@ -1169,7 +1174,7 @@
         [self rotationCameraAngle:0];
         
     }
-    
+    */
 }
 
 

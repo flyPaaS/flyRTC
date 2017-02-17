@@ -126,6 +126,11 @@ void audioRouteChangeListenerCallback (
     return self;
 }
 
+- (void)setSocketIpv6:(BOOL)isIpv6
+{
+    [self.kctCallService setIpv6:isIpv6];
+}
+
 - (void)addNotiAudioRouteChange{
     AudioSessionAddPropertyListener(kAudioSessionProperty_AudioRouteChange,audioRouteChangeListenerCallback, (__bridge void *)(self));
 

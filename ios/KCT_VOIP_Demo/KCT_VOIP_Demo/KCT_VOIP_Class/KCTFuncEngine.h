@@ -273,4 +273,6 @@ extern NSString * const KCTNotiTCPTransParent;
 
 //- (BOOL)setAGCPlus:(int)compressionGain targetDbfs:(int)targetDbfs;
 
+- (void)setSocketIpv6:(BOOL)isIpv6;
+
 @end
