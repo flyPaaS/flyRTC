@@ -38,7 +38,7 @@ public class LoginActivity extends BaseActivity {
 	
 	private String login_admin_str = "";
 	private Timer timer;// 登录超时定时器
-
+	
 	private BroadcastReceiver br = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
@@ -70,10 +70,13 @@ public class LoginActivity extends BaseActivity {
 
 	public void showSelectDialog(int result) {
 		if (mLoginDialog == null || !mLoginDialog.isShowing()) {
-			if (result == 0) {
+			if (result == 0 || result == 2) {
 				CustomLog.i(DfineAction.TAG_TCP, "打开子账号对话框");
 				
-				Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+				if (result == 0) {
+					Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+				}
+				
 				LoginConfig.saveCurrentSidAndToken(LoginActivity.this, login_admin_str, login_pwd.getText().toString());
 				LoginConfig.saveCurrentSid(LoginActivity.this, login_admin_str);
 				Config.initProperties(LoginActivity.this);
@@ -231,7 +234,7 @@ public class LoginActivity extends BaseActivity {
 			}
 			if (msg.what == 1) {
 				startActivity(new Intent(LoginActivity.this, VideoActivity.class));
-				LoginActivity.this.finish();
+				//LoginActivity.this.finish();
 			}
 		}
 	};
