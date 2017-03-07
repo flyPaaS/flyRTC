@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "KCTFuncEngine.h"
+
 
 #define GetViewWidth(view) view.frame.size.width
 

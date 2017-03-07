@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "defines.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (assign,nonatomic) appPageIndexTag pageIndex;
 
 @end
 
