@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.kctdemo.R;
+import com.yzx.tcp.TcpTools;
 import com.yzx.tools.CustomLog;
 import com.kctdemo.action.UIDfineAction;
 import com.kctdemo.tools.Config;
@@ -43,6 +44,7 @@ public class VideoActivity extends BaseActivity{
 	@Override
 	public void onBackPressed() {
 		sendBroadcast(new Intent(UIDfineAction.ACTION_TCP_LOGIN_RESPONSE).putExtra(UIDfineAction.RESULT_KEY, 2));
+		TcpTools.tcpDisconnection();
 		super.onBackPressed();
 	}
 
@@ -56,6 +58,7 @@ public class VideoActivity extends BaseActivity{
 		rl_back.setOnClickListener(new View.OnClickListener() {  
             public void onClick(View v) {
             	sendBroadcast(new Intent(UIDfineAction.ACTION_TCP_LOGIN_RESPONSE).putExtra(UIDfineAction.RESULT_KEY, 2));
+            	TcpTools.tcpDisconnection();
             	finish();
             }  
         });

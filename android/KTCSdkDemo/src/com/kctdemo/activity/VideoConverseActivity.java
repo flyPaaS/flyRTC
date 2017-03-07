@@ -34,7 +34,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -175,16 +174,13 @@ public class VideoConverseActivity extends ConverseActivity{
 						break;
 					}
 					
-					String strMsg = "state:" + strNet
-							+ " ice:" + obj.getInt("ice")
-							+ " rtt:" + obj.getInt("rtt")
-							+ " lost:" + obj.getInt("ul") + "(s) " + obj.getInt("dl") + "(r)"
-							+ " sb: " + obj.getInt("sb")
-							+ " sf: " + obj.getInt("sf")
-							+ " rb: " + obj.getInt("rb")
-							+ " rf: " + obj.getInt("df")
-							+ " sres: " + obj.getInt("sw") + "x" + obj.getInt("sh")
-							+ " rres: " + obj.getInt("dw") + "x" + obj.getInt("dh");
+					String strMsg = "vie state:" + strNet
+							+ "\r\nice:" + obj.getInt("ice") + ",rtt:" + obj.getInt("rtt")
+							+ "\r\nlost:" + obj.getInt("ul") + "(s) " + obj.getInt("dl") + "(r)"
+							+ "\r\nrate:" + obj.getInt("sb") + "(s) " + obj.getInt("rb") + "(r)"
+							+ "\r\nres: " + obj.getInt("sw") + "x" + obj.getInt("sh") + "(s) " + obj.getInt("dw") + "x" + obj.getInt("dh") + "(r)"
+							+ "\r\nframe:" + obj.getInt("sf")+ "(s) " + obj.getInt("df") + "(r)"
+							+ "\r\npt:" + obj.getInt("ep")+ "(s) " + obj.getInt("dp") + "(r)";
 					
 					converse_network_status.setTextColor(Color.rgb(255, 0, 0));
 					converse_network_status.setText(strMsg);
@@ -410,8 +406,8 @@ public class VideoConverseActivity extends ConverseActivity{
 	                return;
 			    }
 			    clickList.add(SystemClock.uptimeMillis());
-			    if (clickList.size() == 2) {
-			        //2次连击打开
+			    if (clickList.size() == 3) {
+			        //3次连击打开
 			        if (clickList.get(clickList.size()-1)-clickList.get(0) < 2000) {
 			            clickList.clear();
 						bShowNetMsg = true;	          
@@ -479,7 +475,7 @@ public class VideoConverseActivity extends ConverseActivity{
 				break;
 			case 1:
 				UCSCall.closeCamera(UCSCameraType.ALL);
-				CustomLog.v("Video status close ....");
+				CustomLog.i("Video status close ....");
 				break;
 			}
 		}

@@ -16,12 +16,11 @@
         android:id="@+id/converse_network_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dip"
+        android:layout_marginTop="120dip"
         android:clickable="false"
         android:text=""
         android:textColor="#ffffff"
-        android:textSize="24sp" />
+        android:textSize="14sp" />
     
     <TextView
         android:id="@+id/converse_network"

@@ -1,12 +1,19 @@
 package com.kctdemo.restClient;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.BasicHttpEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
@@ -50,6 +57,55 @@ public class JsonReqClient extends AbsRestClient {
 			httpclient.getConnectionManager().shutdown();
 		}
 		return result;
+	}
+	
+	// 查询账号是否在线
+	public int queryAccountLine(String account) {
+		String url = getStringBuffer().append("/").append(version)
+				.append("/Accounts/").append(account).append("/userState").toString();
+		String data = account +  ":2";
+		
+		HttpPost httppost = new HttpPost(url);
+		httppost.setHeader("Accept", "application/json");
+		httppost.setHeader("Content-Type", "application/json;charset=utf-8");
+		if (data!= null && data.length() > 0){
+			BasicHttpEntity requestBody = new BasicHttpEntity();
+			try {
+				requestBody.setContent(new ByteArrayInputStream(data.getBytes("UTF-8")));
+				requestBody.setContentLength(data.getBytes("UTF-8").length);
+				httppost.setEntity(requestBody);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		}
+		// 执行客户端请求
+		DefaultHttpClient httpclient = getDefaultHttpClient();
+		try {
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			if (entity != null) {
+				String result = EntityUtils.toString(entity, "UTF-8");
+				try {
+					JSONObject jsonOuter = new JSONObject(result);
+					if (jsonOuter.has("resp")) {
+						jsonOuter = jsonOuter.getJSONObject("resp");
+						if (jsonOuter.has("respCode") && jsonOuter.getString("respCode").equals("000000")) {
+							result = jsonOuter.getString("state");
+							if (result.equals("1")) {
+								return 1;
+							}
+						}
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 	@SuppressLint("SimpleDateFormat") 

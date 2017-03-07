@@ -17,6 +17,7 @@ import com.kctdemo.action.UIDfineAction;
 import com.kctdemo.activity.AudioConverseActivity;
 import com.kctdemo.activity.TerminalLoginDialogActivity;
 import com.kctdemo.activity.VideoConverseActivity;
+import com.kctdemo.restClient.JsonReqClient;
 import com.kctdemo.tools.DataTools;
 import com.kctdemo.tools.DfineAction;
 import com.kctdemo.tools.DialConfig;
@@ -92,7 +93,6 @@ public class ConnectionService extends Service implements ConnectionListener,Cal
 							//测试用
 							connectionService("http://113.31.89.144","8887",sid,sid_pwd,cliend_id,cliend_pwd);
 						} else {
-							//开发者使用
 							connectionService(null,null,sid,sid_pwd,cliend_id,cliend_pwd);
 						}
 					}
