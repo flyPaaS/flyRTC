@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">快传</string>
+    <string name="app_name">flyRTC</string>
     
     <string name="login_admin">手机号或邮箱</string>
     <string name="login_pwd">密码</string>
@@ -10,7 +10,7 @@
 	<string name="login_select">请选择体验账号</string>
 	<string name="login_client">OK,立即体验</string>
 	
-	<string name="ability_name">云之讯能力演示</string>
+	<string name="ability_name">能力演示</string>
 	<string name="ability_audio">语音</string>
 	<string name="ability_im">IM</string>
 	<string name="ability_verification">验证码</string>

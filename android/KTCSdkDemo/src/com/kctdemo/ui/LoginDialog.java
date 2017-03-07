@@ -7,6 +7,7 @@ import java.util.TimerTask;
 
 import com.kctdemo.R;
 import com.kctdemo.action.UIDfineAction;
+import com.kctdemo.restClient.JsonReqClient;
 import com.kctdemo.tools.Config;
 import com.kctdemo.tools.LoginConfig;
 
@@ -61,8 +62,26 @@ public class LoginDialog extends Dialog {
 						LoginConfig.saveCurrentClientId(mcontext, "");
 						startCallTimer();
 						showProgressDialog();
-						mcontext.sendBroadcast(new Intent(UIDfineAction.ACTION_LOGIN).putExtra("cliend_id", Config.getClient_id().split(",")[Integer.parseInt(currentSelectClient)]).putExtra("cliend_pwd", Config.getClient_token().split(",")[Integer.parseInt(currentSelectClient)])
-								.putExtra("sid", Config.getMain_account()).putExtra("sid_pwd", Config.getMain_token()));
+						// 登陆
+						new Thread(new Runnable() {
+							@Override
+							public void run() {
+								JsonReqClient client = new JsonReqClient();
+								int nLine = client.queryAccountLine(Config.getClient_id().split(",")[Integer.parseInt(currentSelectClient)]);
+								//
+								if (nLine == 0) {
+									mcontext.sendBroadcast(new Intent(UIDfineAction.ACTION_LOGIN).putExtra("cliend_id", Config.getClient_id().split(",")[Integer.parseInt(currentSelectClient)]).putExtra("cliend_pwd", Config.getClient_token().split(",")[Integer.parseInt(currentSelectClient)])
+											.putExtra("sid", Config.getMain_account()).putExtra("sid_pwd", Config.getMain_token()));
+								}
+								else {
+									if (mProgressDialog != null) {
+										mProgressDialog.dismiss();
+										mProgressDialog = null;
+									}
+									mcontext.sendBroadcast(new Intent(UIDfineAction.ACTION_TCP_LOGIN_CLIENT_RESPONSE).putExtra(UIDfineAction.RESULT_KEY, 3).putExtra(UIDfineAction.REASON_KEY, "该号码已经上线"));
+								}
+							}
+						}).start();
 					}
 				} else {
 					LoginConfig.saveCurrentClientId(mcontext, "");

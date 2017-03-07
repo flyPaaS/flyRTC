@@ -60,7 +60,10 @@ public class LoginActivity extends BaseActivity {
 							mLoginDialog = null;
 						}
 						handler.sendEmptyMessageDelayed(1, 1000);
-					} else {
+					} else if (intent.getIntExtra(UIDfineAction.RESULT_KEY, 1) == 3) {
+						Toast.makeText(LoginActivity.this, "失败:" + intent.getStringExtra(UIDfineAction.REASON_KEY), Toast.LENGTH_SHORT).show();
+					}
+					else {
 						Toast.makeText(LoginActivity.this, "失败:" + intent.getIntExtra(	UIDfineAction.REASON_KEY, 1), Toast.LENGTH_SHORT).show();
 					}
 				}
