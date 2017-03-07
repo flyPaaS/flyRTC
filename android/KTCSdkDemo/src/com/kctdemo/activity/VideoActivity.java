@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import com.kctdemo.R;
 import com.yzx.tools.CustomLog;
+import com.kctdemo.action.UIDfineAction;
 import com.kctdemo.tools.Config;
 import com.kctdemo.tools.DfineAction;
 import com.kctdemo.tools.LoginConfig;
@@ -24,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class VideoActivity extends BaseActivity{
+	
 	private ListView video_list;
 	private videoAdapter adapter;
 	private TextView video_clients;
@@ -37,6 +39,12 @@ public class VideoActivity extends BaseActivity{
 		setContentView(R.layout.activity_video);
 		initviews();
 	}
+	
+	@Override
+	public void onBackPressed() {
+		sendBroadcast(new Intent(UIDfineAction.ACTION_TCP_LOGIN_RESPONSE).putExtra(UIDfineAction.RESULT_KEY, 2));
+		super.onBackPressed();
+	}
 
 	private void initviews() {
 		video_list = (ListView)findViewById(R.id.video_list);
@@ -46,7 +54,8 @@ public class VideoActivity extends BaseActivity{
 		video_list.setAdapter(adapter);
 		video_clients.setText("共"+(Arrays.asList(Config.getClient_id().split(",")).size()-1)+"个Client账号");
 		rl_back.setOnClickListener(new View.OnClickListener() {  
-            public void onClick(View v) {  
+            public void onClick(View v) {
+            	sendBroadcast(new Intent(UIDfineAction.ACTION_TCP_LOGIN_RESPONSE).putExtra(UIDfineAction.RESULT_KEY, 2));
             	finish();
             }  
         });
