@@ -1,11 +1,9 @@
 
 #import "KCTFuncEngine.h"
 #import "KCTService.h"
-#import "KCTTcpClient.h"
 #import <AVFoundation/AVFoundation.h>
 #import <objc/message.h>
 #import "AppDelegate.h"
-#import "KCTVOIPViewEngine.h"
 
 
 NSString * const KCTSNotiHeadPhone = @"KCTSNotiHeadPhone";
@@ -124,6 +122,10 @@ void audioRouteChangeListenerCallback (
     }
     
     return self;
+}
+
+- (void)setIncomingCallMusicPath:(NSString *)path {
+    [self.kctCallService setIncomingCallMusicPath:path];
 }
 
 - (void)setSocketIpv6:(BOOL)isIpv6
@@ -414,8 +416,6 @@ void audioRouteChangeListenerCallback (
 
 - (void)onIncomingCall:(NSString*)callId withcalltype:(KCTCallTypeEnum) callType withcallerNumber:(NSString*)callerNumber
 {
-    
-    
     if (self.UIDelegate && [self.UIDelegate respondsToSelector:@selector(incomingCallID:caller:phone:name:callStatus:callType:)])
     {
  
@@ -566,6 +566,11 @@ void audioRouteChangeListenerCallback (
     
 }
 
+- (void)incomingRspWhenBackground:(id)callID vpsid:(int)vpsid
+{
+    NSLog(@"***********incomingRspWhenBackground****%@******%d****",callID,vpsid);
+    [self.kctCallService incomingRspWhenBackground:callID vpsid:vpsid];
+}
 /**
  @author WLS, 16-01-11 18:01:09
  

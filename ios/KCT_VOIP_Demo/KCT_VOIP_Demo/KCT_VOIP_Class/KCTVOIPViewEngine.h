@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "KCTFuncEngine.h"
+
 
 #define GetViewWidth(view) view.frame.size.width
 
@@ -63,7 +63,7 @@ typedef enum{
 @property (strong,nonatomic)NSMutableArray *addressListArray; //WLS，2015-12-19，通讯录数据
 @property (strong,nonatomic)NSMutableArray *nickNameArray; //WLS，2016-01-08，昵称数组
 @property (assign,nonatomic)BOOL isCalling; //WLS，2016-01-15，是否处于通话中
-
+@property (assign,nonatomic)BOOL isCallKit;
 
 +(KCTVOIPViewEngine *)getInstance;
 

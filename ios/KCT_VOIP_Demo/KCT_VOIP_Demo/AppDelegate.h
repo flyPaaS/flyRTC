@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "defines.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
+- (void)stopCall;
 
 @end
 

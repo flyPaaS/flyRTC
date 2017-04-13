@@ -6,7 +6,7 @@
 //  Copyright © 2015年 KCT. All rights reserved.
 //
 
-#import "KCTVOIPViewEngine.h"
+
 #import "AppDelegate.h"
 #import "KCTVoipCallController.h"
 #import "KCTVideoCallController.h"
@@ -20,7 +20,6 @@
 #import "KCTVoipDBManager.h"
 #import "KCTChangeTheViewController.h"
 #import "InfoManager.h"
-#import "Contact.h"
 #import "NSDictionary+JsonBase64.h"
 
 
@@ -31,7 +30,7 @@ static SystemSoundID shake_sound_enter_id = 0;
 @interface KCTVOIPViewEngine()
 
 @property (assign,nonatomic)UIWindow * window;
-
+@property (nonatomic,strong)AVAudioPlayer *player;
 
 @property (strong,nonatomic)KCTVoipCallController *callViewController; // WLS，2015-12-11，（语音通话主叫界面）
 @property (strong,nonatomic)KCTVoipCallController *incomingCallViewController; // WLS，2015-12-11，（语音通话被叫界面）
@@ -67,8 +66,11 @@ KCTVOIPViewEngine * kctVoipViewEngine = nil;
     {
         
         self.window = [(AppDelegate *)[UIApplication sharedApplication].delegate window];
-        
-        
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"push" ofType:@"wav"];
+        NSURL *url = [NSURL fileURLWithPath:path];
+        _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+        _player.volume = 1.0;
+        _player.numberOfLoops = -1;//循环播放
         _isCalling = NO;
         
     }
@@ -465,6 +467,11 @@ KCTVOIPViewEngine * kctVoipViewEngine = nil;
         }
         else   //如果程序在后台运行，则发送本地通知，收到来电本地通知后，点击即可接通来电
         {
+            //modify by wenqinglin
+            
+            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"语音电话",@"callType",phone,@"phone",caller,@"caller",callid,@"callid",nickName,@"nickName", nil];
+            [KCTUserDefaultManager SetLocalDataObject:userInfo key:KCTNotiLocalNotification];
+            /*
             UILocalNotification *notification=[[UILocalNotification alloc] init];
             if (notification!=nil) {
                 NSDate *now=[NSDate new];
@@ -476,10 +483,9 @@ KCTVOIPViewEngine * kctVoipViewEngine = nil;
                 
                 notification.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"语音电话",@"callType",phone,@"phone",caller,@"caller",callid,@"callid",nickName,@"nickName", nil];
                 [[UIApplication sharedApplication]   scheduleLocalNotification:notification];
-                
-                
+             
                 [KCTUserDefaultManager SetLocalDataObject:notification.userInfo key:KCTNotiLocalNotification];
-            }
+            }*/
             
         }
     }
@@ -526,10 +532,22 @@ KCTVOIPViewEngine * kctVoipViewEngine = nil;
             
             // 收到消息时，震动
             if ([self needShake:nil]&&[InfoManager sharedInfoManager].isMessageNotificationOpen) {
-                AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+                //modify by wenqinglin
+                //AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+                [self.player play];
             }
 
         }else{
+            
+            //modify by wenqinglin
+            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"视频电话",@"callType",
+                                     phone,@"phone",
+                                     caller,@"caller",
+                                     callid,@"callid",
+                                     nickName,@"nickName",
+                                     nil];
+            [KCTUserDefaultManager SetLocalDataObject:userInfo key:KCTNotiLocalNotification];
+            /*
             UILocalNotification *notification=[[UILocalNotification alloc] init];
             if (notification!=nil) {
                 NSDate *now=[NSDate new];
@@ -538,8 +556,6 @@ KCTVOIPViewEngine * kctVoipViewEngine = nil;
                 notification.alertBody= [NSString stringWithFormat:@"视频电话"];
                 notification.soundName = UILocalNotificationDefaultSoundName;
                 notification.repeatInterval =0;//重复次数
-                
-//                notification.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"视频电话",@"callType",phone,@"phone",caller,@"caller",callid,@"callid",status,@"status",nickName,@"nickName", nil];
 
                 notification.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"视频电话",@"callType",
                                          phone,@"phone",
@@ -552,7 +568,7 @@ KCTVOIPViewEngine * kctVoipViewEngine = nil;
                 [[UIApplication sharedApplication]   scheduleLocalNotification:notification];
                 
                 [KCTUserDefaultManager SetLocalDataObject:notification.userInfo key:KCTNotiLocalNotification];
-            }
+            }*/
             
         }
     }
@@ -566,7 +582,9 @@ KCTVOIPViewEngine * kctVoipViewEngine = nil;
 //通话状态回调
 -(void)responseVoipManagerStatus:(KCTCallStatus)event callID:(NSString*)callid data:(KCTReason *)data withVideoflag:(int)videoflag{
     
-    
+    if (event == KCTCallStatus_Answered || event == KCTCallStatus_Released) {
+        [self.player stop];
+    }
     /**
      @author WLS, 15-12-14 12:12:23
      
@@ -582,7 +600,9 @@ KCTVOIPViewEngine * kctVoipViewEngine = nil;
                  
                  首先先要判断有没有通话
                  */
-                
+                AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                NSLog(@"KCTVOIPViewEngine 604");
+                [app stopCall];
                 NSMutableDictionary * notifDic = [KCTUserDefaultManager GetLocalDataObject:KCTNotiLocalNotification];
                 if (notifDic) {
                     /**
@@ -962,7 +982,7 @@ KCTVOIPViewEngine * kctVoipViewEngine = nil;
     
     
 //    
-    NSLog(@"%@-------%@---------%@",self.incomingVideoViewController.voipNo,callModel.userId,recordModel.userId);
+    //NSLog(@"%@-------%@---------%@",self.incomingVideoViewController.voipNo,callModel.userId,recordModel.userId);
 //    NSLog(@"%@-------%@---------%@",self.callViewController,callModel.nickName,recordModel.nickName);
 //    NSLog(@"%@----------------%@",callModel.time,recordModel.time);
 //    NSLog(@"%@-------%@---------%@",self.callViewController,callModel.callDuration,recordModel.callDuration);

@@ -2,7 +2,6 @@
 #import <UIKit/UIKit.h>
 #import "KCTEvent.h"
 #import "KCTService.h"
-#import "KCTTcpClient.h"
 #import "KCTPubEnum.h"
 
 
@@ -270,9 +269,11 @@ extern NSString * const KCTNotiTCPTransParent;
 
 ///续活接口
 - (void) callIncomingPushRsp:(NSString*)callid  withVps:(NSInteger)vpsid withReason:(KCTReason*)reason;
+- (void)incomingRspWhenBackground:(id)callID vpsid:(int)vpsid;
 
 //- (BOOL)setAGCPlus:(int)compressionGain targetDbfs:(int)targetDbfs;
 
 - (void)setSocketIpv6:(BOOL)isIpv6;
+- (void)setIncomingCallMusicPath:(NSString *)path;
 
 @end

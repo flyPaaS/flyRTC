@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KCT_VOIP_Demo/KCT_VOIP_Class/KCTVOIPViewEngine.m"
-            timestampString = "506664870.586955"
+            timestampString = "510062772.622029"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
+            startingLineNumber = "199"
+            endingLineNumber = "199"
             landmarkName = "-makingCallViewCallNumber:callType:callName:"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KCT_VOIP_Demo/KCT_VOIP_Class/KCTVOIPViewEngine.m"
-            timestampString = "506664870.586955"
+            timestampString = "510062772.622029"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "455"
-            endingLineNumber = "455"
+            startingLineNumber = "457"
+            endingLineNumber = "457"
             landmarkName = "-incomingCallID:caller:phone:name:callStatus:callType:"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,27 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KCT_VOIP_Demo/KCT_VOIP_Class/KCTVOIPViewEngine.m"
-            timestampString = "506664870.586955"
+            timestampString = "513588286.82964"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "701"
-            endingLineNumber = "701"
-            landmarkName = "-InactiveCall:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KCT_VOIP_Demo/KCT_VOIP_Class/KCTVOIPViewEngine.m"
-            timestampString = "506664870.586955"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "836"
-            endingLineNumber = "836"
+            startingLineNumber = "856"
+            endingLineNumber = "856"
             landmarkName = "-makeDBModel:callDic:"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "KCT_VOIP_Demo/KCT_VOIP_Class/KCTVOIPViewEngine.m"
-            timestampString = "506664870.586955"
+            timestampString = "513588286.82964"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "856"
-            endingLineNumber = "856"
+            startingLineNumber = "876"
+            endingLineNumber = "876"
             landmarkName = "-makeDBModel:callDic:"
             landmarkType = "7">
          </BreakpointContent>

@@ -14,7 +14,7 @@
 #import <objc/runtime.h>
 #import "InfoManager.h"
 #import "DDLogMacros.h"
-#import "Contact.h"
+
 
 #define VOIP_DB_NAME @"voip.sqlite3"
 #define VOIP_CALL_LIST @"KCTVoipCallListModel"  // 语音通话表
