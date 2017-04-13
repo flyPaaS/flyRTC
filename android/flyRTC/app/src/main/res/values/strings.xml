@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">flyRTC</string>
+    <string name="app_can">flyCAN</string>
+
+    <string name="login_admin">手机号或邮箱</string>
+    <string name="login_pwd">密码</string>
+    <string name="login_admin_nor">119140589@qq.com</string>
+    <string name="login_pwd_nor">kc123456</string>
+    <string name="login_login">登录</string>
+    <string name="login_ok">登录成功</string>
+    <string name="login_fail">登录失败</string>
+    <string name="login_progress">正在获取账号,请稍等</string>
+    <string name="login_client_progress">账号登录中,请稍等</string>
+    <string name="login_select">请选择体验账号</string>
+    <string name="login_client">OK,立即体验</string>
+    <string name="login_client_line">该号码已经上线</string>
+    <string name="login_out">账号已退出</string>
+
+    <string name="ability_video">视频</string>
+
+    <string name="sdk_version">SDK_VERSION:</string>
+    <string name="demo_version">DEMO_VERSION:</string>
+
+</resources>
