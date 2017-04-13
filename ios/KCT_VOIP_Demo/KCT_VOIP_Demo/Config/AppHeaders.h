@@ -28,6 +28,7 @@
 #import "TimeUtil.h"
 #import "DataEncryption.h"
 #import "HttpRequestEngine.h"
+#import "LoginManager.h"
 
 
 //GUI

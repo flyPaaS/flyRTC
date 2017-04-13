@@ -600,7 +600,9 @@ KCTVOIPViewEngine * kctVoipViewEngine = nil;
                  
                  首先先要判断有没有通话
                  */
-                
+                AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                NSLog(@"KCTVOIPViewEngine 604");
+                [app stopCall];
                 NSMutableDictionary * notifDic = [KCTUserDefaultManager GetLocalDataObject:KCTNotiLocalNotification];
                 if (notifDic) {
                     /**
@@ -980,7 +982,7 @@ KCTVOIPViewEngine * kctVoipViewEngine = nil;
     
     
 //    
-    NSLog(@"%@-------%@---------%@",self.incomingVideoViewController.voipNo,callModel.userId,recordModel.userId);
+    //NSLog(@"%@-------%@---------%@",self.incomingVideoViewController.voipNo,callModel.userId,recordModel.userId);
 //    NSLog(@"%@-------%@---------%@",self.callViewController,callModel.nickName,recordModel.nickName);
 //    NSLog(@"%@----------------%@",callModel.time,recordModel.time);
 //    NSLog(@"%@-------%@---------%@",self.callViewController,callModel.callDuration,recordModel.callDuration);

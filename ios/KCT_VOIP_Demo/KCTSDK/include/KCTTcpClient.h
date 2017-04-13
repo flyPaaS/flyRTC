@@ -45,7 +45,6 @@
  */
 - (void)setTcpDelegate:(id <KCTTCPDelegateBase>) delegate;
 
-- (void)setPushAppid:(uint32_t)appid appKey:(NSString *)appKey launchOptions:(NSDictionary *)launchOptions;
 
 /**
  *  设置离线推送的环境和设备号deviceToke。如果需要使用推送离线推送，则必须调用此方法。

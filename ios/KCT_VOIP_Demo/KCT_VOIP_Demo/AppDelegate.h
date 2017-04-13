@@ -12,7 +12,8 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (assign,nonatomic) appPageIndexTag pageIndex;
+
+- (void)stopCall;
 
 @end
 

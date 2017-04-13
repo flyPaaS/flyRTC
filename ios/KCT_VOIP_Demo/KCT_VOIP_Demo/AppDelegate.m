@@ -9,47 +9,50 @@
 #import "AppDelegate.h"
 #import <UIKit/UIKit.h>
 #import <UserNotifications/UserNotifications.h>
+#import <PushKit/PushKit.h>
+#import <CallKit/CallKit.h>
+#import <AVFoundation/AVFoundation.h>
 
-
-@interface AppDelegate ()<KCTTCPDelegateBase,UNUserNotificationCenterDelegate>
+@interface AppDelegate ()<KCTTCPDelegateBase,UNUserNotificationCenterDelegate,PKPushRegistryDelegate,CXProviderDelegate>
 {
     NSString *_callid;
     int _vpsid;
-    BOOL _isReceiveCmd;
-    BOOL _isGoLoginPage;
+    NSUUID *_calledUUID;
+    CXProvider* _provider;
+    CXCallController* _callController;
+    
 }
 
-@property(nonatomic,strong)LoginViewController *loginController;
 
 @end
 
 
 @implementation AppDelegate
 
+
 #pragma mark-
 #pragma mark---------UIApplication Delegate------------
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    NSLog(@"--didFinishLaunchingWithOptions---");
     self.window = [[UIWindow alloc] init];
     self.window.frame = [UIScreen mainScreen].bounds;
     self.window.backgroundColor = [UIColor whiteColor];
-    
-    [self registerAPNS];
+    //[self redirectConsoleLogToDocumentFolder];
 
-    application.applicationIconBadgeNumber = 0;
-    NSDictionary * userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     
-    self.pageIndex = -1;
+    [LoginManager sharedLoginManager].currentPageIndex = -1;
+    
     LoginViewController *controller = [[LoginViewController alloc] init];
     ExNavigationController *nav = [[ExNavigationController alloc] initWithRootViewController:controller];
     self.window.rootViewController = nav;
-    self.loginController = controller;
+    [[LoginManager sharedLoginManager] addController:controller];
+    [LoginManager sharedLoginManager].nav = nav;
     
     [self.window makeKeyAndVisible];
     
     //设置tcp代理
     [[KCTTcpClient sharedTcpClientManager] setTcpDelegate:self];
-    [[KCTTcpClient sharedTcpClientManager] setPushAppid:kAccessId appKey:kAccessKey launchOptions:launchOptions];
     /**
      初始化voip功能类
      */
@@ -57,18 +60,6 @@
     //dialling_tone
     NSString *musicPath = [[NSBundle mainBundle] pathForResource:@"dialling_tone" ofType:@"pcm"];
     [funcEngine setIncomingCallMusicPath:musicPath];
-
-    if (userInfo) {
-        _isGoLoginPage = YES;
-        [controller autoLogin:self.pageIndex];
-        NSDictionary *apsDic = [userInfo objectForKey:@"aps"];
-        NSString *callid = [apsDic objectForKey:@"callid"];
-        NSNumber *numVpsid = [apsDic objectForKey:@"vpsid"];
-        int vpsid = [numVpsid intValue];
-        _callid = callid;
-        _vpsid = vpsid;
-    }
-    
     
     /**
     
@@ -76,128 +67,227 @@
      设置音视频编解码
      */
     [[KCTVOIPViewEngine getInstance] setVideoDecAndVideoEnc];
-    _isReceiveCmd = NO;
+    
+    
+    //push voip
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    PKPushRegistry *voipRegistry = [[PKPushRegistry alloc] initWithQueue:mainQueue];
+    voipRegistry.delegate = self;
+    voipRegistry.desiredPushTypes = [NSSet setWithObject:PKPushTypeVoIP];
+    
+    [self initProvider];
     return YES;
 }
 
 
-
-#pragma mark-
-#pragma mark-------push ----------
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    
-    // 设置推送环境
-    [[KCTTcpClient sharedTcpClientManager] setPushEnvironment:KCTPushEnvironment_Production deviceToken:deviceToken];
-}
-
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    NSLog(@"[XGDemo] register APNS fail.\n[XGDemo] reason : %@", error);
-}
-
-
-/**
- 收到通知的回调
- 
- @param application  UIApplication 实例
- @param userInfo 推送时指定的参数
- */
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    
-    if (!_isGoLoginPage) {
-        [self.loginController autoLogin:self.pageIndex];
-    }
-    
-    
-    KCTFuncEngine *funcEngine = [KCTFuncEngine getInstance];
-    if (userInfo) {
-        NSDictionary *apsDic = [userInfo objectForKey:@"aps"];
-        NSString *callid = [apsDic objectForKey:@"callid"];
-        NSNumber *numVpsid = [apsDic objectForKey:@"vpsid"];
-        int vps = [numVpsid intValue];
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void(^)(NSArray * __nullable restorableObjects))restorationHandler
+{
+    if ([userActivity.activityType isEqualToString:@"INStartVideoCallIntent"] )
+    {
         
-        if ([KCTTcpClient sharedTcpClientManager].login_isConnected) {
-            if (_isReceiveCmd) {
-                //已经收到来电信令，不需要上报push
-            } else {
-                [funcEngine incomingRspWhenBackground:callid vpsid:vps];
+    }
+    //NSArray *arr = restorationHandler;
+    return YES;
+}
+
+
+#pragma mark
+#pragma mark------PKPushRegistryDelegate---------
+- (void)pushRegistry:(PKPushRegistry *)registry didInvalidatePushTokenForType:(PKPushType)type {
+    NSLog(@"didInvalidatePushTokenForType");
+}
+
+
+- (void)pushRegistry:(PKPushRegistry *)registry didUpdatePushCredentials:(PKPushCredentials *)credentials forType:(PKPushType)type {
+    [[KCTTcpClient sharedTcpClientManager] setPushEnvironment:KCTPushEnvironment_Production deviceToken:credentials.token];
+}
+
+
+- (CXProviderConfiguration *)config{
+    static CXProviderConfiguration* configInternal = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        configInternal = [[CXProviderConfiguration alloc] initWithLocalizedName:@"flyRTC"];
+        configInternal.supportsVideo = YES;
+        configInternal.maximumCallsPerCallGroup = 1;
+        configInternal.maximumCallGroups = 1;
+        configInternal.supportedHandleTypes = [NSSet setWithObject:@(CXHandleTypePhoneNumber)];
+        UIImage* iconMaskImage = [UIImage imageNamed:@"个人详情_直拨"];
+        configInternal.iconTemplateImageData = UIImagePNGRepresentation(iconMaskImage);
+        configInternal.ringtoneSound = @"Ringtone.caf";
+    });
+    
+    return configInternal;
+}
+
+- (void)initProvider
+{
+    _provider = [[CXProvider alloc] initWithConfiguration:[self config]];
+    [_provider setDelegate:self queue:nil];
+    _callController = [[CXCallController alloc] init];
+}
+
+- (void)pushRegistry:(PKPushRegistry *)registry didReceiveIncomingPushWithPayload:(PKPushPayload *)payload forType:(PKPushType)type {
+    
+    NSDictionary *userInfo = payload.dictionaryPayload;
+    UIApplication *application = [UIApplication sharedApplication];
+    UIApplicationState state = application.applicationState;
+    NSLog(@"-----didReceiveIncomingPushWithPayload --%@-",userInfo);
+    if (state == UIApplicationStateBackground)
+    {
+        if (userInfo)
+        {
+            NSDictionary *apsDic = [userInfo objectForKey:@"aps"];
+            NSString *callid = [apsDic objectForKey:@"callid"];
+            NSString *callNum = [apsDic objectForKey:@"calleruid"];
+            NSNumber *numVpsid = [apsDic objectForKey:@"vpsid"];
+            NSNumber *numAction = [apsDic objectForKey:@"action"];
+            
+            if (callid == nil)
+            {
+                return;
             }
-        } else {
+            if ([numAction integerValue] == 0 && numAction != nil) {
+                NSLog(@"--cab=-stopCall");
+                [self stopCall];
+                return;
+            }
+            [KCTVOIPViewEngine getInstance].isCallKit = YES;
+            
+            if ([LoginManager sharedLoginManager].currentPageIndex < appPageIndexCalled){
+                [[LoginManager sharedLoginManager] autoConnectCS];
+            }
+            int vps = [numVpsid intValue];
             _callid = callid;
             _vpsid = vps;
+            
+            
+            _calledUUID = [NSUUID UUID];
+            NSString* calling = callNum;
+            CXCallUpdate* update = [[CXCallUpdate alloc] init];
+            [update setLocalizedCallerName:calling];
+            update.hasVideo = YES;
+            update.remoteHandle = [[CXHandle alloc] initWithType:CXHandleTypePhoneNumber value:calling];
+            [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+            [_provider reportNewIncomingCallWithUUID:_calledUUID update:update completion:^(NSError * _Nullable error) {
+                if (error) {
+                    NSLog(@"report error");
+                }
+            }];
         }
     }
+
 }
 
-
-/**
- 收到静默推送的回调
- 
- @param application  UIApplication 实例
- @param userInfo 推送时指定的参数
- @param completionHandler 完成回调
- */
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    
-//    UILocalNotification *backgroudMsg = [[UILocalNotification alloc] init];
-//    backgroudMsg.alertBody= @"You receive a new call";
-//    backgroudMsg.soundName = @"ring.caf";
-//    backgroudMsg.applicationIconBadgeNumber = [[UIApplication sharedApplication]applicationIconBadgeNumber] + 1;
-//    [[UIApplication sharedApplication] presentLocalNotificationNow:backgroudMsg];
-    
-    completionHandler(UIBackgroundFetchResultNewData);
+- (void)sendPushResp
+{
+    NSLog(@"--sendPushResp--");
+    NSMutableDictionary * notifDic = [KCTUserDefaultManager GetLocalDataObject:KCTNotiLocalNotification];
+    if (notifDic.allKeys.count == 0)
+    {
+        if (_callid != nil && _vpsid != 0)
+        {
+            KCTFuncEngine *funcEngine = [KCTFuncEngine getInstance];
+            [funcEngine incomingRspWhenBackground:_callid vpsid:_vpsid];
+            _callid = nil;
+            _vpsid = 0;
+        }
+        else
+        {
+            NSLog(@"--push callid is %@  vpsid %d",_callid,_vpsid);
+        }
+    }
+    else
+    {
+        NSLog(@"push notifDic %@",notifDic);
+    }
 }
 
 
 #pragma mark-
-#pragma mark----------ios10 Api------------
-// iOS 10 新增 API
-// iOS 10 会走新 API, iOS 10 以前会走到老 API
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
-// App 用户点击通知的回调
-// 无论本地推送还是远程推送都会走这个回调
-- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)())completionHandler {
+#pragma mark------CXProviderDelegate------
+- (void)providerDidReset:(CXProvider *)provider
+{
+    NSLog(@"*****providerDidReset******");
+}
+
+
+- (void)provider:(CXProvider *)provider performEndCallAction:(CXEndCallAction *)action{
+    NSLog(@"----performEndCallAction----");
     
-    if (!_isGoLoginPage) {
-        [self.loginController autoLogin:self.pageIndex];
-    }
-    
-    NSDictionary *userInfo = response.notification.request.content.userInfo;
-    KCTFuncEngine *funcEngine = [KCTFuncEngine getInstance];
-    if (userInfo) {
-        NSDictionary *apsDic = [userInfo objectForKey:@"aps"];
-        NSString *callid = [apsDic objectForKey:@"callid"];
-        NSNumber *numVpsid = [apsDic objectForKey:@"vpsid"];
-        int vps = [numVpsid intValue];
-        
-        if ([KCTTcpClient sharedTcpClientManager].login_isConnected) {
-            if (_isReceiveCmd) {
-                //已经收到来电信令，不需要上报push
-            } else {
-                [funcEngine incomingRspWhenBackground:callid vpsid:vps];
-            }
-        } else {
-            _callid = callid;
-            _vpsid = vps;
+    NSUUID* currentID = _calledUUID;
+    if ([[action.callUUID UUIDString] isEqualToString:[currentID UUIDString]]) {
+        NSLog(@"--endCall curren id :%@---",_calledUUID);
+        if ([KCTTcpClient sharedTcpClientManager].login_isConnected)
+        {
+            NSLog(@"--endCall hangup---");
+            [[KCTFuncEngine getInstance] hangUp:_callid];
+            _callid = nil;
+            _vpsid = 0;
         }
+        
+        [self stopCall];
+        [action fulfill];
+    } else {
+        [action fail];
+    }
+    _calledUUID = nil;
+}
+
+- (void)provider:(CXProvider *)provider performStartCallAction:(CXStartCallAction *)action
+{
+    [action fulfill];
+    
+}
+
+- (void)provider:(CXProvider *)provider performAnswerCallAction:(CXAnswerCallAction *)action
+{
+    NSLog(@"--performAnswerCallAction--");
+    [action fulfill];
+    [KCTVOIPViewEngine getInstance].isCallKit = YES;
+    if ([LoginManager sharedLoginManager].currentPageIndex < appPageIndexCalled) {
+        [[LoginManager sharedLoginManager] autoPushGUI];
     }
     
-    completionHandler();
-}
-
-// App 在前台弹通知需要调用这个接口
-- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
+    NSMutableDictionary * notifDic = [KCTUserDefaultManager GetLocalDataObject:KCTNotiLocalNotification];
+    if (notifDic.allKeys.count == 0)
+    {
+        NSLog(@"performAnswerCallAction dic is null");
+    }
+    else
+    {
+        [[KCTVOIPViewEngine getInstance] InactiveCall:notifDic];
+        [KCTUserDefaultManager SetLocalDataObject:nil key:KCTNotiLocalNotification];
+    }
     
-//    if ([KCTTcpClient sharedTcpClientManager].login_isConnected) {
-//        
-//    } else {
-//        if (!_isGoLoginPage) {
-//            [self.loginController autoLogin:self.pageIndex];
-//        }
-//    }
-    //completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionSound | UNNotificationPresentationOptionAlert);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [KCTVOIPViewEngine getInstance].isCallKit = NO;
+    });
 }
-#endif
 
+
+- (void)stopCall
+{
+    
+    if (_calledUUID)
+    {
+        _callid = nil;
+        _vpsid = 0;
+        [KCTVOIPViewEngine getInstance].isCallKit = NO;
+        
+        CXEndCallAction* endAction = [[CXEndCallAction alloc] initWithCallUUID:_calledUUID];
+        CXTransaction* transaction = [[CXTransaction alloc] init];
+        [transaction addAction:endAction];
+        
+        [_callController requestTransaction:transaction completion:^(NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"requestTransaction error %@", error);
+            }
+        }];
+    }
+    
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -206,6 +296,8 @@
 
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+    NSLog(@"background");
+    [self stopCall];
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
@@ -216,9 +308,9 @@
     UIApplicationState state = application.applicationState;//获取应用程序状态，（是前台运行还是后台运行）
     
     NSMutableDictionary * notifDic = [KCTUserDefaultManager GetLocalDataObject:KCTNotiLocalNotification];
-    
+    NSLog(@"--applicationWillEnterForeground---%@",notifDic);
     if (notifDic==nil) {
-        _isReceiveCmd = NO;
+        
         return;
     }
     //如果在前台运行
@@ -226,15 +318,12 @@
         if (notifDic.allKeys.count==0) {
             //            [self showSignInNotification:notification.alertBody];
         }else{
-            _isReceiveCmd = YES;
             [[KCTVOIPViewEngine getInstance] InactiveCall:notifDic];
         }
     }else{
         if (notifDic.allKeys.count==0) {
-            _isReceiveCmd = NO;
             return;
         }else{
-            _isReceiveCmd = YES;
             [[KCTVOIPViewEngine getInstance] InactiveCall:notifDic];
         }
     }
@@ -263,25 +352,13 @@
             break;
         case KCTConnectionStatus_loginSuccess:
         {
-            if (_callid) {
-                KCTFuncEngine *funcEngine = [KCTFuncEngine getInstance];
-                [funcEngine incomingRspWhenBackground:_callid vpsid:_vpsid];
-                _callid = nil;
-                _vpsid = 0;
-            }
-            
+            [self sendPushResp];
             [[NSNotificationCenter defaultCenter] postNotificationName:TCPConnectStateNotification object:KCTCPDidConnectNotification];
         }
             break;
         case KCTConnectionStatus_ReConnectSuccess:
         {
-            //[MBProgressHUD hideAllHUDsForView:self.window animated:YES];
-            if (_callid) {
-                KCTFuncEngine *funcEngine = [KCTFuncEngine getInstance];
-                [funcEngine incomingRspWhenBackground:_callid vpsid:_vpsid];
-                _callid = nil;
-                _vpsid = 0;
-            }
+            [self sendPushResp];
             [[NSNotificationCenter defaultCenter] postNotificationName:TCPConnectStateNotification object:KCTCPDidConnectNotification];
         }
             
@@ -300,9 +377,6 @@
             break;
             /*
              
-
-
-
              case KCTConnectionStatus_ConnectFail:
              [[NSNotificationCenter defaultCenter] postNotificationName:TCPConnectStateNotification object:KCTCPDisConnectNotification];
              break;*/
@@ -328,51 +402,19 @@
     [alert show];
 }
 
-//本app不支持ios8以下
-//registerPush
-- (void)registerAPNS {
-    float sysVer = [[[UIDevice currentDevice] systemVersion] floatValue];
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
-    if (sysVer >= 10) {
-        // iOS 10
-        [self registerPush10];
-    } else if (sysVer >= 8) {
-        // iOS 8-9
-        [self registerPush8to9];
-    } else {
-        // before iOS 8
-    }
-#else
-    if (sysVer < 8) {
-        // before iOS 8
-        [self registerPushBefore8];
-    } else {
-        // iOS 8-9
-        [self registerPush8to9];
-    }
-#endif
-}
 
-- (void)registerPush10{
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
-    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    center.delegate = self;
+- (void) redirectConsoleLogToDocumentFolder {
     
-    
-    [center requestAuthorizationWithOptions:UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert completionHandler:^(BOOL granted, NSError * _Nullable error) {
-        if (granted) {
-        }
-    }];
-    [[UIApplication sharedApplication] registerForRemoteNotifications];
-#endif
-}
-
-- (void)registerPush8to9{
-    UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-    UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
-    [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
-    [[UIApplication sharedApplication] registerForRemoteNotifications];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *logPath = [documentsDirectory stringByAppendingPathComponent:@"console_log.txt"];
+    freopen([logPath cStringUsingEncoding:NSASCIIStringEncoding],"a+",stderr);
 }
 
 
 @end
+
+
+
+
+

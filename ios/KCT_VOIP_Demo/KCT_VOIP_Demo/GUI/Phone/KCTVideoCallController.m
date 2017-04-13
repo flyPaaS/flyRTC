@@ -307,12 +307,16 @@
  被叫的初始界面
  */
 - (void)makeIncomingView{
+    if ([KCTVOIPViewEngine getInstance].isCallKit) {
+        [self answerCall];
+    }
     
     self.incomingView = [[UIView alloc] initWithFrame:self.view.bounds];
     self.incomingView.backgroundColor = self.backgroundView.backgroundColor;
     [self.backgroundView addSubview:self.incomingView];
     
-    
+    //add by wenqinglin
+    [self.backgroundView bringSubviewToFront:self.videoLocationView];
     /**
      @author WLS, 15-12-11 11:21:59
      
@@ -400,8 +404,6 @@
             
         }
     }
-    
-    
 }
 
 - (UILabel *)informationLabel{
@@ -422,9 +424,6 @@
 #pragma mark - 生命周期
 - (void)dealloc
 {
-   
-    
-    
     [self removeRotation];
     
     [self.hangupButton removeFromSuperview];
@@ -657,6 +656,10 @@
  */
 - (void)hangupCall
 {
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    NSLog(@"KCTVideoCallController 660");
+    [app stopCall];
+    [KCTVOIPViewEngine getInstance].isCallKit = NO;
     
     [self setCallDuration];
     
@@ -958,7 +961,9 @@
         case KCTCallStatus_Released:
         {
             
-            
+            AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            NSLog(@"KCTVideoCallCongtroller 964");
+            [app stopCall];
             
             [self setCallDuration];
             

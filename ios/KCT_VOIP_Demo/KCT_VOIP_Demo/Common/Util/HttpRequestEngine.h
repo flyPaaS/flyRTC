@@ -18,6 +18,7 @@ typedef void(^loginStateBlock)(NSDictionary *responseDict);
 +(id)engineInstance;
 
 - (void)login:(NSString *)sid token:(NSString *)token successBlock:(requestSuccessBlock)successBlock failBlock:(requestFailBlock)failBlock;
+- (void)newLogin:(NSString *)sid token:(NSString *)token successBlock:(requestSuccessBlock)successBlock failBlock:(requestFailBlock)failBlock;
 - (void)getLoginStateWithSid:(NSString *)sid clientNum:(NSString *)clientNum stateBlock:(loginStateBlock)stateBlock;
 
 - (void)getClientList:(NSString *)sid token:(NSString *)token appId:(NSString *)appId successBlock:(requestSuccessBlock)successBlock failBlock:(requestFailBlock)failBlock;

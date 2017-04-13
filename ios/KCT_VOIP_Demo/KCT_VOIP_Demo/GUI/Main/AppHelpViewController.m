@@ -18,8 +18,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    delegate.pageIndex = appPageIndexHelp;
+    [LoginManager sharedLoginManager].currentPageIndex = appPageIndexHelp;
 }
 
 - (void)viewDidLoad {

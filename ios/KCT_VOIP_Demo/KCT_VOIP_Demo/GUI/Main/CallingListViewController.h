@@ -15,6 +15,8 @@ typedef void(^loginSusscessBlock)(NSDictionary *dic,NSArray *arrays);
 
 @property(nonatomic,strong)NSDictionary *callingUidDic;
 @property(nonatomic,strong)NSArray *dataArray;
+@property(nonatomic,strong)NSArray *flycanDataArray;
+
 @property(nonatomic,strong)NSMutableDictionary *accountInfoDic;
 @property(nonatomic,copy)loginSusscessBlock loginBlock;
 @property(nonatomic,assign)BOOL isAutoLogin;

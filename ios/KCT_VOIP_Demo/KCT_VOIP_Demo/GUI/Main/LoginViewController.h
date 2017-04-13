@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CallingListViewController.h"
 
 @interface LoginViewController : UIViewController
 
-- (void)autoLogin:(appPageIndexTag)pageIndex;
+@property(nonatomic,assign) BOOL isAutoLogin;
+@property(weak,nonatomic)CallingListViewController *callController;
+
+
+- (void)loginWithUser:(NSString *)userId pwd:(NSString *)pwd;
 
 @end

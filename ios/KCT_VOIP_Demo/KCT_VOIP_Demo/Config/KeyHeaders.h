@@ -24,6 +24,6 @@
 
 //NSUserDefaults
 #define kLastLoginClientId    @"LastLoginClienid"
-
+#define kLastSegmentSelect      @"LastSegmentSelect"
 
 #endif /* KeyHeaders_h */

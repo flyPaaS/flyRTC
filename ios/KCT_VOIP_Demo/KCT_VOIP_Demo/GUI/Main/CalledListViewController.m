@@ -30,8 +30,7 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = NO;
-    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    delegate.pageIndex = appPageIndexCalled;
+    [LoginManager sharedLoginManager].currentPageIndex = appPageIndexCalled;
 }
 
 - (void)viewDidLoad {
@@ -62,6 +61,7 @@
 #pragma mark ---------private function------------
 - (void)exitapp:(id)sender
 {
+    [mytoast showWithText:@"账号已退出"];
     [self.navigationController popViewControllerAnimated:YES];
     [[KCTTcpClient sharedTcpClientManager] login_uninitWithFlag:YES];
 }

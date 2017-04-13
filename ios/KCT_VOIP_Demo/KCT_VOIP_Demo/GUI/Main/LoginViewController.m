@@ -6,7 +6,7 @@
 //  Copyright © 2017年 KCMac. All rights reserved.
 //
 
-#import "CallingListViewController.h"
+
 
 
 
@@ -15,12 +15,12 @@
 {
     BOOL _isRember;
     NSUserDefaults *_defaults;
-    BOOL _isAutoLogin;
 }
 
 @property(weak,nonatomic)IBOutlet UITableView *tableView;
 @property(weak,nonatomic)IBOutlet UIButton *remberBtn;
-@property(weak,nonatomic)CallingListViewController *callController;
+@property(weak,nonatomic)IBOutlet UILabel *versionLabel;
+
 
 @end
 
@@ -35,8 +35,7 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = YES;
-    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    delegate.pageIndex = appPageIndexLogin;
+    [LoginManager sharedLoginManager].currentPageIndex = appPageIndexLogin;
 }
 
 - (void)viewDidLoad {
@@ -48,7 +47,8 @@
     
     [_tableView registerNib:[UINib nibWithNibName:@"LoginTableViewCell" bundle:nil] forCellReuseIdentifier:@"loginCell"];
     
-    
+    NSString *version =[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    self.versionLabel.text = [NSString stringWithFormat:@"V %@",version];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -76,10 +76,12 @@
             NSString *userid = [_defaults objectForKey:kUserNameKey];
             if (userid) {
                 cell.textField.text = userid;
-                
+            } else {
+                cell.textField.text = @"119140589@qq.com";
             }
+        } else {
+            cell.textField.text = @"119140589@qq.com";
         }
-        cell.textField.text = @"119140589@qq.com";
         cell.leftImageView.image = [UIImage imageNamed:@"login_admin.png"];
         
     } else {
@@ -89,9 +91,13 @@
             if (pwd) {
                 cell.textField.text = pwd;
                 
+            } else {
+                cell.textField.text = @"kc123456";
             }
+        } else {
+            cell.textField.text = @"kc123456";
         }
-        cell.textField.text = @"kc123456";
+        
         cell.textField.secureTextEntry = YES;
         cell.leftImageView.image = [UIImage imageNamed:@"login_pwd.png"];
     }
@@ -124,75 +130,88 @@
     [MBProgressHUD showMessage:@"正在获取账号，请稍等..." toView:self.view];
     
     __weak __typeof(self)weakSelf = self;
-    [[HttpRequestEngine engineInstance] login:userId token:pwd successBlock:^(NSDictionary *responseDict) {
-        NSDictionary *respDic = [responseDict objectForKey:@"resp"];
-        NSNumber *nRespCode = [respDic objectForKey:@"respCode"];
+    
+    [[HttpRequestEngine engineInstance] newLogin:userId token:pwd successBlock:^(NSDictionary *responseDict) {
+        NSDictionary *newRespDic = [responseDict objectForKey:@"resp"];
+        NSNumber *nRespCode = [newRespDic objectForKey:@"respCode"];
         if ([nRespCode intValue] == 0 && nRespCode != nil) {
+            NSArray *newArray = [newRespDic objectForKey:@"client"];
             
-            if (_isRember) {
-                [_defaults setBool:YES forKey:kIsRemberPwdKey];
-                [_defaults setObject:userId forKey:kUserNameKey];
-                [_defaults setObject:pwd forKey:kUserPwdKey];
-            } else {
-                [_defaults setBool:NO forKey:kIsRemberPwdKey];
-                [_defaults setObject:nil forKey:kUserNameKey];
-                [_defaults setObject:nil forKey:kUserPwdKey];
-            }
-            
-            
-            [MBProgressHUD hideAllHUDsForView:weakSelf.view animated:YES];
-            [mytoast showWithText:@"登录成功"];
-            
-            NSArray *array = [respDic objectForKey:@"client"];
-            CallingListViewController *controller = [[CallingListViewController alloc] init];
-            self.callController = controller;
-            controller.dataArray = array;
-            controller.isAutoLogin = _isAutoLogin;
-            NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-            [dic setObject:[respDic objectForKey:@"sid"] forKey:@"sid"];
-            [dic setObject:[respDic objectForKey:@"token"] forKey:@"token"];
-            controller.accountInfoDic = dic;
-            
-            [_defaults setObject:[respDic objectForKey:@"sid"] forKey:kAccountSid];
-            [_defaults setObject:[respDic objectForKey:@"token"] forKey:kAccountToken];
-            [_defaults synchronize];
-            
-            controller.loginBlock = ^(NSDictionary *dic,NSArray *arrays) {
-                NSLog(@"login success");
-            };
-            
-            [weakSelf.navigationController pushViewController:controller animated:YES];
-
-        } else {
-            int iRespCode = [nRespCode intValue];
-            NSString *message = [NSString stringWithFormat:@"登录失败，错误码：%d",iRespCode];
-            [mytoast showWithText:message];
-            [MBProgressHUD hideAllHUDsForView:weakSelf.view animated:YES];
+            [[HttpRequestEngine engineInstance] login:userId token:pwd successBlock:^(NSDictionary *responseDict) {
+                
+                NSDictionary *respDic = [responseDict objectForKey:@"resp"];
+                NSNumber *nRespCode = [respDic objectForKey:@"respCode"];
+                if ([nRespCode intValue] == 0 && nRespCode != nil) {
+                    
+                    if (_isRember) {
+                        [_defaults setBool:YES forKey:kIsRemberPwdKey];
+                        [_defaults setObject:userId forKey:kUserNameKey];
+                        [_defaults setObject:pwd forKey:kUserPwdKey];
+                    } else {
+                        [_defaults setBool:NO forKey:kIsRemberPwdKey];
+                        [_defaults setObject:nil forKey:kUserNameKey];
+                        [_defaults setObject:nil forKey:kUserPwdKey];
+                    }
+                    
+                    
+                    [MBProgressHUD hideAllHUDsForView:weakSelf.view animated:YES];
+                    [mytoast showWithText:@"登录成功"];
+                    
+                    NSArray *array = [respDic objectForKey:@"client"];
+                    CallingListViewController *controller;
+                    if (_isAutoLogin) {
+                        NSMutableArray *arrays = [[LoginManager sharedLoginManager] getControllerArrays];
+                        if (arrays.count >= 3) {
+                            controller = (CallingListViewController *)[arrays objectAtIndex:1];
+                        }
+                        else
+                        {
+                            controller = [[CallingListViewController alloc] init];
+                        }
+                    } else {
+                        controller = [[CallingListViewController alloc] init];
+                    }
+                    
+                    self.callController = controller;
+                    controller.dataArray = array;
+                    controller.flycanDataArray = newArray;
+                    controller.isAutoLogin = _isAutoLogin;
+                    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+                    [dic setObject:[respDic objectForKey:@"sid"] forKey:@"sid"];
+                    [dic setObject:[respDic objectForKey:@"token"] forKey:@"token"];
+                    controller.accountInfoDic = dic;
+                    
+                    [_defaults setObject:[respDic objectForKey:@"sid"] forKey:kAccountSid];
+                    [_defaults setObject:[respDic objectForKey:@"token"] forKey:kAccountToken];
+                    [_defaults synchronize];
+                    
+                    controller.loginBlock = ^(NSDictionary *dic,NSArray *arrays) {
+                        NSLog(@"login success");
+                    };
+                    if (_isAutoLogin)
+                    {
+                        [controller autoConnectService];
+                        [[LoginManager sharedLoginManager] addController:controller];
+                    }
+                    if (!_isAutoLogin) {
+                        [weakSelf.navigationController pushViewController:controller animated:YES];
+                    }
+                    
+                } else {
+                    int iRespCode = [nRespCode intValue];
+                    NSString *message = [NSString stringWithFormat:@"登录失败，错误码：%d",iRespCode];
+                    [mytoast showWithText:message];
+                    [MBProgressHUD hideAllHUDsForView:weakSelf.view animated:YES];
+                }
+            } failBlock:^(NSDictionary *responseDict) {
+                [mytoast showWithText:@"登录失败"];
+                [MBProgressHUD hideAllHUDsForView:weakSelf.view animated:YES];
+            }];
         }
     } failBlock:^(NSDictionary *responseDict) {
-        [mytoast showWithText:@"登录失败"];
-        [MBProgressHUD hideAllHUDsForView:weakSelf.view animated:YES];
-    }];
-}
-
-
-#pragma mark-
-#pragma mark-------public------
-
-- (void)autoLogin:(appPageIndexTag)pageIndex{
-    _isAutoLogin = YES;
-    if (pageIndex == appPageIndexHelp) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
-    if (pageIndex < appPageIndexCalling) {
-        [self loginWithUser:@"119140589@qq.com" pwd:@"kc123456"];
-    } else if(pageIndex == appPageIndexCalling) {
-        if (self.callController) {
-            [self.callController autoConnectService];
-        }
-    } else {
         
-    }
+        
+    }];
     
 }
 
@@ -212,6 +231,7 @@
 }
 
 - (IBAction)loginPress:(id)sender {
+    _isAutoLogin = NO;
     LoginTableViewCell *row0 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     LoginTableViewCell *row1 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     NSString *userId = row0.textField.text;

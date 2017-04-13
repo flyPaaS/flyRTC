@@ -568,7 +568,7 @@ void audioRouteChangeListenerCallback (
 
 - (void)incomingRspWhenBackground:(id)callID vpsid:(int)vpsid
 {
-    NSLog(@"***********incomingRspWhenBackground**************");
+    NSLog(@"***********incomingRspWhenBackground****%@******%d****",callID,vpsid);
     [self.kctCallService incomingRspWhenBackground:callID vpsid:vpsid];
 }
 /**
