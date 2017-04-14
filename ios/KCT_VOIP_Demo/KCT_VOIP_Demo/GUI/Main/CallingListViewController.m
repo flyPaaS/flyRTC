@@ -41,7 +41,7 @@
     _segmentSelectIndex = 0;
     
     [self.navigationItem setHidesBackButton:YES];
-    NSArray *segItems = @[@"flyRTC",@"flyCAN"];
+    NSArray *segItems = @[@"flySR",@"flyCAN"];
     _segmentedControl = [[UISegmentedControl alloc] initWithItems:segItems];
     _segmentedControl.frame = CGRectMake(0, 0, 160, 30);
     self.navigationItem.titleView = _segmentedControl;
