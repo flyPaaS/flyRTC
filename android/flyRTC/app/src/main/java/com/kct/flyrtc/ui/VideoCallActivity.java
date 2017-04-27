@@ -28,6 +28,7 @@ import com.yzx.api.UCSFrameType;
 import com.yzx.preference.UserData;
 import com.yzx.tools.FileTools;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -197,6 +198,25 @@ public class VideoCallActivity extends CallActivity {
                             + "\r\nframe:" + obj.getInt("sf") + "(s) " + obj.getInt("df") + "(r)"
                             + "\r\npt:" + obj.getInt("ep") + "(s) " + obj.getInt("dp") + "(r)"
                             + "\r\ncodec: " + obj.getString("eCodec") + " (s)" + obj.getString("dCodec") + "(r)";
+
+                    int rtPOT_nCount = obj.getInt("nCnt");
+                    strMsg = strMsg + "\r\nRelayCnt: " + obj.getInt("nCnt");
+                    if (rtPOT_nCount > 0) {
+                        JSONArray jrtPOTarray = obj.getJSONArray("rtPOT");
+                        for (int i = 0; i < jrtPOTarray.length(); i++) {
+                            JSONObject jsonObj = jrtPOTarray.getJSONObject(i);
+                            int sIP = jsonObj.getInt("sIP");
+                            int rIP = jsonObj.getInt("rIP");
+                            int sFlow_a = jsonObj.getInt("sFlow_a");
+                            int rFlow_a = jsonObj.getInt("rFlow_a");
+                            int sFlow_v = jsonObj.getInt("sFlow_v");
+                            int rFlow_v = jsonObj.getInt("rFlow_v");
+
+                            strMsg = strMsg + "\r\nRelay_" + i + ": " + sIP + " (s) " + rIP + "(r)" +
+                                    "\nFlow_a_" + i + ": " + sFlow_a + " KB (s) " + rFlow_a + " KB (r)" +
+                                    "\nFlow_v_" + i + ": " + sFlow_v + " KB (s) " + rFlow_v + " KB (r)";
+                        }
+                    }
 
                     converse_network_status.setTextColor(Color.rgb(255, 0, 0));
                     converse_network_status.setText(strMsg);

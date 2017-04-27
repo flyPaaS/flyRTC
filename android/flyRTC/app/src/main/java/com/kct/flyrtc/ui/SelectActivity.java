@@ -107,18 +107,25 @@ public class SelectActivity extends BaseActivity {
                         @Override
                         public void run() {
                             RestHttpClient mRestHttpClient = new RestHttpClient();
-                            if (mRestHttpClient.queryAccountLine(UIData.clientId.get(nSelect)) == 0) {
-                                // 可以登录
-                                UIData.nSelect = nSelect;
-                                UCSCall.hangUp("");
-                                if (nSelectMode == 0) {
+                            if (nSelectMode == 0) {
+                                if (mRestHttpClient.queryAccountLine(UIData.clientId.get(nSelect)) == 0) {
+                                    // 可以登录
+                                    UIData.nSelect = nSelect;
+                                    UCSCall.hangUp("");
                                     UCSService.connect(UIData.accountSid, UIData.accountToken, UIData.clientId.get(nSelect), UIData.clientPwd.get(nSelect));
+                                } else {
+                                    handler.sendEmptyMessage(1002);
                                 }
-                                if (nSelectMode == 1) {
+                            }
+                            if (nSelectMode == 1) {
+                                if (mRestHttpClient.queryAccountLine(UIData.clientIdNew.get(nSelect)) == 0) {
+                                    // 可以登录
+                                    UIData.nSelect = nSelect;
+                                    UCSCall.hangUp("");
                                     UCSService.connect(UIData.accountSidNew, UIData.accountTokenNew, UIData.clientIdNew.get(nSelect), UIData.clientPwdNew.get(nSelect));
+                                } else {
+                                    handler.sendEmptyMessage(1002);
                                 }
-                            } else {
-                                handler.sendEmptyMessage(1002);
                             }
                         }
                     }).start();
