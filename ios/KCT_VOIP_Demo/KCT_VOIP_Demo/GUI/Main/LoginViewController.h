@@ -13,7 +13,7 @@
 
 @property(nonatomic,assign) BOOL isAutoLogin;
 @property(weak,nonatomic)CallingListViewController *callController;
-
+@property(nonatomic,assign) BOOL isFromAdressBook;
 
 - (void)loginWithUser:(NSString *)userId pwd:(NSString *)pwd;
 

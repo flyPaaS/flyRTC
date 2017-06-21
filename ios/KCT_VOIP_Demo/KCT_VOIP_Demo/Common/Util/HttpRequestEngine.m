@@ -53,8 +53,6 @@ static HttpRequestEngine *detailInstance = nil;
 }
 
 - (void)login:(NSString *)sid token:(NSString *)token successBlock:(requestSuccessBlock)successBlockT failBlock:(requestFailBlock)failBlockT {
-    self.successBlock = successBlockT;
-    self.failBlock = failBlockT;
     
     NSString *timeSp = [self getTimeSp];
     NSString *orBase64 = [NSString stringWithFormat:@"%@:%@",sid,timeSp];
@@ -83,17 +81,15 @@ static HttpRequestEngine *detailInstance = nil;
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
         if (data) {
             NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            self.successBlock(dict);
+            successBlockT(dict);
         } else {
-            self.failBlock(connectionError.userInfo);
+            failBlockT(connectionError.userInfo);
         }
     }];
     
 }
 
 - (void)newLogin:(NSString *)sid token:(NSString *)token successBlock:(requestSuccessBlock)successBlockT failBlock:(requestFailBlock)failBlockT {
-    self.successBlock = successBlockT;
-    self.failBlock = failBlockT;
     
     NSString *timeSp = [self getTimeSp];
     NSString *orBase64 = [NSString stringWithFormat:@"%@:%@",sid,timeSp];
@@ -122,9 +118,9 @@ static HttpRequestEngine *detailInstance = nil;
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
         if (data) {
             NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-            self.successBlock(dict);
+            successBlockT(dict);
         } else {
-            self.failBlock(connectionError.userInfo);
+            failBlockT(connectionError.userInfo);
         }
     }];
 }

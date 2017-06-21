@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<metainfo prefix="SK" filename="FakeMeta" magic="10000">
+	<struct name="FakeMetaField">
+		<field name="Name"       type="*char" id="1" referto="strlen" />
+		<field name="Offset"     type="int16" id="2" />
+		<field name="Type"       type="int16" id="3" />
+		<field name="IsPtr"      type="char"  id="4" />
+		<field name="IsRequired" type="char"  id="5" />
+		<field name="ArraySize"  type="int16" id="6" />
+		<field name="ReferTo"    type="*char" id="7" referto="strlen" />
+		<field name="Id"         type="int16" id="8" />
+		<field name="FieldSize"  type="int16" id="9" />
+		<field name="ItemSize"   type="int16" id="10" />
+		<field name="Status"     type="uchar" id="11" />
+		<field name="Reserved"   type="char"  id="12" />
+	</struct>
+
+	<struct name="FakeMetaStruct">
+		<field name="Id"         type="int16"  id="1" />
+		<field name="Name"       type="*char"  id="2" referto="strlen" />
+		<field name="Size"       type="uint32" id="3" />
+		<field name="FieldCount" type="uint16" id="4" />
+		<field name="FieldList"  type="*FakeMetaField" id="5" referto="FieldCount" />
+	</struct>
+
+	<struct name="FakeMetaParam">
+		<field name="Name"       type="*char"  id="1" referto="strlen" />
+		<field name="Type"       type="int16"  id="2" />
+		<field name="Existence"  type="char"   id="3" />
+	</struct>
+
+	<struct name="FakeMetaFunc">
+		<field name="Name"       type="*char"  id="1" referto="strlen" />
+		<field name="Cmdid"      type="int16"  id="2" />
+		<field name="Req"        type="FakeMetaParam" id="3" />
+		<field name="Resp"       type="FakeMetaParam" id="4" />
+	</struct>
+
+	<struct name="FakeMetaInfo">
+		<field name="Prefix"     type="*char"  id="1" referto="strlen" />
+		<field name="Name"       type="*char"  id="2" referto="strlen" />
+		<field name="Magic"      type="int32"  id="3" />
+		<field name="StructCount" type="int16" id="4" />
+		<field name="StructList" type="*FakeMetaStruct" id="5" referto="StructCount" />
+		<field name="FuncCount"  type="int16"  id="6" />
+		<field name="FuncList"   type="*FakeMetaFunc"   id="7" referto="FuncCount" />
+	</struct>
+
+</metainfo>
+

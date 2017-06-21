@@ -18,6 +18,7 @@
 - (void)addController:(UIViewController *)controller;
 - (void)autoConnectCS;
 - (void)autoPushGUI;
+- (void)callAutoLogin;
 - (NSMutableArray *)getControllerArrays;
 
 @end

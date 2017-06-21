@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5A26A6B11E5D374D00EF39DF /* libTcp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A26A6AF1E5D374D00EF39DF /* libTcp.a */; };
-		5A26A6B21E5D374D00EF39DF /* libVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A26A6B01E5D374D00EF39DF /* libVideo.a */; };
 		5A26A6B61E5D37FB00EF39DF /* AddressBook.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A26A6B51E5D37FB00EF39DF /* AddressBook.m */; };
 		5A26A7041E5EDAF100EF39DF /* push.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5A26A7031E5EDAF100EF39DF /* push.wav */; };
 		5A26A78C1E5EDB1C00EF39DF /* Icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A26A70A1E5EDB1C00EF39DF /* Icon-57.png */; };
@@ -148,6 +146,15 @@
 		5A26A81F1E5EDC4D00EF39DF /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A26A8171E5EDC4D00EF39DF /* LoginViewController.xib */; };
 		5A41B6201E286A8C000B9A49 /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A41B61E1E286A8C000B9A49 /* libstdc++.6.tbd */; };
 		5A41B6211E286A8C000B9A49 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A41B61F1E286A8C000B9A49 /* libstdc++.tbd */; };
+		5A5120DD1EF3B89E00EB00C3 /* KCTCallRecordsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5120CF1EF3B89E00EB00C3 /* KCTCallRecordsModel.m */; };
+		5A5120DE1EF3B89E00EB00C3 /* KCTChangeTheViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5120D11EF3B89E00EB00C3 /* KCTChangeTheViewController.m */; };
+		5A5120DF1EF3B89E00EB00C3 /* KCTFuncEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5A5120D31EF3B89E00EB00C3 /* KCTFuncEngine.mm */; };
+		5A5120E01EF3B89E00EB00C3 /* KCTUserDefaultManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5120D61EF3B89E00EB00C3 /* KCTUserDefaultManager.m */; };
+		5A5120E11EF3B89E00EB00C3 /* KCTVoipCallListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5120D81EF3B89E00EB00C3 /* KCTVoipCallListModel.m */; };
+		5A5120E21EF3B89E00EB00C3 /* KCTVoipDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5120DA1EF3B89E00EB00C3 /* KCTVoipDBManager.m */; };
+		5A5120E31EF3B89E00EB00C3 /* KCTVOIPViewEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A5120DC1EF3B89E00EB00C3 /* KCTVOIPViewEngine.m */; };
+		5A5120E51EF3C1E700EB00C3 /* libVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A5120E41EF3C1E700EB00C3 /* libVideo.a */; };
+		5A5120E71EF3C1EC00EB00C3 /* libTcp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A5120E61EF3C1EC00EB00C3 /* libTcp.a */; };
 		5A52AA0F1E5ACAB80042C78A /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A52AA0E1E5ACAB80042C78A /* UserNotifications.framework */; };
 		5A52AAD71E5ACDE80042C78A /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52AA141E5ACDE80042C78A /* AFURLRequestSerialization.m */; };
 		5A52AAD81E5ACDE80042C78A /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52AA161E5ACDE80042C78A /* AFURLResponseSerialization.m */; };
@@ -172,8 +179,6 @@
 		5A52AAEC1E5ACDE90042C78A /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5A52AA481E5ACDE80042C78A /* MBProgressHUD.bundle */; };
 		5A52AAED1E5ACDE90042C78A /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52AA4A1E5ACDE80042C78A /* MBProgressHUD.m */; };
 		5A52AAEE1E5ACDE90042C78A /* KCPinyinHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52AA4D1E5ACDE80042C78A /* KCPinyinHelper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		5A52AB471E5ADCB70042C78A /* libTcp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A52AB451E5ADCB70042C78A /* libTcp.a */; };
-		5A52AB481E5ADCB70042C78A /* libVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A52AB461E5ADCB70042C78A /* libVideo.a */; };
 		5A52AB4E1E5AE0300042C78A /* ExNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52AB4D1E5AE0300042C78A /* ExNavigationController.m */; };
 		5A52AB511E5AE0390042C78A /* mytoast.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52AB501E5AE0390042C78A /* mytoast.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5A52AB591E5AE1730042C78A /* KCTKeyboradViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52AB541E5AE1730042C78A /* KCTKeyboradViewController.m */; };
@@ -199,13 +204,6 @@
 		5A755FCB1E20AE2E003D6777 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A755FCA1E20AE2E003D6777 /* CoreTelephony.framework */; };
 		5A755FCD1E20AE3E003D6777 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A755FCC1E20AE3E003D6777 /* CoreFoundation.framework */; };
 		5A755FCF1E20AE55003D6777 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A755FCE1E20AE55003D6777 /* libz.tbd */; };
-		5A9337091E233D5D00AD397A /* KCTCallRecordsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9336F61E233D5D00AD397A /* KCTCallRecordsModel.m */; };
-		5A93370A1E233D5D00AD397A /* KCTChangeTheViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9336F81E233D5D00AD397A /* KCTChangeTheViewController.m */; };
-		5A93370B1E233D5D00AD397A /* KCTFuncEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5A9336FA1E233D5D00AD397A /* KCTFuncEngine.mm */; };
-		5A93370C1E233D5D00AD397A /* KCTUserDefaultManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9336FD1E233D5D00AD397A /* KCTUserDefaultManager.m */; };
-		5A93370D1E233D5D00AD397A /* KCTVoipCallListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9336FF1E233D5D00AD397A /* KCTVoipCallListModel.m */; };
-		5A93370E1E233D5D00AD397A /* KCTVoipDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9337011E233D5D00AD397A /* KCTVoipDBManager.m */; };
-		5A93370F1E233D5D00AD397A /* KCTVOIPViewEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9337031E233D5D00AD397A /* KCTVOIPViewEngine.m */; };
 		5A9337431E2340A800AD397A /* ClientConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9337351E2340A800AD397A /* ClientConvert.m */; };
 		5A9337441E2340A800AD397A /* FriendsInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9337371E2340A800AD397A /* FriendsInfoManager.m */; };
 		5A9337451E2340A800AD397A /* InfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9337391E2340A800AD397A /* InfoManager.m */; };
@@ -231,6 +229,8 @@
 		5AB6A6421E8B8B39000ABF58 /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB6A6411E8B8B39000ABF58 /* PushKit.framework */; };
 		5AB6A6441E8B8B47000ABF58 /* CallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB6A6431E8B8B47000ABF58 /* CallKit.framework */; };
 		5AB6A6461E8B8BE6000ABF58 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB6A6451E8B8BE6000ABF58 /* AVFoundation.framework */; };
+		5AEC6EB61ED6C64900AE3354 /* CodecViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEC6EB41ED6C64900AE3354 /* CodecViewController.m */; };
+		5AEC6EB71ED6C64900AE3354 /* CodecViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AEC6EB51ED6C64900AE3354 /* CodecViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -390,6 +390,23 @@
 		5A26A8171E5EDC4D00EF39DF /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		5A41B61E1E286A8C000B9A49 /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
 		5A41B61F1E286A8C000B9A49 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		5A5120CE1EF3B89E00EB00C3 /* KCTCallRecordsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTCallRecordsModel.h; sourceTree = "<group>"; };
+		5A5120CF1EF3B89E00EB00C3 /* KCTCallRecordsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCTCallRecordsModel.m; sourceTree = "<group>"; };
+		5A5120D01EF3B89E00EB00C3 /* KCTChangeTheViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTChangeTheViewController.h; sourceTree = "<group>"; };
+		5A5120D11EF3B89E00EB00C3 /* KCTChangeTheViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCTChangeTheViewController.m; sourceTree = "<group>"; };
+		5A5120D21EF3B89E00EB00C3 /* KCTFuncEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTFuncEngine.h; sourceTree = "<group>"; };
+		5A5120D31EF3B89E00EB00C3 /* KCTFuncEngine.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = KCTFuncEngine.mm; sourceTree = "<group>"; };
+		5A5120D41EF3B89E00EB00C3 /* KCTPubEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTPubEnum.h; sourceTree = "<group>"; };
+		5A5120D51EF3B89E00EB00C3 /* KCTUserDefaultManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTUserDefaultManager.h; sourceTree = "<group>"; };
+		5A5120D61EF3B89E00EB00C3 /* KCTUserDefaultManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCTUserDefaultManager.m; sourceTree = "<group>"; };
+		5A5120D71EF3B89E00EB00C3 /* KCTVoipCallListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTVoipCallListModel.h; sourceTree = "<group>"; };
+		5A5120D81EF3B89E00EB00C3 /* KCTVoipCallListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCTVoipCallListModel.m; sourceTree = "<group>"; };
+		5A5120D91EF3B89E00EB00C3 /* KCTVoipDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTVoipDBManager.h; sourceTree = "<group>"; };
+		5A5120DA1EF3B89E00EB00C3 /* KCTVoipDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCTVoipDBManager.m; sourceTree = "<group>"; };
+		5A5120DB1EF3B89E00EB00C3 /* KCTVOIPViewEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTVOIPViewEngine.h; sourceTree = "<group>"; };
+		5A5120DC1EF3B89E00EB00C3 /* KCTVOIPViewEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCTVOIPViewEngine.m; sourceTree = "<group>"; };
+		5A5120E41EF3C1E700EB00C3 /* libVideo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libVideo.a; path = "../../../../../../Library/Developer/Xcode/DerivedData/flyRTC-bevoucgvcpazgggqhoalsjdxypaj/Build/Products/Debug-iphoneos/libVideo.a"; sourceTree = "<group>"; };
+		5A5120E61EF3C1EC00EB00C3 /* libTcp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTcp.a; path = "../../../../../../Library/Developer/Xcode/DerivedData/flyRTC-bevoucgvcpazgggqhoalsjdxypaj/Build/Products/Debug-iphoneos/libTcp.a"; sourceTree = "<group>"; };
 		5A52AA0E1E5ACAB80042C78A /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		5A52AA101E5ACB050042C78A /* KCT_VOIP_Demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KCT_VOIP_Demo.entitlements; sourceTree = "<group>"; };
 		5A52AA131E5ACDE80042C78A /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLRequestSerialization.h; sourceTree = "<group>"; };
@@ -489,21 +506,6 @@
 		5A755FCA1E20AE2E003D6777 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		5A755FCC1E20AE3E003D6777 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		5A755FCE1E20AE55003D6777 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		5A9336F51E233D5D00AD397A /* KCTCallRecordsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTCallRecordsModel.h; sourceTree = "<group>"; };
-		5A9336F61E233D5D00AD397A /* KCTCallRecordsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCTCallRecordsModel.m; sourceTree = "<group>"; };
-		5A9336F71E233D5D00AD397A /* KCTChangeTheViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTChangeTheViewController.h; sourceTree = "<group>"; };
-		5A9336F81E233D5D00AD397A /* KCTChangeTheViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCTChangeTheViewController.m; sourceTree = "<group>"; };
-		5A9336F91E233D5D00AD397A /* KCTFuncEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTFuncEngine.h; sourceTree = "<group>"; };
-		5A9336FA1E233D5D00AD397A /* KCTFuncEngine.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = KCTFuncEngine.mm; sourceTree = "<group>"; };
-		5A9336FB1E233D5D00AD397A /* KCTPubEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTPubEnum.h; sourceTree = "<group>"; };
-		5A9336FC1E233D5D00AD397A /* KCTUserDefaultManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTUserDefaultManager.h; sourceTree = "<group>"; };
-		5A9336FD1E233D5D00AD397A /* KCTUserDefaultManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCTUserDefaultManager.m; sourceTree = "<group>"; };
-		5A9336FE1E233D5D00AD397A /* KCTVoipCallListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTVoipCallListModel.h; sourceTree = "<group>"; };
-		5A9336FF1E233D5D00AD397A /* KCTVoipCallListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCTVoipCallListModel.m; sourceTree = "<group>"; };
-		5A9337001E233D5D00AD397A /* KCTVoipDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTVoipDBManager.h; sourceTree = "<group>"; };
-		5A9337011E233D5D00AD397A /* KCTVoipDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCTVoipDBManager.m; sourceTree = "<group>"; };
-		5A9337021E233D5D00AD397A /* KCTVOIPViewEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTVOIPViewEngine.h; sourceTree = "<group>"; };
-		5A9337031E233D5D00AD397A /* KCTVOIPViewEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCTVOIPViewEngine.m; sourceTree = "<group>"; };
 		5A9337341E2340A800AD397A /* ClientConvert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientConvert.h; sourceTree = "<group>"; };
 		5A9337351E2340A800AD397A /* ClientConvert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientConvert.m; sourceTree = "<group>"; };
 		5A9337361E2340A800AD397A /* FriendsInfoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsInfoManager.h; sourceTree = "<group>"; };
@@ -551,6 +553,9 @@
 		5AB6A6411E8B8B39000ABF58 /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
 		5AB6A6431E8B8B47000ABF58 /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
 		5AB6A6451E8B8BE6000ABF58 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		5AEC6EB31ED6C64900AE3354 /* CodecViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodecViewController.h; sourceTree = "<group>"; };
+		5AEC6EB41ED6C64900AE3354 /* CodecViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodecViewController.m; sourceTree = "<group>"; };
+		5AEC6EB51ED6C64900AE3354 /* CodecViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CodecViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -558,24 +563,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A5120E71EF3C1EC00EB00C3 /* libTcp.a in Frameworks */,
+				5A5120E51EF3C1E700EB00C3 /* libVideo.a in Frameworks */,
 				5AB6A6461E8B8BE6000ABF58 /* AVFoundation.framework in Frameworks */,
 				5AB6A6441E8B8B47000ABF58 /* CallKit.framework in Frameworks */,
 				5AB6A6421E8B8B39000ABF58 /* PushKit.framework in Frameworks */,
-				5A52AB471E5ADCB70042C78A /* libTcp.a in Frameworks */,
-				5A52AB481E5ADCB70042C78A /* libVideo.a in Frameworks */,
 				5A52AA0F1E5ACAB80042C78A /* UserNotifications.framework in Frameworks */,
 				5A41B6201E286A8C000B9A49 /* libstdc++.6.tbd in Frameworks */,
 				5A41B6211E286A8C000B9A49 /* libstdc++.tbd in Frameworks */,
 				5A9337BF1E23610900AD397A /* VideoToolbox.framework in Frameworks */,
 				5A9337B61E23527900AD397A /* libsqlite3.0.tbd in Frameworks */,
-				5A26A6B21E5D374D00EF39DF /* libVideo.a in Frameworks */,
 				5A755FCF1E20AE55003D6777 /* libz.tbd in Frameworks */,
 				5A755FCD1E20AE3E003D6777 /* CoreFoundation.framework in Frameworks */,
 				5A755FCB1E20AE2E003D6777 /* CoreTelephony.framework in Frameworks */,
 				5A755FC91E20AE0B003D6777 /* AssetsLibrary.framework in Frameworks */,
 				5A755FC71E20ADF7003D6777 /* Foundation.framework in Frameworks */,
 				5A755FC51E20ADEC003D6777 /* CoreGraphics.framework in Frameworks */,
-				5A26A6B11E5D374D00EF39DF /* libTcp.a in Frameworks */,
 				5A755FC31E20ADBF003D6777 /* MobileCoreServices.framework in Frameworks */,
 				5A755FC11E20AD97003D6777 /* CFNetwork.framework in Frameworks */,
 			);
@@ -817,11 +820,36 @@
 				5A26A80F1E5EDC4D00EF39DF /* CalledListViewController.h */,
 				5A26A8101E5EDC4D00EF39DF /* CalledListViewController.m */,
 				5A26A8111E5EDC4D00EF39DF /* CalledListViewController.xib */,
+				5AEC6EB31ED6C64900AE3354 /* CodecViewController.h */,
+				5AEC6EB41ED6C64900AE3354 /* CodecViewController.m */,
+				5AEC6EB51ED6C64900AE3354 /* CodecViewController.xib */,
 				5A26A80C1E5EDC4D00EF39DF /* AppHelpViewController.h */,
 				5A26A80D1E5EDC4D00EF39DF /* AppHelpViewController.m */,
 				5A26A80E1E5EDC4D00EF39DF /* AppHelpViewController.xib */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		5A5120CD1EF3B89E00EB00C3 /* VOIP_Manager */ = {
+			isa = PBXGroup;
+			children = (
+				5A5120CE1EF3B89E00EB00C3 /* KCTCallRecordsModel.h */,
+				5A5120CF1EF3B89E00EB00C3 /* KCTCallRecordsModel.m */,
+				5A5120D01EF3B89E00EB00C3 /* KCTChangeTheViewController.h */,
+				5A5120D11EF3B89E00EB00C3 /* KCTChangeTheViewController.m */,
+				5A5120D21EF3B89E00EB00C3 /* KCTFuncEngine.h */,
+				5A5120D31EF3B89E00EB00C3 /* KCTFuncEngine.mm */,
+				5A5120D41EF3B89E00EB00C3 /* KCTPubEnum.h */,
+				5A5120D51EF3B89E00EB00C3 /* KCTUserDefaultManager.h */,
+				5A5120D61EF3B89E00EB00C3 /* KCTUserDefaultManager.m */,
+				5A5120D71EF3B89E00EB00C3 /* KCTVoipCallListModel.h */,
+				5A5120D81EF3B89E00EB00C3 /* KCTVoipCallListModel.m */,
+				5A5120D91EF3B89E00EB00C3 /* KCTVoipDBManager.h */,
+				5A5120DA1EF3B89E00EB00C3 /* KCTVoipDBManager.m */,
+				5A5120DB1EF3B89E00EB00C3 /* KCTVOIPViewEngine.h */,
+				5A5120DC1EF3B89E00EB00C3 /* KCTVOIPViewEngine.m */,
+			);
+			path = VOIP_Manager;
 			sourceTree = "<group>";
 		};
 		5A52AA111E5ACDE80042C78A /* Third-party */ = {
@@ -1025,12 +1053,12 @@
 		5A755F481E207E2F003D6777 /* KCT_VOIP_Demo */ = {
 			isa = PBXGroup;
 			children = (
+				5A5120CD1EF3B89E00EB00C3 /* VOIP_Manager */,
 				5A26A6B31E5D37FB00EF39DF /* Model */,
 				5A52AA111E5ACDE80042C78A /* Third-party */,
 				5A52AB291E5AD4D80042C78A /* Config */,
 				5A755F6D1E20872F003D6777 /* Common */,
 				5A755F6C1E2086DB003D6777 /* GUI */,
-				5A9336E81E233D5D00AD397A /* VOIP_Manager */,
 				5A755F6F1E20872F003D6777 /* Resource */,
 				5A755F4C1E207E2F003D6777 /* AppDelegate.h */,
 				5A755F4D1E207E30003D6777 /* AppDelegate.m */,
@@ -1098,6 +1126,8 @@
 		5A755FBF1E20AD97003D6777 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5A5120E61EF3C1EC00EB00C3 /* libTcp.a */,
+				5A5120E41EF3C1E700EB00C3 /* libVideo.a */,
 				5AB6A6451E8B8BE6000ABF58 /* AVFoundation.framework */,
 				5AB6A6431E8B8B47000ABF58 /* CallKit.framework */,
 				5AB6A6411E8B8B39000ABF58 /* PushKit.framework */,
@@ -1118,29 +1148,6 @@
 				5A755FC01E20AD97003D6777 /* CFNetwork.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		5A9336E81E233D5D00AD397A /* VOIP_Manager */ = {
-			isa = PBXGroup;
-			children = (
-				5A9336F51E233D5D00AD397A /* KCTCallRecordsModel.h */,
-				5A9336F61E233D5D00AD397A /* KCTCallRecordsModel.m */,
-				5A9336F71E233D5D00AD397A /* KCTChangeTheViewController.h */,
-				5A9336F81E233D5D00AD397A /* KCTChangeTheViewController.m */,
-				5A9336F91E233D5D00AD397A /* KCTFuncEngine.h */,
-				5A9336FA1E233D5D00AD397A /* KCTFuncEngine.mm */,
-				5A9336FB1E233D5D00AD397A /* KCTPubEnum.h */,
-				5A9336FC1E233D5D00AD397A /* KCTUserDefaultManager.h */,
-				5A9336FD1E233D5D00AD397A /* KCTUserDefaultManager.m */,
-				5A9336FE1E233D5D00AD397A /* KCTVoipCallListModel.h */,
-				5A9336FF1E233D5D00AD397A /* KCTVoipCallListModel.m */,
-				5A9337001E233D5D00AD397A /* KCTVoipDBManager.h */,
-				5A9337011E233D5D00AD397A /* KCTVoipDBManager.m */,
-				5A9337021E233D5D00AD397A /* KCTVOIPViewEngine.h */,
-				5A9337031E233D5D00AD397A /* KCTVOIPViewEngine.m */,
-			);
-			name = VOIP_Manager;
-			path = KCT_VOIP_Class;
 			sourceTree = "<group>";
 		};
 		5A9337311E2340A800AD397A /* Manager */ = {
@@ -1346,6 +1353,7 @@
 				5A26A7C31E5EDB1C00EF39DF /* 5-down@2x.png in Resources */,
 				5A26A7F31E5EDB1C00EF39DF /* 摄像头-down@2x.png in Resources */,
 				5A26A7A61E5EDB1C00EF39DF /* login_logo.png in Resources */,
+				5AEC6EB71ED6C64900AE3354 /* CodecViewController.xib in Resources */,
 				5A26A7D31E5EDB1C00EF39DF /* 9-down@2x.png in Resources */,
 				5A26A7CB1E5EDB1C00EF39DF /* 7-down@2x.png in Resources */,
 				5A26A78D1E5EDB1C00EF39DF /* Icon-60@2x.png in Resources */,
@@ -1483,19 +1491,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A755F941E209F30003D6777 /* DataEncryption.m in Sources */,
+				5AEC6EB61ED6C64900AE3354 /* CodecViewController.m in Sources */,
 				5A93377F1E2345F800AD397A /* NSString+KCMessageInputView.m in Sources */,
 				5A52AAE11E5ACDE80042C78A /* DDDispatchQueueLogFormatter.m in Sources */,
+				5A5120DE1EF3B89E00EB00C3 /* KCTChangeTheViewController.m in Sources */,
 				5A52AAD91E5ACDE80042C78A /* CLIColor.m in Sources */,
 				5A52AAE01E5ACDE80042C78A /* DDContextFilterLogFormatter.m in Sources */,
 				5A52AAE61E5ACDE80042C78A /* FMDatabaseQueue.m in Sources */,
 				5A52AADC1E5ACDE80042C78A /* DDASLLogger.m in Sources */,
 				5A9337441E2340A800AD397A /* FriendsInfoManager.m in Sources */,
 				5A52AB591E5AE1730042C78A /* KCTKeyboradViewController.m in Sources */,
+				5A5120E31EF3B89E00EB00C3 /* KCTVOIPViewEngine.m in Sources */,
 				5A26A6B61E5D37FB00EF39DF /* AddressBook.m in Sources */,
 				5A755F4E1E207E30003D6777 /* AppDelegate.m in Sources */,
 				5A9337881E2345F900AD397A /* UIViewController+HidKeyBoard.m in Sources */,
-				5A93370A1E233D5D00AD397A /* KCTChangeTheViewController.m in Sources */,
-				5A93370F1E233D5D00AD397A /* KCTVOIPViewEngine.m in Sources */,
 				5A9337851E2345F900AD397A /* UIResponder+Router.m in Sources */,
 				5A9337871E2345F900AD397A /* UIView+Convenience.m in Sources */,
 				5A52AB641E5AE1FC0042C78A /* LoginTableViewCell.m in Sources */,
@@ -1510,6 +1519,9 @@
 				5A52AAED1E5ACDE90042C78A /* MBProgressHUD.m in Sources */,
 				5A52AAE41E5ACDE80042C78A /* FMDatabaseAdditions.m in Sources */,
 				5A52AB511E5AE0390042C78A /* mytoast.m in Sources */,
+				5A5120E11EF3B89E00EB00C3 /* KCTVoipCallListModel.m in Sources */,
+				5A5120DF1EF3B89E00EB00C3 /* KCTFuncEngine.mm in Sources */,
+				5A5120DD1EF3B89E00EB00C3 /* KCTCallRecordsModel.m in Sources */,
 				5A6C41CC1E32123A00AD7488 /* KCConst.m in Sources */,
 				5A52AAE91E5ACDE80042C78A /* README.md in Sources */,
 				5A9337451E2340A800AD397A /* InfoManager.m in Sources */,
@@ -1521,15 +1533,14 @@
 				5A52AB621E5AE1FC0042C78A /* CallListTableViewCell.m in Sources */,
 				5A52AB4E1E5AE0300042C78A /* ExNavigationController.m in Sources */,
 				5A9337481E2340A800AD397A /* KCSCatchExceptionHandler.m in Sources */,
+				5A5120E01EF3B89E00EB00C3 /* KCTUserDefaultManager.m in Sources */,
 				5A93377E1E2345F800AD397A /* NSDictionary+JsonBase64.m in Sources */,
 				5A52AADD1E5ACDE80042C78A /* DDFileLogger.m in Sources */,
-				5A9337091E233D5D00AD397A /* KCTCallRecordsModel.m in Sources */,
 				5A9337831E2345F900AD397A /* UIImage+KCSRoundedCorner.m in Sources */,
 				5A52AAD71E5ACDE80042C78A /* AFURLRequestSerialization.m in Sources */,
 				5A52AAEB1E5ACDE90042C78A /* MBProgressHUD+Add.m in Sources */,
 				5A52AADB1E5ACDE80042C78A /* DDASLLogCapture.m in Sources */,
 				5A52AAE31E5ACDE80042C78A /* FMDatabase.m in Sources */,
-				5A93370B1E233D5D00AD397A /* KCTFuncEngine.mm in Sources */,
 				5A755F881E209CB2003D6777 /* TimeUtil.m in Sources */,
 				5A755F4B1E207E2F003D6777 /* main.m in Sources */,
 				5A52AADA1E5ACDE80042C78A /* DDAbstractDatabaseLogger.m in Sources */,
@@ -1540,15 +1551,13 @@
 				5A93377D1E2345F800AD397A /* NSDateFormatter+Category.m in Sources */,
 				5A9337861E2345F900AD397A /* UIScrollView+KCkeyboardControl.m in Sources */,
 				5A9337431E2340A800AD397A /* ClientConvert.m in Sources */,
-				5A93370D1E233D5D00AD397A /* KCTVoipCallListModel.m in Sources */,
 				5A9337821E2345F800AD397A /* UIImage+KCSResize.m in Sources */,
 				5A52AAE21E5ACDE80042C78A /* DDMultiFormatter.m in Sources */,
 				5A52AAE51E5ACDE80042C78A /* FMDatabasePool.m in Sources */,
 				5A52AB5B1E5AE1730042C78A /* KCTVoipCallController.m in Sources */,
-				5A93370C1E233D5D00AD397A /* KCTUserDefaultManager.m in Sources */,
 				5A52AAEE1E5ACDE90042C78A /* KCPinyinHelper.m in Sources */,
 				5A26A8181E5EDC4D00EF39DF /* AppHelpViewController.m in Sources */,
-				5A93370E1E233D5D00AD397A /* KCTVoipDBManager.m in Sources */,
+				5A5120E21EF3B89E00EB00C3 /* KCTVoipDBManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

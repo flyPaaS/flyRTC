@@ -20,7 +20,7 @@ typedef void(^loginSusscessBlock)(NSDictionary *dic,NSArray *arrays);
 @property(nonatomic,strong)NSMutableDictionary *accountInfoDic;
 @property(nonatomic,copy)loginSusscessBlock loginBlock;
 @property(nonatomic,assign)BOOL isAutoLogin;
-
+@property(nonatomic,assign) BOOL isFromAdressBook;
 
 - (void)autoConnectService;
 

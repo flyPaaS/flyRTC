@@ -50,7 +50,9 @@
     
     self.line.backgroundColor = [UIColor colorWithRed:27/255.0 green:165/255.0 blue:38/255.0 alpha:1.0];
     [_tableView registerNib:[UINib nibWithNibName:@"CallListTableViewCell" bundle:nil] forCellReuseIdentifier:@"callCell"];
-    
+    if (self.isFromAdressBook) {
+        [self autoConnectService];
+    }
 }
 
 

@@ -10,9 +10,11 @@
 
 
 
-@interface CalledListViewController ()
+@interface CalledListViewController ()<CodecViewControllerDelegate>
 {
     NSMutableArray *_sourceArrays;
+    NSInteger _videoIndex;
+    NSInteger _audioIndex;
 }
 
 @property(nonatomic,strong)NSIndexPath *currentIndexPath;
@@ -50,6 +52,16 @@
     [leftButton addTarget:self action:@selector(exitapp:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
     self.navigationItem.leftBarButtonItem = item;
+    
+    UIColor *color = RGB(17, 121, 255);
+    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightButton.frame = CGRectMake(0, 0, 80, 30);
+    [rightButton setTitleColor:color forState:UIControlStateNormal];
+    [rightButton setTitleColor:[UIColor blueColor] forState:UIControlStateHighlighted];
+    [rightButton setTitle:@"Codec" forState:UIControlStateNormal];
+    [rightButton addTarget:self action:@selector(codecSetting:) forControlEvents:(UIControlEventTouchUpInside)];
+    UIBarButtonItem *rItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+    self.navigationItem.rightBarButtonItem = rItem;
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -91,6 +103,16 @@
     NSDictionary *uidDict = [self.dataArray objectAtIndex:indexPath.row];
     NSString *client_number = [uidDict objectForKey:@"client_number"];
     [self makeCallWithNumber:client_number];
+}
+
+- (void)codecSetting:(id)sender
+{
+    CodecViewController *controller = [[CodecViewController alloc] init];
+    controller.delegate = self;
+    controller.videoIndex = _videoIndex;
+    controller.audioIndex = _audioIndex;
+    
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)makeCallWithNumber:(NSString *)clientNumber {
@@ -139,6 +161,17 @@
     [self cellButtonClick:btn];
     currentCell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
+
+
+#pragma mark-----codec delete----
+- (void)selectVideoCodec:(NSInteger)videoCodecIndex audio:(NSInteger)audioCodecIndex
+{
+    _videoIndex = videoCodecIndex;
+    _audioIndex = audioCodecIndex;
+    [[KCTFuncEngine getInstance] setVideoCodecWithIndex:videoCodecIndex audioCodecIndex:audioCodecIndex];
+}
+
+
 
 #pragma mark ----------Orientation-----------
 

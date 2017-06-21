@@ -46,7 +46,7 @@
 #import "CallingListViewController.h"
 #import "AppHelpViewController.h"
 #import "CalledListViewController.h"
-
+#import "CodecViewController.h"
 
 
 #endif /* AppHeaders_h */

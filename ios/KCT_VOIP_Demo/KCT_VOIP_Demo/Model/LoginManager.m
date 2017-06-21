@@ -50,7 +50,36 @@ static LoginManager *g_loginInstace;
     }
 }
 
-- (void)autoConnectCS{
+- (void)callAutoLogin {
+    LoginViewController *loginContrl = (LoginViewController *)[self.controllerArrays objectAtIndex:0];
+    loginContrl.isFromAdressBook = YES;
+    switch (self.currentPageIndex) {
+        case appPageIndexLogin:
+        {
+            [loginContrl loginWithUser:@"119140589@qq.com" pwd:@"kc123456"];
+        }
+            break;
+        case appPageIndexHelp:
+        {
+            [loginContrl loginWithUser:@"119140589@qq.com" pwd:@"kc123456"];
+        }
+            break;
+        case appPageIndexCalling:
+        {
+            [loginContrl.callController autoConnectService];
+        }
+            break;
+        case appPageIndexCalled:
+        {
+            
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)autoConnectCS {
     
     if (self.controllerArrays.count == 0) {
         return;

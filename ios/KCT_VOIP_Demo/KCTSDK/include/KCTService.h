@@ -102,6 +102,7 @@
  * @param isIpv6 NO:不是IPv6  YES:是IPv6
  */
 - (void)setIpv6:(BOOL)isIpv6;
+- (void)setVideoCodecWithIndex:(NSInteger)videoIndex audioCodecIndex:(NSInteger)audioIndex;
 
 #pragma mark - -------------------视频能力------------------------
 

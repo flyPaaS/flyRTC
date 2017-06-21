@@ -12,6 +12,7 @@
 #import <PushKit/PushKit.h>
 #import <CallKit/CallKit.h>
 #import <AVFoundation/AVFoundation.h>
+#include <Intents/Intents.h>
 
 @interface AppDelegate ()<KCTTCPDelegateBase,UNUserNotificationCenterDelegate,PKPushRegistryDelegate,CXProviderDelegate>
 {
@@ -20,7 +21,8 @@
     NSUUID *_calledUUID;
     CXProvider* _provider;
     CXCallController* _callController;
-    
+    BOOL _isFromAddressBook;
+    NSString *_callNumber;
 }
 
 
@@ -82,11 +84,40 @@
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void(^)(NSArray * __nullable restorableObjects))restorationHandler
 {
-    if ([userActivity.activityType isEqualToString:@"INStartVideoCallIntent"] )
-    {
+    INInteraction *interaction = userActivity.interaction;
+    INIntent *intent = interaction.intent;
+    
+    if([userActivity.activityType isEqualToString:@"INStartVideoCallIntent"]) {
+        INPerson *person = [(INStartVideoCallIntent *)intent contacts][0];
+        CXHandle *handleNumber = [[CXHandle alloc] initWithType:(CXHandleType)person.personHandle.type value:person.personHandle.value];
+        _calledUUID = [NSUUID UUID];
+        CXStartCallAction* action = [[CXStartCallAction alloc] initWithCallUUID:_calledUUID handle:handleNumber];
+        action.video = YES;
+        CXTransaction* transaction = [[CXTransaction alloc] init];
+        [transaction addAction:action];
         
+        [_callController requestTransaction:transaction completion:^(NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"requestTransaction error %@", error);
+            }
+        }];
+        NSString *clientNumber = person.personHandle.value;
+        if ([LoginManager sharedLoginManager].currentPageIndex < appPageIndexCalled) {
+            [[LoginManager sharedLoginManager] callAutoLogin];
+        }
+        _isFromAddressBook = YES;
+        //clientNumber = @"73145051196748";
+        
+        if ([KCTTcpClient sharedTcpClientManager].login_isConnected) {
+            [[KCTVOIPViewEngine getInstance] makingCallViewCallNumber:clientNumber callType:KCTCallType_VideoPhone callName:@""];
+            _isFromAddressBook = NO;
+        } else {
+            _callNumber = clientNumber;
+        }
+        
+        return YES;
     }
-    //NSArray *arr = restorationHandler;
+    
     return YES;
 }
 
@@ -99,6 +130,7 @@
 
 
 - (void)pushRegistry:(PKPushRegistry *)registry didUpdatePushCredentials:(PKPushCredentials *)credentials forType:(PKPushType)type {
+    
     [[KCTTcpClient sharedTcpClientManager] setPushEnvironment:KCTPushEnvironment_Production deviceToken:credentials.token];
 }
 
@@ -180,9 +212,19 @@
 
 }
 
+
+- (void)callPhone {
+    NSLog(@"--callPhone-%@   %d-",_callNumber,_isFromAddressBook);
+    if (_callNumber && _isFromAddressBook) {
+        [[KCTVOIPViewEngine getInstance] makingCallViewCallNumber:_callNumber callType:KCTCallType_VideoPhone callName:@""];
+        _isFromAddressBook = NO;
+        _callNumber = nil;
+    }
+}
+
 - (void)sendPushResp
 {
-    NSLog(@"--sendPushResp--");
+    
     NSMutableDictionary * notifDic = [KCTUserDefaultManager GetLocalDataObject:KCTNotiLocalNotification];
     if (notifDic.allKeys.count == 0)
     {
@@ -353,12 +395,14 @@
         case KCTConnectionStatus_loginSuccess:
         {
             [self sendPushResp];
+            [self callPhone];
             [[NSNotificationCenter defaultCenter] postNotificationName:TCPConnectStateNotification object:KCTCPDidConnectNotification];
         }
             break;
         case KCTConnectionStatus_ReConnectSuccess:
         {
             [self sendPushResp];
+            [self callPhone];
             [[NSNotificationCenter defaultCenter] postNotificationName:TCPConnectStateNotification object:KCTCPDidConnectNotification];
         }
             

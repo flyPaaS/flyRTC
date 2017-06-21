@@ -47,8 +47,13 @@
     
     [_tableView registerNib:[UINib nibWithNibName:@"LoginTableViewCell" bundle:nil] forCellReuseIdentifier:@"loginCell"];
     
+#ifdef kLocalAreaNetworkEnvironment
+    self.versionLabel.text = @"内网";
+#else
     NSString *version =[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     self.versionLabel.text = [NSString stringWithFormat:@"V %@",version];
+#endif
+    
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -174,6 +179,7 @@
                     
                     self.callController = controller;
                     controller.dataArray = array;
+                    controller.isFromAdressBook = self.isFromAdressBook;
                     controller.flycanDataArray = newArray;
                     controller.isAutoLogin = _isAutoLogin;
                     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
