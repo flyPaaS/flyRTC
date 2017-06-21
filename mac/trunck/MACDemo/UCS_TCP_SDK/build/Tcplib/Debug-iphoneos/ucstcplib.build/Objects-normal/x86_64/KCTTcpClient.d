@@ -1,0 +1,25 @@
+dependencies: \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/KCTTcpClient.m \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/Supporting\ Files/ucstcplib-PrefixHeader.pch \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/Supporting\ Files/ucstcpDefine.h \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/KCTTcpClient.h \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/KCTTCPDelegateBase.h \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/KCTError.h \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/KCTTcpDefine.h \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/Tcp/UCSTCPManager.h \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/Common/AsyncSocket/GCDAsyncSocket.h \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/Manager/TcpCustomLogger.h \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/Manager/UCSTCPRealConnecter.h \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/Common/NuBSON.h \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/Common/bson2.h \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/Common/platform_hacks.h \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/Manager/OffLinePushManager.h \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/Protocol/KCTProtocolClass.h \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/Tcp/UCSSendMessageQueue.h \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/Common/SdkDataReport/UCSTCPSdkDataReporter.h \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/Manager/UCSTCPProxyManager.h \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/Common/Other/UCSTCPConst.h \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/Common/Other/UCSTCPDevice.h \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/Common/Other/UCSTCPTransParentConvert.h \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/Common/Other/KCTTCPCommonClass.h \
+  /Users/kcmac/svn/flySDK/mac/trunck/MACDemo/UCS_TCP_SDK/ucstcplib/Common/Other/UCSTCPTimer.h

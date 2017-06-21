@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>UCSVIDEOSDK.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>ucsvideosdk.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<true/>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>2A5D42591CC9FC070034D328</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2A5D6D261CCF134E003BA350</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2A85670A1CCDB5D400A8025B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A543ABAB18ED747100F16CA9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A543ABBB18ED747100F16CA9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

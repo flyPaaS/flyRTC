@@ -1,0 +1,108 @@
+//
+// Prefix header for all source files of the 'UXinClient' target in the 'UXinClient' project
+//
+
+#include "timeanalyze.h"
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iPhone SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+
+#import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
+#import <QuartzCore/QuartzCore.h>
+#import "PublicFunc.h"
+#import "UserDefaultManager.h"
+#import "Utility.h"
+#import "UXLogging.h"
+#import "UCSPublicDef.h"
+#import "UCSPublicFunc.h"
+#import "UCSNetDef.h"
+#import "SDKLogManager.h"
+#import "UCSHttpRequest.h"
+#import "UXinSoundManager.h"
+#import "KCTTCPSDK.h"
+//--------------------------------------UCPAAS全局常量定义----------------------------------------------------//
+
+
+
+
+
+//------------------------------------SDK版本信息------------------------------------------------------//
+
+#define uVersion                    @"v2.0.3"                               // SDK版本号
+#define UCSUgoVersion               @"v1.9.5.0"                               //组件版本
+#define tcpVersion                  @"v3.0.7.7"                            //tcp版本
+#define uProductName                @"UCPaas SDK"                              // 产品名称
+#define uTestVersion                @"v2.0.3.2"                                    // 测试版本号，从1开始递增，每次打包时重置
+//------------------------------------语音上传------------------------------------------------------//
+#define ucsP                          @"UCS"                               // 版本号
+#define ucsPV                         @"ios"                               // 版本号
+#define ucsSecurityver                @"1"                               // 版本号
+#define ucsU                          @"5"                               // 版本号
+#define ucsV                          @"2.10.0"                               // 版本号
+#define ucsBrandid                    @"yzx"                               //只能是 yzx
+
+//-------------------------------------登录-----------------------------------------------------//
+//md5后缀字符串
+#define MD5Salt                         @"~U!X@I#N$"
+#define ACCOUNT_TYPE                    @"mobile"
+#define IP                              @"192.168.2.33"
+#define PV                              @"ios"
+#define IMEI                            @"none"
+#define SECURITY_VER                    @"0"   //不启用密文登录
+#define SECURITY_VERFY                  @"1"   //启用密文登录
+
+
+
+
+
+
+
+#define NS_INT(x) [NSNumber numberWithInt:(x)]
+
+//--------------------------------------UCPAAS全局常量定义----------------------------------------------------//
+
+
+#ifdef UCSDEBUG
+//#define kLocalAreaNetworkEnvironment
+#endif
+
+// 越狱版本开关
+#define kUseBreakprison             1
+
+// 全局常量定义
+#define kVersion                    @"2.24.4"                               // 版本号
+#define kTestVersion                @"10"                                    // 测试版本号，从1开始递增，每次打包时重置
+#define kAppleID                    @"657301966"                            // AppleID，AppStore上面的
+#define kProductName                @"youxin2"                              // 产品名称
+
+// Bundle ID
+#define kBundleID                   @"com.youxin2-social.youxin"            // Bundle ID
+
+
+// 平台类型(越狱和非越狱)
+#if kUseBreakprison
+#define kPhoneType                  @"iphonebreakprison"                    // 平台类型-越狱
+#else
+#define kPhoneType                  @"iphone"                               // 平台类型-APP
+#endif
+
+
+
+//------------------------------------------------------------------------------------------//
+
+#define SUPPORT_LOG_FILE            1                                       // 输出日志
+// 发布版本禁用打印日志
+#ifdef UCSDEBUG
+#    define NSLog       UXLogDebug
+#    define NSLogv      UXLogDebug
+#else
+#    define NSLog(...)  {}
+#    define NSLogv(...) {}
+#endif
+#endif

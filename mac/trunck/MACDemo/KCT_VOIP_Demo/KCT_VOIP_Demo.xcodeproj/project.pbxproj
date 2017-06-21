@@ -1,0 +1,619 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5A2439B01ED3CF0300551CFB /* ClientTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A2439AF1ED3CF0300551CFB /* ClientTableCellView.m */; };
+		5A243A871ED3EEF100551CFB /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A243A861ED3EEF100551CFB /* libstdc++.6.tbd */; };
+		5A243A891ED4126100551CFB /* libTcp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A243A881ED4126100551CFB /* libTcp.a */; };
+		5A298D761EE54F1100AD1C3D /* push.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5A298D751EE54F1100AD1C3D /* push.wav */; };
+		5A3E98A61EEA525E00EFFFA2 /* CodecWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3E98A41EEA525E00EFFFA2 /* CodecWindowController.m */; };
+		5A3E98A71EEA525E00EFFFA2 /* CodecWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A3E98A51EEA525E00EFFFA2 /* CodecWindowController.xib */; };
+		5A41F7991EE7998700AD2C28 /* buttonback.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A41F7981EE7998700AD2C28 /* buttonback.png */; };
+		5A81E8B41EDE735300C3F6FB /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A81E8B31EDE735300C3F6FB /* libz.tbd */; };
+		5A9715041EE4FB9300D69E68 /* VideoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9715021EE4FB9300D69E68 /* VideoWindowController.m */; };
+		5A9715051EE4FB9300D69E68 /* VideoWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A9715031EE4FB9300D69E68 /* VideoWindowController.xib */; };
+		5ADDDCD41ED7D3D5006CB1CD /* VoipEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ADDDCD31ED7D3D5006CB1CD /* VoipEngine.m */; };
+		5AEB844A1ED27BA100DE4AF0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEB84491ED27BA100DE4AF0 /* AppDelegate.m */; };
+		5AEB844D1ED27BA100DE4AF0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEB844C1ED27BA100DE4AF0 /* main.m */; };
+		5AEB844F1ED27BA100DE4AF0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AEB844E1ED27BA100DE4AF0 /* Assets.xcassets */; };
+		5AEB84521ED27BA100DE4AF0 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AEB84501ED27BA100DE4AF0 /* MainMenu.xib */; };
+		5AEB84621ED27D7E00DE4AF0 /* LoginWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEB84601ED27D7E00DE4AF0 /* LoginWindowController.m */; };
+		5AEB84631ED27D7E00DE4AF0 /* LoginWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AEB84611ED27D7E00DE4AF0 /* LoginWindowController.xib */; };
+		5AEB84681ED2820E00DE4AF0 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AEB84671ED2820E00DE4AF0 /* logo.png */; };
+		5AEB84731ED28FD100DE4AF0 /* DataEncryption.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEB846E1ED28FD100DE4AF0 /* DataEncryption.m */; };
+		5AEB84741ED28FD100DE4AF0 /* HttpRequestEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEB84701ED28FD100DE4AF0 /* HttpRequestEngine.m */; };
+		5AEB84751ED28FD100DE4AF0 /* TimeUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEB84721ED28FD100DE4AF0 /* TimeUtil.m */; };
+		5AEB847B1ED2900A00DE4AF0 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEB84781ED2900A00DE4AF0 /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		5AEB847C1ED2900A00DE4AF0 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 5AEB847A1ED2900A00DE4AF0 /* README.md */; };
+		5AEB84801ED2A65C00DE4AF0 /* CallingListWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEB847E1ED2A65C00DE4AF0 /* CallingListWindowController.m */; };
+		5AEB84811ED2A65C00DE4AF0 /* CallingListWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AEB847F1ED2A65C00DE4AF0 /* CallingListWindowController.xib */; };
+		5AEB84881ED2CDFC00DE4AF0 /* head1_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AEB84821ED2CDFC00DE4AF0 /* head1_small.png */; };
+		5AEB84891ED2CDFC00DE4AF0 /* head2_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AEB84831ED2CDFC00DE4AF0 /* head2_small.png */; };
+		5AEB848A1ED2CDFC00DE4AF0 /* head3_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AEB84841ED2CDFC00DE4AF0 /* head3_small.png */; };
+		5AEB848B1ED2CDFC00DE4AF0 /* head4_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AEB84851ED2CDFC00DE4AF0 /* head4_small.png */; };
+		5AEB848C1ED2CDFC00DE4AF0 /* head5_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AEB84861ED2CDFC00DE4AF0 /* head5_small.png */; };
+		5AEB848D1ED2CDFC00DE4AF0 /* head6_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AEB84871ED2CDFC00DE4AF0 /* head6_small.png */; };
+		5AEB84951ED2ED9000DE4AF0 /* checkBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AEB84931ED2ED9000DE4AF0 /* checkBtn.png */; };
+		5AEB84961ED2ED9000DE4AF0 /* unCheckBtn.png in Resources */ = {isa = PBXBuildFile; fileRef = 5AEB84941ED2ED9000DE4AF0 /* unCheckBtn.png */; };
+		5AEB84A81ED308EE00DE4AF0 /* CalledListWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEB84A61ED308EE00DE4AF0 /* CalledListWindowController.m */; };
+		5AEB84A91ED308EE00DE4AF0 /* CalledListWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AEB84A71ED308EE00DE4AF0 /* CalledListWindowController.xib */; };
+		5AEC6EB21ED6C3C100AE3354 /* libVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AEC6EB11ED6C3C100AE3354 /* libVideo.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		5A2439AE1ED3CF0300551CFB /* ClientTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientTableCellView.h; sourceTree = "<group>"; };
+		5A2439AF1ED3CF0300551CFB /* ClientTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientTableCellView.m; sourceTree = "<group>"; };
+		5A243A7C1ED3ED8500551CFB /* KCTError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTError.h; sourceTree = "<group>"; };
+		5A243A7D1ED3ED8500551CFB /* KCTTcpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTTcpClient.h; sourceTree = "<group>"; };
+		5A243A7E1ED3ED8500551CFB /* KCTTCPCommonClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTTCPCommonClass.h; sourceTree = "<group>"; };
+		5A243A7F1ED3ED8500551CFB /* KCTTcpDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTTcpDefine.h; sourceTree = "<group>"; };
+		5A243A801ED3ED8500551CFB /* KCTTCPDelegateBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTTCPDelegateBase.h; sourceTree = "<group>"; };
+		5A243A811ED3ED8500551CFB /* KCTTCPSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTTCPSDK.h; sourceTree = "<group>"; };
+		5A243A831ED3ED8500551CFB /* libTcp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTcp.a; sourceTree = "<group>"; };
+		5A243A861ED3EEF100551CFB /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
+		5A243A881ED4126100551CFB /* libTcp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libTcp.a; path = ../UCS_TCP_SDK/build/Debug/libTcp.a; sourceTree = "<group>"; };
+		5A298D751EE54F1100AD1C3D /* push.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = push.wav; sourceTree = "<group>"; };
+		5A3E98A31EEA525E00EFFFA2 /* CodecWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodecWindowController.h; sourceTree = "<group>"; };
+		5A3E98A41EEA525E00EFFFA2 /* CodecWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodecWindowController.m; sourceTree = "<group>"; };
+		5A3E98A51EEA525E00EFFFA2 /* CodecWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CodecWindowController.xib; sourceTree = "<group>"; };
+		5A41F7981EE7998700AD2C28 /* buttonback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonback.png; sourceTree = "<group>"; };
+		5A81E8B31EDE735300C3F6FB /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		5A9715011EE4FB9300D69E68 /* VideoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoWindowController.h; sourceTree = "<group>"; };
+		5A9715021EE4FB9300D69E68 /* VideoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoWindowController.m; sourceTree = "<group>"; };
+		5A9715031EE4FB9300D69E68 /* VideoWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoWindowController.xib; sourceTree = "<group>"; };
+		5ADDDCD21ED7D3D5006CB1CD /* VoipEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoipEngine.h; sourceTree = "<group>"; };
+		5ADDDCD31ED7D3D5006CB1CD /* VoipEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoipEngine.m; sourceTree = "<group>"; };
+		5ADDDCD51ED7D480006CB1CD /* KCTEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTEvent.h; sourceTree = "<group>"; };
+		5ADDDCD61ED7D480006CB1CD /* KCTService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTService.h; sourceTree = "<group>"; };
+		5ADDDCD71ED7DCD1006CB1CD /* KCTPubEnum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTPubEnum.h; sourceTree = "<group>"; };
+		5AEB84451ED27BA100DE4AF0 /* KCT_VOIP_Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KCT_VOIP_Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5AEB84481ED27BA100DE4AF0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		5AEB84491ED27BA100DE4AF0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		5AEB844C1ED27BA100DE4AF0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5AEB844E1ED27BA100DE4AF0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5AEB84511ED27BA100DE4AF0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		5AEB84531ED27BA100DE4AF0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5AEB845F1ED27D7E00DE4AF0 /* LoginWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginWindowController.h; sourceTree = "<group>"; };
+		5AEB84601ED27D7E00DE4AF0 /* LoginWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginWindowController.m; sourceTree = "<group>"; };
+		5AEB84611ED27D7E00DE4AF0 /* LoginWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginWindowController.xib; sourceTree = "<group>"; };
+		5AEB84641ED27DCC00DE4AF0 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		5AEB84651ED27ECB00DE4AF0 /* AppHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppHeaders.h; sourceTree = "<group>"; };
+		5AEB84671ED2820E00DE4AF0 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		5AEB846D1ED28FD100DE4AF0 /* DataEncryption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataEncryption.h; sourceTree = "<group>"; };
+		5AEB846E1ED28FD100DE4AF0 /* DataEncryption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataEncryption.m; sourceTree = "<group>"; };
+		5AEB846F1ED28FD100DE4AF0 /* HttpRequestEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpRequestEngine.h; sourceTree = "<group>"; };
+		5AEB84701ED28FD100DE4AF0 /* HttpRequestEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpRequestEngine.m; sourceTree = "<group>"; };
+		5AEB84711ED28FD100DE4AF0 /* TimeUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeUtil.h; sourceTree = "<group>"; };
+		5AEB84721ED28FD100DE4AF0 /* TimeUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeUtil.m; sourceTree = "<group>"; };
+		5AEB84771ED2900A00DE4AF0 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
+		5AEB84781ED2900A00DE4AF0 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
+		5AEB84791ED2900A00DE4AF0 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		5AEB847A1ED2900A00DE4AF0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		5AEB847D1ED2A65C00DE4AF0 /* CallingListWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallingListWindowController.h; sourceTree = "<group>"; };
+		5AEB847E1ED2A65C00DE4AF0 /* CallingListWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallingListWindowController.m; sourceTree = "<group>"; };
+		5AEB847F1ED2A65C00DE4AF0 /* CallingListWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CallingListWindowController.xib; sourceTree = "<group>"; };
+		5AEB84821ED2CDFC00DE4AF0 /* head1_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head1_small.png; sourceTree = "<group>"; };
+		5AEB84831ED2CDFC00DE4AF0 /* head2_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head2_small.png; sourceTree = "<group>"; };
+		5AEB84841ED2CDFC00DE4AF0 /* head3_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head3_small.png; sourceTree = "<group>"; };
+		5AEB84851ED2CDFC00DE4AF0 /* head4_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head4_small.png; sourceTree = "<group>"; };
+		5AEB84861ED2CDFC00DE4AF0 /* head5_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head5_small.png; sourceTree = "<group>"; };
+		5AEB84871ED2CDFC00DE4AF0 /* head6_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = head6_small.png; sourceTree = "<group>"; };
+		5AEB84931ED2ED9000DE4AF0 /* checkBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkBtn.png; sourceTree = "<group>"; };
+		5AEB84941ED2ED9000DE4AF0 /* unCheckBtn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unCheckBtn.png; sourceTree = "<group>"; };
+		5AEB84A51ED308EE00DE4AF0 /* CalledListWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalledListWindowController.h; sourceTree = "<group>"; };
+		5AEB84A61ED308EE00DE4AF0 /* CalledListWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalledListWindowController.m; sourceTree = "<group>"; };
+		5AEB84A71ED308EE00DE4AF0 /* CalledListWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalledListWindowController.xib; sourceTree = "<group>"; };
+		5AEC6EB11ED6C3C100AE3354 /* libVideo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libVideo.a; path = ../UCS_VoIP_SDK/build/Debug/libVideo.a; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5AEB84421ED27BA100DE4AF0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A81E8B41EDE735300C3F6FB /* libz.tbd in Frameworks */,
+				5AEC6EB21ED6C3C100AE3354 /* libVideo.a in Frameworks */,
+				5A243A891ED4126100551CFB /* libTcp.a in Frameworks */,
+				5A243A871ED3EEF100551CFB /* libstdc++.6.tbd in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5A2439AD1ED3CF0300551CFB /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				5A2439AE1ED3CF0300551CFB /* ClientTableCellView.h */,
+				5A2439AF1ED3CF0300551CFB /* ClientTableCellView.m */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		5A243A7A1ED3ED8500551CFB /* KCTSDK */ = {
+			isa = PBXGroup;
+			children = (
+				5A243A7B1ED3ED8500551CFB /* include */,
+				5A243A821ED3ED8500551CFB /* libs */,
+			);
+			path = KCTSDK;
+			sourceTree = "<group>";
+		};
+		5A243A7B1ED3ED8500551CFB /* include */ = {
+			isa = PBXGroup;
+			children = (
+				5ADDDCD51ED7D480006CB1CD /* KCTEvent.h */,
+				5ADDDCD61ED7D480006CB1CD /* KCTService.h */,
+				5A243A7C1ED3ED8500551CFB /* KCTError.h */,
+				5A243A7D1ED3ED8500551CFB /* KCTTcpClient.h */,
+				5A243A7E1ED3ED8500551CFB /* KCTTCPCommonClass.h */,
+				5A243A7F1ED3ED8500551CFB /* KCTTcpDefine.h */,
+				5A243A801ED3ED8500551CFB /* KCTTCPDelegateBase.h */,
+				5A243A811ED3ED8500551CFB /* KCTTCPSDK.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		5A243A821ED3ED8500551CFB /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				5A243A831ED3ED8500551CFB /* libTcp.a */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		5A243A851ED3EEF100551CFB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5A81E8B31EDE735300C3F6FB /* libz.tbd */,
+				5AEC6EB11ED6C3C100AE3354 /* libVideo.a */,
+				5A243A881ED4126100551CFB /* libTcp.a */,
+				5A243A861ED3EEF100551CFB /* libstdc++.6.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5A298D741EE54F1100AD1C3D /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				5A298D751EE54F1100AD1C3D /* push.wav */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		5ADDDCD11ED7D3A1006CB1CD /* VoipManager */ = {
+			isa = PBXGroup;
+			children = (
+				5ADDDCD71ED7DCD1006CB1CD /* KCTPubEnum.h */,
+				5ADDDCD21ED7D3D5006CB1CD /* VoipEngine.h */,
+				5ADDDCD31ED7D3D5006CB1CD /* VoipEngine.m */,
+			);
+			path = VoipManager;
+			sourceTree = "<group>";
+		};
+		5AEB843C1ED27BA100DE4AF0 = {
+			isa = PBXGroup;
+			children = (
+				5A243A7A1ED3ED8500551CFB /* KCTSDK */,
+				5AEB84471ED27BA100DE4AF0 /* KCT_VOIP_Demo */,
+				5AEB84461ED27BA100DE4AF0 /* Products */,
+				5A243A851ED3EEF100551CFB /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		5AEB84461ED27BA100DE4AF0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5AEB84451ED27BA100DE4AF0 /* KCT_VOIP_Demo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5AEB84471ED27BA100DE4AF0 /* KCT_VOIP_Demo */ = {
+			isa = PBXGroup;
+			children = (
+				5ADDDCD11ED7D3A1006CB1CD /* VoipManager */,
+				5AEB84591ED27D4600DE4AF0 /* Common */,
+				5AEB845A1ED27D4600DE4AF0 /* Config */,
+				5AEB845B1ED27D4600DE4AF0 /* GUI */,
+				5AEB845C1ED27D4600DE4AF0 /* Models */,
+				5AEB845D1ED27D4600DE4AF0 /* Resources */,
+				5AEB845E1ED27D4600DE4AF0 /* Vendor */,
+				5AEB84481ED27BA100DE4AF0 /* AppDelegate.h */,
+				5AEB84491ED27BA100DE4AF0 /* AppDelegate.m */,
+				5AEB844E1ED27BA100DE4AF0 /* Assets.xcassets */,
+				5AEB84501ED27BA100DE4AF0 /* MainMenu.xib */,
+				5AEB84531ED27BA100DE4AF0 /* Info.plist */,
+				5AEB844B1ED27BA100DE4AF0 /* Supporting Files */,
+			);
+			path = KCT_VOIP_Demo;
+			sourceTree = "<group>";
+		};
+		5AEB844B1ED27BA100DE4AF0 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5AEB844C1ED27BA100DE4AF0 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5AEB84591ED27D4600DE4AF0 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				5AEB846C1ED28FD100DE4AF0 /* Util */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		5AEB845A1ED27D4600DE4AF0 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				5AEB84641ED27DCC00DE4AF0 /* PrefixHeader.pch */,
+				5AEB84651ED27ECB00DE4AF0 /* AppHeaders.h */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		5AEB845B1ED27D4600DE4AF0 /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				5A2439AD1ED3CF0300551CFB /* CustomView */,
+				5AEB845F1ED27D7E00DE4AF0 /* LoginWindowController.h */,
+				5AEB84601ED27D7E00DE4AF0 /* LoginWindowController.m */,
+				5AEB84611ED27D7E00DE4AF0 /* LoginWindowController.xib */,
+				5AEB847D1ED2A65C00DE4AF0 /* CallingListWindowController.h */,
+				5AEB847E1ED2A65C00DE4AF0 /* CallingListWindowController.m */,
+				5AEB847F1ED2A65C00DE4AF0 /* CallingListWindowController.xib */,
+				5AEB84A51ED308EE00DE4AF0 /* CalledListWindowController.h */,
+				5AEB84A61ED308EE00DE4AF0 /* CalledListWindowController.m */,
+				5AEB84A71ED308EE00DE4AF0 /* CalledListWindowController.xib */,
+				5A9715011EE4FB9300D69E68 /* VideoWindowController.h */,
+				5A9715021EE4FB9300D69E68 /* VideoWindowController.m */,
+				5A9715031EE4FB9300D69E68 /* VideoWindowController.xib */,
+				5A3E98A31EEA525E00EFFFA2 /* CodecWindowController.h */,
+				5A3E98A41EEA525E00EFFFA2 /* CodecWindowController.m */,
+				5A3E98A51EEA525E00EFFFA2 /* CodecWindowController.xib */,
+			);
+			path = GUI;
+			sourceTree = "<group>";
+		};
+		5AEB845C1ED27D4600DE4AF0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5AEB845D1ED27D4600DE4AF0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5A298D741EE54F1100AD1C3D /* Sounds */,
+				5AEB84661ED2820E00DE4AF0 /* Images */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		5AEB845E1ED27D4600DE4AF0 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				5AEB84761ED2900A00DE4AF0 /* GTMBase64-master */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		5AEB84661ED2820E00DE4AF0 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				5A41F7981EE7998700AD2C28 /* buttonback.png */,
+				5AEB84931ED2ED9000DE4AF0 /* checkBtn.png */,
+				5AEB84941ED2ED9000DE4AF0 /* unCheckBtn.png */,
+				5AEB84821ED2CDFC00DE4AF0 /* head1_small.png */,
+				5AEB84831ED2CDFC00DE4AF0 /* head2_small.png */,
+				5AEB84841ED2CDFC00DE4AF0 /* head3_small.png */,
+				5AEB84851ED2CDFC00DE4AF0 /* head4_small.png */,
+				5AEB84861ED2CDFC00DE4AF0 /* head5_small.png */,
+				5AEB84871ED2CDFC00DE4AF0 /* head6_small.png */,
+				5AEB84671ED2820E00DE4AF0 /* logo.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		5AEB846C1ED28FD100DE4AF0 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				5AEB846D1ED28FD100DE4AF0 /* DataEncryption.h */,
+				5AEB846E1ED28FD100DE4AF0 /* DataEncryption.m */,
+				5AEB846F1ED28FD100DE4AF0 /* HttpRequestEngine.h */,
+				5AEB84701ED28FD100DE4AF0 /* HttpRequestEngine.m */,
+				5AEB84711ED28FD100DE4AF0 /* TimeUtil.h */,
+				5AEB84721ED28FD100DE4AF0 /* TimeUtil.m */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		5AEB84761ED2900A00DE4AF0 /* GTMBase64-master */ = {
+			isa = PBXGroup;
+			children = (
+				5AEB84771ED2900A00DE4AF0 /* GTMBase64.h */,
+				5AEB84781ED2900A00DE4AF0 /* GTMBase64.m */,
+				5AEB84791ED2900A00DE4AF0 /* GTMDefines.h */,
+				5AEB847A1ED2900A00DE4AF0 /* README.md */,
+			);
+			path = "GTMBase64-master";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5AEB84441ED27BA100DE4AF0 /* KCT_VOIP_Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5AEB84561ED27BA100DE4AF0 /* Build configuration list for PBXNativeTarget "KCT_VOIP_Demo" */;
+			buildPhases = (
+				5AEB84411ED27BA100DE4AF0 /* Sources */,
+				5AEB84421ED27BA100DE4AF0 /* Frameworks */,
+				5AEB84431ED27BA100DE4AF0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KCT_VOIP_Demo;
+			productName = KCT_VOIP_Demo;
+			productReference = 5AEB84451ED27BA100DE4AF0 /* KCT_VOIP_Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5AEB843D1ED27BA100DE4AF0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = flypass;
+				TargetAttributes = {
+					5AEB84441ED27BA100DE4AF0 = {
+						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = NSUMRZX66K;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 5AEB84401ED27BA100DE4AF0 /* Build configuration list for PBXProject "KCT_VOIP_Demo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5AEB843C1ED27BA100DE4AF0;
+			productRefGroup = 5AEB84461ED27BA100DE4AF0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5AEB84441ED27BA100DE4AF0 /* KCT_VOIP_Demo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5AEB84431ED27BA100DE4AF0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5AEB84681ED2820E00DE4AF0 /* logo.png in Resources */,
+				5AEB848C1ED2CDFC00DE4AF0 /* head5_small.png in Resources */,
+				5A3E98A71EEA525E00EFFFA2 /* CodecWindowController.xib in Resources */,
+				5AEB848D1ED2CDFC00DE4AF0 /* head6_small.png in Resources */,
+				5AEB84881ED2CDFC00DE4AF0 /* head1_small.png in Resources */,
+				5A298D761EE54F1100AD1C3D /* push.wav in Resources */,
+				5A41F7991EE7998700AD2C28 /* buttonback.png in Resources */,
+				5AEB84631ED27D7E00DE4AF0 /* LoginWindowController.xib in Resources */,
+				5AEB84951ED2ED9000DE4AF0 /* checkBtn.png in Resources */,
+				5AEB84811ED2A65C00DE4AF0 /* CallingListWindowController.xib in Resources */,
+				5AEB844F1ED27BA100DE4AF0 /* Assets.xcassets in Resources */,
+				5A9715051EE4FB9300D69E68 /* VideoWindowController.xib in Resources */,
+				5AEB84521ED27BA100DE4AF0 /* MainMenu.xib in Resources */,
+				5AEB848B1ED2CDFC00DE4AF0 /* head4_small.png in Resources */,
+				5AEB84891ED2CDFC00DE4AF0 /* head2_small.png in Resources */,
+				5AEB848A1ED2CDFC00DE4AF0 /* head3_small.png in Resources */,
+				5AEB84A91ED308EE00DE4AF0 /* CalledListWindowController.xib in Resources */,
+				5AEB84961ED2ED9000DE4AF0 /* unCheckBtn.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5AEB84411ED27BA100DE4AF0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A2439B01ED3CF0300551CFB /* ClientTableCellView.m in Sources */,
+				5AEB84731ED28FD100DE4AF0 /* DataEncryption.m in Sources */,
+				5AEB84A81ED308EE00DE4AF0 /* CalledListWindowController.m in Sources */,
+				5ADDDCD41ED7D3D5006CB1CD /* VoipEngine.m in Sources */,
+				5A9715041EE4FB9300D69E68 /* VideoWindowController.m in Sources */,
+				5AEB84621ED27D7E00DE4AF0 /* LoginWindowController.m in Sources */,
+				5A3E98A61EEA525E00EFFFA2 /* CodecWindowController.m in Sources */,
+				5AEB84751ED28FD100DE4AF0 /* TimeUtil.m in Sources */,
+				5AEB844D1ED27BA100DE4AF0 /* main.m in Sources */,
+				5AEB844A1ED27BA100DE4AF0 /* AppDelegate.m in Sources */,
+				5AEB84741ED28FD100DE4AF0 /* HttpRequestEngine.m in Sources */,
+				5AEB847C1ED2900A00DE4AF0 /* README.md in Sources */,
+				5AEB84801ED2A65C00DE4AF0 /* CallingListWindowController.m in Sources */,
+				5AEB847B1ED2900A00DE4AF0 /* GTMBase64.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		5AEB84501ED27BA100DE4AF0 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5AEB84511ED27BA100DE4AF0 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5AEB84541ED27BA100DE4AF0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		5AEB84551ED27BA100DE4AF0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		5AEB84571ED27BA100DE4AF0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = NSUMRZX66K;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = KCT_VOIP_Demo/Config/PrefixHeader.pch;
+				INFOPLIST_FILE = KCT_VOIP_Demo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/KCTSDK/libs",
+					"$(PROJECT_DIR)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "KCT.KCT-VOIP-Demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5AEB84581ED27BA100DE4AF0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = NSUMRZX66K;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = KCT_VOIP_Demo/Config/PrefixHeader.pch;
+				INFOPLIST_FILE = KCT_VOIP_Demo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/KCTSDK/libs",
+					"$(PROJECT_DIR)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "KCT.KCT-VOIP-Demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5AEB84401ED27BA100DE4AF0 /* Build configuration list for PBXProject "KCT_VOIP_Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5AEB84541ED27BA100DE4AF0 /* Debug */,
+				5AEB84551ED27BA100DE4AF0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5AEB84561ED27BA100DE4AF0 /* Build configuration list for PBXNativeTarget "KCT_VOIP_Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5AEB84571ED27BA100DE4AF0 /* Debug */,
+				5AEB84581ED27BA100DE4AF0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5AEB843D1ED27BA100DE4AF0 /* Project object */;
+}

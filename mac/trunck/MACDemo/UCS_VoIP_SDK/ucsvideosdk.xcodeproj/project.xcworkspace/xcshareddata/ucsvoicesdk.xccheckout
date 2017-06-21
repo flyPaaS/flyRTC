@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7243CC42-A42D-4787-B56E-E536A68AFC7D</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ucsvoicesdk</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>d61e699a-9601-464d-b15b-d74c0f2eeef6++5354</key>
+		<string>svn://172.16.12.16/yunzixun/YXun_Client/iOSCode</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>UCSSDK/UCSVoiceSDK/trunk/ucsvoicesdk/ucsvoicesdk.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>d61e699a-9601-464d-b15b-d74c0f2eeef6++5354</key>
+		<string>../../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>d61e699a-9601-464d-b15b-d74c0f2eeef6++5354</key>
+		<string>svn://172.16.12.16/yunzixun</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>svn://172.16.12.16/yunzixun/YXun_Client/iOSCode/UCSSDK/UCSVoiceSDK/trunk/ucsvoicesdk/ucsvoicesdk.xcodeproj</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>d61e699a-9601-464d-b15b-d74c0f2eeef6++5354</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>d61e699a-9601-464d-b15b-d74c0f2eeef6++5354</string>
+			<key>IDESourceControlWCCName</key>
+			<string>iOSCode</string>
+		</dict>
+	</array>
+</dict>
+</plist>
