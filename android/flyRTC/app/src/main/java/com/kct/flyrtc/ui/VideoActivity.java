@@ -66,6 +66,16 @@ public class VideoActivity extends BaseActivity {
             }
         });
 
+        TextView codec = (TextView)findViewById(R.id.rl_codec);
+        codec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 拨打电话
+                Intent mIntent = new Intent(VideoActivity.this, CodecActivity.class);
+                startActivity(mIntent);
+            }
+        });
+
         // 注册广播
         IntentFilter mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(UIAction.ACTION_LOGIN_RESPONSE);

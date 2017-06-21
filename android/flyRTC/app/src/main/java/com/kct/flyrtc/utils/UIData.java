@@ -30,6 +30,10 @@ public class UIData {
     public static ArrayList<String> clientPwdNew = new ArrayList<>();
     public static ArrayList<String> clientNumNew = new ArrayList<>();
 
+    // 保存Codec
+    public static int nVideoCodec = 0;
+    public static int nAudioCodec = 0;
+
     // 保存是否通话状态
     private static final String KC_DEMO = "flyRTC_demo";
 

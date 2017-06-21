@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="#f5f5f5"
-    android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -10,7 +8,7 @@
         android:layout_height="50dip">
 
         <RelativeLayout
-            android:id="@+id/rl_back"
+            android:id="@+id/rls_back"
             android:layout_width="50dip"
             android:layout_height="50dip">
 
@@ -25,10 +23,10 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/rl_line"
+            android:id="@+id/rls_line"
             android:layout_width="25dip"
             android:layout_height="50dip"
-            android:layout_toEndOf="@id/rl_back">
+            android:layout_toEndOf="@id/rls_back">
 
             <ImageView
                 android:contentDescription="@string/app_name"
@@ -39,22 +37,22 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/rl_text"
+            android:id="@+id/rls_text"
             android:layout_width="200dp"
             android:layout_height="match_parent"
-            android:layout_toEndOf="@id/rl_line"
+            android:layout_toEndOf="@id/rls_line"
             android:clickable="false"
-            android:text="@string/ability_video"
+            android:text="@string/ability_video_codec"
             android:textSize="20sp"
             android:gravity="center_vertical"/>
 
         <TextView
-            android:id="@+id/rl_codec"
+            android:id="@+id/rls_codec"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toEndOf="@id/rl_text"
+            android:layout_toEndOf="@id/rls_text"
             android:clickable="true"
-            android:text="@string/ability_video_set"
+            android:text="@string/ability_video_setting"
             android:textSize="20sp"
             android:gravity="center_vertical"/>
     </RelativeLayout>
@@ -64,15 +62,51 @@
         android:layout_height="1dip"
         android:background="#67b83d"/>
 
-    <ListView
-        android:id="@+id/video_list"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="40dip"
+        android:background="#f0f0f0">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:gravity="center_vertical"
+            android:text="@string/ability_video_set1"/>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/video_list_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:dividerHeight="1dp"
         android:fadingEdge="none"
         android:footerDividersEnabled="true"
-        android:listSelector="#00000000"
+        android:listSelector="@drawable/codec_selector"
         android:scrollbars="vertical"
-        android:transcriptMode="normal" >
-    </ListView>
+        android:transcriptMode="normal" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:background="#f0f0f0">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:gravity="center_vertical"
+            android:text="@string/ability_video_set2"/>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/video_list_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="1dp"
+        android:fadingEdge="none"
+        android:footerDividersEnabled="true"
+        android:listSelector="@drawable/codec_selector"
+        android:scrollbars="vertical"
+        android:transcriptMode="normal" />
 </LinearLayout>
