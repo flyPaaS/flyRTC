@@ -10,7 +10,7 @@
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "C27C8826-3B72-4FF0-9E60-B043552A8EB8",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "e80867b4-cd1a-4dab-b1bc-79c93b6001ed++5827" : "KCT_VOIP_Demo\/"
+    "e80867b4-cd1a-4dab-b1bc-79c93b6001ed++5827" : "..\/..\/.."
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "KCT_VOIP_Demo",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
