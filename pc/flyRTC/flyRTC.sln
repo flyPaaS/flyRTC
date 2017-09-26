@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "flySDK", "flySDK\flySDK.vcxproj", "{E8F3D04D-EFB3-4CED-88A0-E9C8705AFFE1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F5001A12-64E9-4033-8B24-6A52B8FF8513} = {F5001A12-64E9-4033-8B24-6A52B8FF8513}
+		{ED00C567-CAFC-437B-BF36-DB965D0DFDA4} = {ED00C567-CAFC-437B-BF36-DB965D0DFDA4}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "json", "json\json.vcxproj", "{F5001A12-64E9-4033-8B24-6A52B8FF8513}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "flyRTC", "flyRTC\flyRTC.vcxproj", "{F708E59C-B76F-43CC-B936-38A69E0412CC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E8F3D04D-EFB3-4CED-88A0-E9C8705AFFE1} = {E8F3D04D-EFB3-4CED-88A0-E9C8705AFFE1}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bson", "bson\bson.vcxproj", "{ED00C567-CAFC-437B-BF36-DB965D0DFDA4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "flyUDP", "flyUDP\flyUDP.vcxproj", "{D86D5A78-68A3-4829-B07D-545C6AF2BE6D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E8F3D04D-EFB3-4CED-88A0-E9C8705AFFE1} = {E8F3D04D-EFB3-4CED-88A0-E9C8705AFFE1}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E8F3D04D-EFB3-4CED-88A0-E9C8705AFFE1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E8F3D04D-EFB3-4CED-88A0-E9C8705AFFE1}.Debug|Win32.Build.0 = Debug|Win32
+		{E8F3D04D-EFB3-4CED-88A0-E9C8705AFFE1}.Release|Win32.ActiveCfg = Release|Win32
+		{E8F3D04D-EFB3-4CED-88A0-E9C8705AFFE1}.Release|Win32.Build.0 = Release|Win32
+		{F5001A12-64E9-4033-8B24-6A52B8FF8513}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F5001A12-64E9-4033-8B24-6A52B8FF8513}.Debug|Win32.Build.0 = Debug|Win32
+		{F5001A12-64E9-4033-8B24-6A52B8FF8513}.Release|Win32.ActiveCfg = Release|Win32
+		{F5001A12-64E9-4033-8B24-6A52B8FF8513}.Release|Win32.Build.0 = Release|Win32
+		{F708E59C-B76F-43CC-B936-38A69E0412CC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F708E59C-B76F-43CC-B936-38A69E0412CC}.Debug|Win32.Build.0 = Debug|Win32
+		{F708E59C-B76F-43CC-B936-38A69E0412CC}.Release|Win32.ActiveCfg = Release|Win32
+		{F708E59C-B76F-43CC-B936-38A69E0412CC}.Release|Win32.Build.0 = Release|Win32
+		{ED00C567-CAFC-437B-BF36-DB965D0DFDA4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{ED00C567-CAFC-437B-BF36-DB965D0DFDA4}.Debug|Win32.Build.0 = Debug|Win32
+		{ED00C567-CAFC-437B-BF36-DB965D0DFDA4}.Release|Win32.ActiveCfg = Release|Win32
+		{ED00C567-CAFC-437B-BF36-DB965D0DFDA4}.Release|Win32.Build.0 = Release|Win32
+		{D86D5A78-68A3-4829-B07D-545C6AF2BE6D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D86D5A78-68A3-4829-B07D-545C6AF2BE6D}.Debug|Win32.Build.0 = Debug|Win32
+		{D86D5A78-68A3-4829-B07D-545C6AF2BE6D}.Release|Win32.ActiveCfg = Release|Win32
+		{D86D5A78-68A3-4829-B07D-545C6AF2BE6D}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

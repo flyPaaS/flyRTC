@@ -1,0 +1,46 @@
+LINKS_DYNAMIC = 1
+COMM_ECHO=1
+v=release
+include ../../comm.mk
+GCC_V?=$(shell gcc -v 2>&1|tail -n1|tr -d "[:alpha:][:blank:][:punct:]"|gawk '{print substr($$0, 1,1)}')
+ifeq ($(GCC_V), 4)
+    STLPINCL:=-I$(MAIL_ROOT)/comm/STLport-5.1.3/stlport
+    STLPLIB:= -lstlport_5.1.3_gcc
+endif
+ifeq ($(GCC_V), 3)
+    STLPINCL:=-I$(MAIL_ROOT)/comm/STLport-5.1.3/stlport
+    STLPLIB := -lstlport_5.1.3_gcc
+endif
+
+ifeq ($(GCC_V), 2)
+    STLPINCL:=-I$(MAIL_ROOT)/comm/STLport-4.6.2/stlport
+    STLPLIB := -lstlport_4.6.2_gcc
+endif
+
+CC :=gcc -g
+C++ :=g++ -g
+
+LIBS += $(STLPLIB)
+INCLS := $(STLPINCL) $(COMM2_INCLS)
+CPP = $(C++)
+
+########## options ##########
+LINK_COMMON = $(LIBS) -lpthread -ldl
+INCLS += -I$(HOME)/QQMail/comm2/core/log
+
+TLVPKG_CFILE=$(CPPSRCS)
+TLVPKG_OBJS=$(CPPOBJS)
+
+########## targets ##########
+TLVPKG_SO=libtlvpickle-stlport-gcc.so 
+
+all: lib
+
+lib: $(TLVPKG_SO)
+
+$(TLVPKG_SO): $(TLVPKG_OBJS)
+	$(BUILDSHARELIB)
+
+clean:
+	rm -f *.o core $(TLVPKG_SO)
+
