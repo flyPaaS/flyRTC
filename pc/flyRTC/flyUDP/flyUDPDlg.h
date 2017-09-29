@@ -93,6 +93,9 @@ public:
 	// 工作标记
 	BOOL m_bWork;
 
+	// 刷新标记
+	BOOL m_bRefresh;
+
 	// 生成的流ID
 	CStringA m_strStreamId;
 	CHAR m_szID[128];

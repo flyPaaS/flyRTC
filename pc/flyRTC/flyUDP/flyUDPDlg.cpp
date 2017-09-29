@@ -47,6 +47,7 @@ CflyUDPDlg::CflyUDPDlg(CWnd* pParent /*=NULL*/)
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 	// 初始化
 	m_bWork = FALSE;
+	m_bRefresh = FALSE;
 	m_strStreamId = "";
 	memset(m_szID, 0, sizeof(CHAR) * 128);
 
@@ -271,6 +272,11 @@ void CflyUDPDlg::OnBnClickedRadio4()
 void CflyUDPDlg::OnBnClickedBtnRes()
 {
 	// TODO: Add your control notification handler code here
+	if (m_bRefresh)
+	{
+		return;
+	}
+	m_bRefresh = TRUE;
 	m_ltServer.DeleteAllItems();
 	m_vtPullList.clear();
 	m_vtPullNameList.clear();
@@ -583,6 +589,7 @@ DWORD WINAPI CflyUDPDlg::ExitThread(LPVOID lpParam)
 				OutputDebugStringA(strTmp);
 			}
 			// 更新UI
+			pBase->m_sTip.SetWindowText(L"");
 			pBase->m_sTip.Invalidate();
 			pBase->m_sLocal.Invalidate();
 			pBase->m_sRemote.Invalidate();
@@ -621,6 +628,7 @@ DWORD WINAPI CflyUDPDlg::ExitThread(LPVOID lpParam)
 				OutputDebugStringA(strTmp);
 			}
 			// 更新UI
+			pBase->m_sTip.SetWindowText(L"");
 			pBase->m_sTip.Invalidate();
 			pBase->m_sLocal.Invalidate();
 			pBase->m_sRemote.Invalidate();
@@ -747,6 +755,7 @@ DWORD WINAPI CflyUDPDlg::GetUdpPullThread(LPVOID lpParam)
 	}
 	pBase->UpdateListCtrl();
 	pBase->m_btnRes.EnableWindow(TRUE);
+	pBase->m_bRefresh = FALSE;
 	return 0;
 }
 
