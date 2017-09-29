@@ -117,8 +117,8 @@ DLL_EXPORT_IMPORT void Vigo_init(CallBackTips cb)
 		stVideoDevicePara.usCameraIdx = -1;
 		stVideoDevicePara.usRotateAngle = -1;
 		stVideoDevicePara.ucMaxFps = 30;
-		stVideoDevicePara.usWidth = 1280;
-		stVideoDevicePara.usHeight = 720;
+		stVideoDevicePara.usWidth = 640;
+		stVideoDevicePara.usHeight = 480;
 		g_pAVEngine->video_set_camera(&stVideoDevicePara);
 		// 更新标记
 		g_LoadFlag = TRUE;
