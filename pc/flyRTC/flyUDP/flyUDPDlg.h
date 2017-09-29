@@ -39,6 +39,7 @@ public:
 	afx_msg void OnBnClickedRadio4();
 	afx_msg void OnBnClickedBtnRes();
 	afx_msg LRESULT OnUpdate(WPARAM wParam, LPARAM lParam);
+	afx_msg LRESULT OnVigoStart(WPARAM wParam, LPARAM lParam);
 
 public:
 	// 打开关闭线程

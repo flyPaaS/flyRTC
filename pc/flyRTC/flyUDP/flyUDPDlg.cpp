@@ -13,6 +13,7 @@
 #endif
 
 #define WM_UPDATE_ITEM	(WM_USER + 100)
+#define WM_VIGO_START	(WM_USER + 101)
 
 struct MyStruct
 {
@@ -20,6 +21,13 @@ struct MyStruct
 	CStringA strSer;
 	CStringA strSerName;
 	CStringA strSerShow;
+};
+
+struct MyParam
+{
+	CStringA strUrl;
+	int nAudio;
+	int nVideo;
 };
 
 // 更新Tips
@@ -83,6 +91,7 @@ BEGIN_MESSAGE_MAP(CflyUDPDlg, CDialog)
 	ON_BN_CLICKED(IDC_RADIO4, &CflyUDPDlg::OnBnClickedRadio4)
 	ON_BN_CLICKED(IDC_BTN_RES, &CflyUDPDlg::OnBnClickedBtnRes)
 	ON_MESSAGE(WM_UPDATE_ITEM, &CflyUDPDlg::OnUpdate)
+	ON_MESSAGE(WM_VIGO_START, &CflyUDPDlg::OnVigoStart)
 END_MESSAGE_MAP()
 
 // CflyUDPDlg message handlers
@@ -167,7 +176,7 @@ void CflyUDPDlg::OnDestroy()
 	CDialog::OnDestroy();
 
 	// TODO: Add your message handler code here
-	//Vigo_destroy();
+	Vigo_destroy();
 }
 
 void CflyUDPDlg::OnBnClickedBtnPush()
@@ -281,6 +290,14 @@ LRESULT CflyUDPDlg::OnUpdate(WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
+LRESULT CflyUDPDlg::OnVigoStart(WPARAM wParam, LPARAM lParam)
+{
+	MyParam *pParam = (MyParam *)wParam;
+	Vigo_start(pParam->strUrl.GetBuffer(), pParam->nAudio, pParam->nVideo, m_sLocal.GetSafeHwnd(), m_sRemote.GetSafeHwnd());
+	m_bWork = TRUE;
+	return 0;
+}
+
 void CflyUDPDlg::StartWorkThread()
 {
 	// 启动线程
@@ -377,9 +394,14 @@ DWORD WINAPI CflyUDPDlg::WorkThread(LPVOID lpParam)
 										strVPort.Format("%s", dst.c_str());
 										strVPort.Replace("\"", "");
 									}
+									static MyParam param;
+									param.strUrl = strUrl;
+									param.nAudio = atoi(strAPort);
+									param.nVideo = atoi(strVPort);
+									pBase->SendMessage(WM_VIGO_START, (WPARAM)&param, 0);
 									// 启动音视频
-									Vigo_start(strUrl.GetBuffer(), atoi(strAPort), atoi(strVPort), pBase->m_sLocal.GetSafeHwnd(), pBase->m_sRemote.GetSafeHwnd());
-									pBase->m_bWork = TRUE;
+									//Vigo_start(strUrl.GetBuffer(), atoi(strAPort), atoi(strVPort), pBase->m_sLocal.GetSafeHwnd(), pBase->m_sRemote.GetSafeHwnd());
+									//pBase->m_bWork = TRUE;
 									// 更新标题
 									CStringA str = pBase->m_vtNameList[nIndex] + "(" + pBase->m_strStreamId + ")";
 									pBase->SetWindowText(StringA2String(str));
@@ -494,9 +516,14 @@ DWORD WINAPI CflyUDPDlg::WorkThread(LPVOID lpParam)
 										strVPort.Format("%s", dst.c_str());
 										strVPort.Replace("\"", "");
 									}
+									static MyParam param;
+									param.strUrl = strUrl;
+									param.nAudio = atoi(strAPort);
+									param.nVideo = atoi(strVPort);
+									pBase->SendMessage(WM_VIGO_START, (WPARAM)&param, 0);
 									// 启动音视频
-									Vigo_start(strUrl.GetBuffer(), atoi(strAPort), atoi(strVPort), pBase->m_sLocal.GetSafeHwnd(), pBase->m_sRemote.GetSafeHwnd());
-									pBase->m_bWork = TRUE;
+									//Vigo_start(strUrl.GetBuffer(), atoi(strAPort), atoi(strVPort), pBase->m_sLocal.GetSafeHwnd(), pBase->m_sRemote.GetSafeHwnd());
+									//pBase->m_bWork = TRUE;
 									// 更新标题
 									CStringA str = pBase->m_vtPullNameList[nIndex] + "(" + streamId + ")";
 									pBase->SetWindowText(StringA2String(str));
