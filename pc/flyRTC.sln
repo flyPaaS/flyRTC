@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "json", "json\json.vcxproj", "{F5001A12-64E9-4033-8B24-6A52B8FF8513}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "flyRTC", "flyRTC\flyRTC.vcxproj", "{F708E59C-B76F-43CC-B936-38A69E0412CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F5001A12-64E9-4033-8B24-6A52B8FF8513}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F5001A12-64E9-4033-8B24-6A52B8FF8513}.Debug|Win32.Build.0 = Debug|Win32
+		{F5001A12-64E9-4033-8B24-6A52B8FF8513}.Release|Win32.ActiveCfg = Release|Win32
+		{F5001A12-64E9-4033-8B24-6A52B8FF8513}.Release|Win32.Build.0 = Release|Win32
+		{F708E59C-B76F-43CC-B936-38A69E0412CC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F708E59C-B76F-43CC-B936-38A69E0412CC}.Debug|Win32.Build.0 = Debug|Win32
+		{F708E59C-B76F-43CC-B936-38A69E0412CC}.Release|Win32.ActiveCfg = Release|Win32
+		{F708E59C-B76F-43CC-B936-38A69E0412CC}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
