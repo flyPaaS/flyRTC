@@ -67,14 +67,14 @@ public class MainApplication extends Application implements ConnectionListener, 
     @Override
     public void onDialFailed(String s, com.reason.UcsReason ucsReason) {
         // 拨打失败回调
-        CustomLog.i("onDialFailed = " + s);
+        CustomLog.e("onDialFailed = " + s);
         stopCallTimer();
         voipSwitch(ucsReason);
     }
 
     @Override
     public void onIncomingCall(String s, String s1, String s2, String s3, String s4) {
-        CustomLog.i("onIncomingCall = " + s2);
+        CustomLog.e("onIncomingCall = " + s2);
         Intent intent = new Intent();
         intent.setClass(this, VideoCallActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -86,7 +86,7 @@ public class MainApplication extends Application implements ConnectionListener, 
 
     @Override
     public void onHangUp(String s, com.reason.UcsReason ucsReason) {
-        CustomLog.i("onHangUp = " + s);
+        CustomLog.e("onHangUp = " + s);
         // 分析挂断原因
         stopCallTimer();
         voipSwitch(ucsReason);
@@ -95,7 +95,7 @@ public class MainApplication extends Application implements ConnectionListener, 
     @Override
     public void onAlerting(String s) {
         // 对方正在响铃回调
-        CustomLog.i("onAlerting = " + s);
+        CustomLog.e("onAlerting = " + s);
         Intent mIntent = new Intent(UIAction.ACTION_DIAL_STATE);
         mIntent.putExtra(UIAction.DAIL_STATE, UCSCall.CALL_VOIP_RINGING_180);
         sendBroadcast(mIntent);
@@ -104,7 +104,7 @@ public class MainApplication extends Application implements ConnectionListener, 
     @Override
     public void onAnswer(String s) {
         // 对方接通电话
-        CustomLog.i("onAnswer = " + s);
+        CustomLog.e("onAnswer = " + s);
         Intent mIntent = new Intent(UIAction.ACTION_ANSWER);
         sendBroadcast(mIntent);
         // 启动计时
@@ -130,7 +130,7 @@ public class MainApplication extends Application implements ConnectionListener, 
 
     @Override
     public void onConnectionSuccessful() {
-        CustomLog.i("onConnectionSuccessful");
+        CustomLog.e("onConnectionSuccessful");
         Intent mIntent = new Intent(UIAction.ACTION_LOGIN_RESPONSE);
         mIntent.putExtra(UIAction.RESULT_KEY, 0);
         sendBroadcast(mIntent);
@@ -138,7 +138,7 @@ public class MainApplication extends Application implements ConnectionListener, 
 
     @Override
     public void onConnectionFailed(com.reason.UcsReason ucsReason) {
-        CustomLog.i("onConnectionFailed");
+        CustomLog.e("onConnectionFailed");
         switch (ucsReason.getReason()) {
             case 300501:
                 // Socket 读失败

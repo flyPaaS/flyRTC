@@ -56,6 +56,7 @@ public class VideoCallActivity extends CallActivity {
     private TextView converse_network = null;
     private TextView converse_network_status = null;
 
+    private int nCallStatus = 0;
     private boolean inCall = false;
     private String phoneNumber = "";
     private boolean closeVideo = false;
@@ -86,14 +87,14 @@ public class VideoCallActivity extends CallActivity {
             inCall = getIntent().getBooleanExtra("inCall", false);
         }
         if (inCall) {
+            nCallStatus = 2;
             video_call_hangup.setVisibility(View.VISIBLE);
             video_call_answer.setVisibility(View.VISIBLE);
             converse_information.setText("视频电话来电");
             UCSCall.setSpeakerphone(true);
             UCSCall.startRinging(true);
-            // 请求刷新摄像头
-            mHandler.sendEmptyMessageDelayed(0, 1000);
         } else {
+            nCallStatus = 1;
             video_call_answer.setVisibility(View.GONE);
             video_call_hangup.setVisibility(View.VISIBLE);
             converse_information.setText("正在呼叫");
@@ -127,15 +128,17 @@ public class VideoCallActivity extends CallActivity {
 
     @Override
     protected void onResume() {
-        if (isDownHome) {
-            mHandler.sendEmptyMessageDelayed(0, 1000);
+        if (nCallStatus > 1) {
+            mHandler.sendEmptyMessage(0);
         }
         super.onResume();
     }
 
     @Override
     protected void onPause() {
-        mHandler.sendEmptyMessageDelayed(1, 1000);
+        if (nCallStatus > 1) {
+            mHandler.sendEmptyMessage(1);
+        }
         super.onPause();
     }
 
@@ -239,6 +242,7 @@ public class VideoCallActivity extends CallActivity {
                         || state == UCSCall.HUNGUP_OTHER
                         || state == UCSCall.HUNGUP_MYSELF_REFUSAL) {
                     UCSCall.stopCallRinging();
+                    nCallStatus = 0;
                     // 关闭页面
                     UIData.saveCallType(getApplicationContext(), "0");
                     new Handler().postDelayed(new Runnable() {
@@ -252,18 +256,19 @@ public class VideoCallActivity extends CallActivity {
                             (state != 300221 && state != 300222 && state != 300247)
                             || state == UCSCall.HUNGUP_NOT_ANSWER) {
                         // 关闭页面
+                        nCallStatus = 0;
                         UIData.saveCallType(getApplicationContext(), "0");
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 VideoCallActivity.this.finish();
                             }
-                        }, 3000);
+                        }, 1000);
                     }
                 }
-                //对方正在响铃
+                // 对方正在响铃
                 if (!inCall && state == UCSCall.CALL_VOIP_RINGING_180) {
-                    UCSCall.refreshCamera(UCSCameraType.ALL, UCSFrameType.ORIGINAL);
+                    //UCSCall.refreshCamera(UCSCameraType.ALL, UCSFrameType.ORIGINAL);
                 }
             } else if (strAction.equals(UIAction.ACTION_ANSWER)) {
                 UCSCall.setSpeakerphone(true);
@@ -278,6 +283,7 @@ public class VideoCallActivity extends CallActivity {
                 converse_call_switch.setVisibility(View.VISIBLE);
                 video_call_answer.setVisibility(View.GONE);
                 // 刷新摄像头
+                nCallStatus = 3;
                 open_headset = true;
                 if (!UCSCall.isCameraPreviewStatu(VideoCallActivity.this)) {
                     //刷新摄像头发送和接收，重要，一定要加这个
@@ -418,7 +424,7 @@ public class VideoCallActivity extends CallActivity {
                     public void run() {
                         VideoCallActivity.this.finish();
                     }
-                }, 1500);
+                }, 1000);
             }
         });
 
