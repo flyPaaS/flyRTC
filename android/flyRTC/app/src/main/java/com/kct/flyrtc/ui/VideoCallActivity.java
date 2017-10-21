@@ -148,6 +148,23 @@ public class VideoCallActivity extends CallActivity {
         public void onReceive(Context context, Intent intent) {
             String strAction = intent.getAction();
             if (strAction.equals(UIAction.ACTION_NETWORK_STATE)) {
+                // 判断网络断开
+                if (intent.getIntExtra(UIAction.NETWORK_CONNECT, 0) == 1) {
+                    // 网络断开
+                    converse_information.setText("网络连接断开,通话退出");
+                    UIData.saveCallType(getApplicationContext(), "0");
+                    UCSCall.stopRinging();
+                    UCSCall.stopCallRinging();
+                    UCSCall.hangUp("");
+                    nCallStatus = 0;
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            VideoCallActivity.this.finish();
+                        }
+                    }, 1000);
+                    return;
+                }
                 // 显示网络参数
                 switch (intent.getIntExtra(UIAction.NETWORK_STATE, 0)) {
                     case 0:
@@ -232,44 +249,26 @@ public class VideoCallActivity extends CallActivity {
                     converse_information.setText(timer);
                 }
             } else if (strAction.equals(UIAction.ACTION_DIAL_STATE)) {
-                int state = intent.getIntExtra(UIAction.DAIL_STATE, 0);
-                if (UIAction.dialState.keySet().contains(state)) {
-                    converse_information.setText(UIAction.dialState.get(state));
+                int state = intent.getIntExtra(UIAction.DAIL_STATE_ALERT, 0);
+                if (state == 1 && !inCall) {
+                    // 对方正在响铃
+                    UCSCall.refreshCamera(UCSCameraType.ALL, UCSFrameType.ORIGINAL);
+                    return;
                 }
-                // 分析
-                if (state == UCSCall.HUNGUP_REFUSAL
-                        || state == UCSCall.HUNGUP_MYSELF
-                        || state == UCSCall.HUNGUP_OTHER
-                        || state == UCSCall.HUNGUP_MYSELF_REFUSAL) {
-                    UCSCall.stopCallRinging();
-                    nCallStatus = 0;
-                    // 关闭页面
-                    UIData.saveCallType(getApplicationContext(), "0");
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            VideoCallActivity.this.finish();
-                        }
-                    }, 1000);
-                } else {
-                    if ((state >= 300210 && state <= 300249) &&
-                            (state != 300221 && state != 300222 && state != 300247)
-                            || state == UCSCall.HUNGUP_NOT_ANSWER) {
-                        // 关闭页面
-                        nCallStatus = 0;
-                        UIData.saveCallType(getApplicationContext(), "0");
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                VideoCallActivity.this.finish();
-                            }
-                        }, 1000);
+                String str = intent.getStringExtra(UIAction.DAIL_STATE);
+                if (str != null) {
+                    converse_information.setText(str);
+                }
+                UCSCall.stopCallRinging();
+                nCallStatus = 0;
+                // 关闭页面
+                UIData.saveCallType(getApplicationContext(), "0");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        VideoCallActivity.this.finish();
                     }
-                }
-                // 对方正在响铃
-                if (!inCall && state == UCSCall.CALL_VOIP_RINGING_180) {
-                    //UCSCall.refreshCamera(UCSCameraType.ALL, UCSFrameType.ORIGINAL);
-                }
+                }, 1000);
             } else if (strAction.equals(UIAction.ACTION_ANSWER)) {
                 UCSCall.setSpeakerphone(true);
                 converse_call_speaker.setBackgroundResource(R.mipmap.converse_speakerd);

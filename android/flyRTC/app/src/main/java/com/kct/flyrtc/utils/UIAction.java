@@ -19,6 +19,8 @@ public class UIAction {
     public static String ACTION_NETWORK_STATE = "com.network.state";
     // 网络状态参数
     public static final String NETWORK_STATE = "state";
+    // 网络连接参数
+    public static final String NETWORK_CONNECT = "connect";
 
     // 通话计时
     public static String ACTION_CALL_TIME = "com.call_time";
@@ -35,6 +37,7 @@ public class UIAction {
 
     // 通话状态参数
     public static final String DAIL_STATE = "state";
+    public static final String DAIL_STATE_ALERT = "alert";
 
     // 通话状态集合
     public static final HashMap<Integer, String> dialState = new HashMap<>();

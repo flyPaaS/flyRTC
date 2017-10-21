@@ -17,6 +17,8 @@
     <string name="login_client_line">该号码已经上线</string>
     <string name="login_out">账号已退出</string>
 
+    <string name="videe_net">网络断开请等待重连</string>
+
     <string name="ability_video">视频</string>
     <string name="ability_video_set">Codec</string>
     <string name="ability_video_codec">Codec Setting</string>

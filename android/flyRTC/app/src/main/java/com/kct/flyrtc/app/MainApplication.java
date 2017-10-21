@@ -30,6 +30,8 @@ public class MainApplication extends Application implements ConnectionListener, 
     private int minute = 0;
     private int hour = 0;
     private Timer timer = null;
+    // TCP连接状态
+    public boolean bConnect = false;
 
     @Override
     public void onCreate() {
@@ -97,7 +99,7 @@ public class MainApplication extends Application implements ConnectionListener, 
         // 对方正在响铃回调
         CustomLog.e("onAlerting = " + s);
         Intent mIntent = new Intent(UIAction.ACTION_DIAL_STATE);
-        mIntent.putExtra(UIAction.DAIL_STATE, UCSCall.CALL_VOIP_RINGING_180);
+        mIntent.putExtra(UIAction.DAIL_STATE_ALERT, 1);
         sendBroadcast(mIntent);
     }
 
@@ -134,6 +136,7 @@ public class MainApplication extends Application implements ConnectionListener, 
         Intent mIntent = new Intent(UIAction.ACTION_LOGIN_RESPONSE);
         mIntent.putExtra(UIAction.RESULT_KEY, 0);
         sendBroadcast(mIntent);
+        bConnect = true;
     }
 
     @Override
@@ -164,73 +167,18 @@ public class MainApplication extends Application implements ConnectionListener, 
                 sendBroadcast(mIntent);
                 break;
         }
+        // 通知TCP网络断开
+        Intent mIntent = new Intent(UIAction.ACTION_NETWORK_STATE);
+        mIntent.putExtra(UIAction.NETWORK_CONNECT, 1);
+        sendBroadcast(mIntent);
+        bConnect = false;
     }
 
     // 分析状态
     private void voipSwitch(UcsReason reason) {
-        switch (reason.getReason()) {
-            case 300210:
-                sendBroadcast(new Intent(UIAction.ACTION_DIAL_STATE).putExtra(UIAction.DAIL_STATE, UCSCall.CALL_VOIP_ERROR));
-                break;
-            case 300211:
-                sendBroadcast(new Intent(UIAction.ACTION_DIAL_STATE).putExtra(UIAction.DAIL_STATE, UCSCall.CALL_VOIP_NOT_ENOUGH_BALANCE));
-                break;
-            case 300212:
-                sendBroadcast(new Intent(UIAction.ACTION_DIAL_STATE).putExtra(UIAction.DAIL_STATE, UCSCall.CALL_VOIP_BUSY));
-                break;
-            case 300213:
-                sendBroadcast(new Intent(UIAction.ACTION_DIAL_STATE).putExtra(UIAction.DAIL_STATE, UCSCall.CALL_VOIP_REFUSAL));
-                break;
-            case 300214:
-            case 300215:
-                sendBroadcast(new Intent(UIAction.ACTION_DIAL_STATE).putExtra(UIAction.DAIL_STATE, UCSCall.CALL_VOIP_NUMBER_ERROR));
-                break;
-            case 300216:
-                sendBroadcast(new Intent(UIAction.ACTION_DIAL_STATE).putExtra(UIAction.DAIL_STATE, UCSCall.CALL_VOIP_ACCOUNT_FROZEN));
-                break;
-            case 300217:
-                sendBroadcast(new Intent(UIAction.ACTION_DIAL_STATE).putExtra(UIAction.DAIL_STATE, UCSCall.CALL_VOIP_REJECT_ACCOUNT_FROZEN));
-                break;
-            case 300218:
-                sendBroadcast(new Intent(UIAction.ACTION_DIAL_STATE).putExtra(UIAction.DAIL_STATE, UCSCall.CALL_VOIP_ACCOUNT_EXPIRED));
-                break;
-            case 300219:
-                sendBroadcast(new Intent(UIAction.ACTION_DIAL_STATE).putExtra(UIAction.DAIL_STATE, UCSCall.CALL_VOIP_CALLYOURSELF));
-                break;
-            case 300220:
-            case 300224:
-                sendBroadcast(new Intent(UIAction.ACTION_DIAL_STATE).putExtra(UIAction.DAIL_STATE, UCSCall.CALL_VOIP_NETWORK_TIMEOUT));
-                break;
-            case 300221:
-                sendBroadcast(new Intent(UIAction.ACTION_DIAL_STATE).putExtra(UIAction.DAIL_STATE, UCSCall.CALL_VOIP_NOT_ANSWER));
-                break;
-            case 300222:
-                sendBroadcast(new Intent(UIAction.ACTION_DIAL_STATE).putExtra(UIAction.DAIL_STATE, UCSCall.CALL_VOIP_TRYING_183));
-                break;
-            case 300223:
-                sendBroadcast(new Intent(UIAction.ACTION_DIAL_STATE).putExtra(UIAction.DAIL_STATE, UCSCall.CALL_VOIP_SESSION_EXPIRATION));
-                break;
-            case 300225:
-                sendBroadcast(new Intent(UIAction.ACTION_DIAL_STATE).putExtra(UIAction.DAIL_STATE, UCSCall.HUNGUP_MYSELF));
-                break;
-            case 300226:
-                sendBroadcast(new Intent(UIAction.ACTION_DIAL_STATE).putExtra(UIAction.DAIL_STATE, UCSCall.HUNGUP_OTHER));
-                break;
-            case 300267:
-                sendBroadcast(new Intent(UIAction.ACTION_DIAL_STATE).putExtra(UIAction.DAIL_STATE, UCSCall.HUNGUP_WHILE_2G));
-                break;
-            case 300248:
-                sendBroadcast(new Intent(UIAction.ACTION_DIAL_STATE).putExtra(UIAction.DAIL_STATE, UCSCall.HUNGUP_MYSELF_REFUSAL));
-                break;
-            case 300249:
-                sendBroadcast(new Intent(UIAction.ACTION_DIAL_STATE).putExtra(UIAction.DAIL_STATE, UCSCall.CALL_VIDEO_DOES_NOT_SUPPORT));
-                break;
-            default:
-                if (reason.getReason() >= 300233 && reason.getReason() <= 300243) {
-                    sendBroadcast(new Intent(UIAction.ACTION_DIAL_STATE).putExtra(UIAction.DAIL_STATE, reason.getReason()));
-                }
-                break;
-        }
+        Intent mIntent = new Intent(UIAction.ACTION_DIAL_STATE);
+        mIntent.putExtra(UIAction.DAIL_STATE, reason.getMsg());
+        sendBroadcast(mIntent);
     }
 
     // 通话走时

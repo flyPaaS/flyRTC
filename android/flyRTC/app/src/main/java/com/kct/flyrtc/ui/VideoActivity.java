@@ -16,8 +16,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kct.flyrtc.R;
+import com.kct.flyrtc.app.MainApplication;
 import com.kct.flyrtc.utils.UIAction;
 import com.kct.flyrtc.utils.UIData;
 import com.yzx.preference.UserData;
@@ -267,10 +269,14 @@ public class VideoActivity extends BaseActivity {
                 public void onClick(View v) {
                     notifyDataSetChanged();
                     // 拨打电话
-                    Intent mIntent = new Intent(VideoActivity.this, VideoCallActivity.class);
-                    mIntent.putExtra("phoneNumber", call_client);
-                    mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(mIntent);
+                    if (((MainApplication)getApplication()).bConnect) {
+                        Intent mIntent = new Intent(VideoActivity.this, VideoCallActivity.class);
+                        mIntent.putExtra("phoneNumber", call_client);
+                        mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(mIntent);
+                    } else {
+                        Toast.makeText(VideoActivity.this, getString(R.string.videe_net), Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
             return convertView;
