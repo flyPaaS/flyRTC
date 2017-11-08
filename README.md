@@ -1,3 +1,4 @@
-﻿1. 增加 Android 和 iOS 版本的SDK Demo
-2. 增加PC 和 MAC版本的SDK Demo
-3. 更新最新版本的Android和PC版本 flyRTC
+快传视频通话flyRTC
+
+提供高质量、低延时、高清晰的视频语音通话服务。
+支持ios、android、pc、mac平台。
