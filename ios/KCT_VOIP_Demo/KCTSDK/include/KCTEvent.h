@@ -31,6 +31,7 @@
 -(void)onAlerting:(NSString*)called;
 //接听回调
 -(void) onAnswer:(NSString*)callid;
+- (void)onSwitchVoipCall;
 //呼叫失败回调
 - (void) onDialFailed:(NSString*)callid  withReason:(KCTReason*)reason;
 //释放通话回调

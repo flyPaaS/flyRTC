@@ -57,5 +57,5 @@
 
 - (void)networkDetailChange:(NSString *)currentNetworkDetail;
 
-
+- (void)switchVoipCall;
 @end

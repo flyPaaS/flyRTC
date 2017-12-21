@@ -23,7 +23,7 @@ extern NSString * const KCTNotiTCPTransParent;
 //通话状态回调
 -(void)responseVoipManagerStatus:(KCTCallStatus)event callID:(NSString*)callid data:(KCTReason *)data withVideoflag:(int)videoflag;
 
-
+- (void)onSwitchVoipCall;
 
 // 语音质量展示回调
 - (void)showNetWorkState:(NSString *)networkStateStr networkDes:(NSString *)networkDes;
@@ -112,7 +112,7 @@ extern NSString * const KCTNotiTCPTransParent;
  * @param on false:正常 true:静音
  */
 - (void)setMicMute:(BOOL)on;
-
+- (void)stopVideo;
 /**
  * 获取当前静音状态
  * @return false:正常 true:静音
@@ -201,7 +201,7 @@ extern NSString * const KCTNotiTCPTransParent;
  */
 - (BOOL)switchVideoMode:(KCTCameraType)type;
 
-
+- (void)sendSwithVideoMode;
 /**
  * 视频截图
  * @param islocal: 0 是远端截图 1 是本地截图。

@@ -41,12 +41,13 @@
     _segmentSelectIndex = 0;
     
     [self.navigationItem setHidesBackButton:YES];
-    NSArray *segItems = @[@"flySR",@"flyCAN"];
-    _segmentedControl = [[UISegmentedControl alloc] initWithItems:segItems];
-    _segmentedControl.frame = CGRectMake(0, 0, 160, 30);
-    self.navigationItem.titleView = _segmentedControl;
-    _segmentedControl.selectedSegmentIndex = 0;
-    [_segmentedControl addTarget:self action:@selector(segmentedChanged:) forControlEvents:UIControlEventValueChanged];
+    self.title = @"flyCAN";
+//    NSArray *segItems = @[@"flySR",@"flyCAN"];
+//    _segmentedControl = [[UISegmentedControl alloc] initWithItems:segItems];
+//    _segmentedControl.frame = CGRectMake(0, 0, 160, 30);
+//    self.navigationItem.titleView = _segmentedControl;
+//    _segmentedControl.selectedSegmentIndex = 0;
+//    [_segmentedControl addTarget:self action:@selector(segmentedChanged:) forControlEvents:UIControlEventValueChanged];
     
     self.line.backgroundColor = [UIColor colorWithRed:27/255.0 green:165/255.0 blue:38/255.0 alpha:1.0];
     [_tableView registerNib:[UINib nibWithNibName:@"CallListTableViewCell" bundle:nil] forCellReuseIdentifier:@"callCell"];

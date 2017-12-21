@@ -85,7 +85,7 @@ typedef enum{
 
 - (void)InactiveCall:(NSMutableDictionary *)callDic;
 
-
+- (void)swithToVoipCall:(NSString *)callNumber;
 /**
  @author WLS, 16-04-12 10:04:54
  

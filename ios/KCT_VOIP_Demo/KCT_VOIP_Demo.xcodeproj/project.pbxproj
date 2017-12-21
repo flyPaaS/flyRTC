@@ -229,6 +229,8 @@
 		5AB6A6421E8B8B39000ABF58 /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB6A6411E8B8B39000ABF58 /* PushKit.framework */; };
 		5AB6A6441E8B8B47000ABF58 /* CallKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB6A6431E8B8B47000ABF58 /* CallKit.framework */; };
 		5AB6A6461E8B8BE6000ABF58 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AB6A6451E8B8BE6000ABF58 /* AVFoundation.framework */; };
+		5ADA4C2C1FE663FB00C4642B /* 默认头像@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ADA4C2A1FE663FB00C4642B /* 默认头像@2x.png */; };
+		5ADA4C2D1FE663FB00C4642B /* 默认头像@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ADA4C2B1FE663FB00C4642B /* 默认头像@3x.png */; };
 		5AEC6EB61ED6C64900AE3354 /* CodecViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AEC6EB41ED6C64900AE3354 /* CodecViewController.m */; };
 		5AEC6EB71ED6C64900AE3354 /* CodecViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AEC6EB51ED6C64900AE3354 /* CodecViewController.xib */; };
 /* End PBXBuildFile section */
@@ -245,7 +247,6 @@
 		5A26A6AC1E5D374D00EF39DF /* KCTTCPDelegateBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTTCPDelegateBase.h; sourceTree = "<group>"; };
 		5A26A6AD1E5D374D00EF39DF /* KCTTCPSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCTTCPSDK.h; sourceTree = "<group>"; };
 		5A26A6AF1E5D374D00EF39DF /* libTcp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTcp.a; sourceTree = "<group>"; };
-		5A26A6B01E5D374D00EF39DF /* libVideo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libVideo.a; sourceTree = "<group>"; };
 		5A26A6B41E5D37FB00EF39DF /* AddressBook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressBook.h; sourceTree = "<group>"; };
 		5A26A6B51E5D37FB00EF39DF /* AddressBook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressBook.m; sourceTree = "<group>"; };
 		5A26A7031E5EDAF100EF39DF /* push.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = push.wav; sourceTree = "<group>"; };
@@ -550,9 +551,12 @@
 		5A9337BE1E23610900AD397A /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		5A9827EC1E9B2B740096FF28 /* LoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginManager.h; sourceTree = "<group>"; };
 		5A9827ED1E9B2B740096FF28 /* LoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginManager.m; sourceTree = "<group>"; };
+		5AA877C21FE22DDD0091DDA0 /* VideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoView.h; sourceTree = "<group>"; };
 		5AB6A6411E8B8B39000ABF58 /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
 		5AB6A6431E8B8B47000ABF58 /* CallKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CallKit.framework; path = System/Library/Frameworks/CallKit.framework; sourceTree = SDKROOT; };
 		5AB6A6451E8B8BE6000ABF58 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		5ADA4C2A1FE663FB00C4642B /* 默认头像@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "默认头像@2x.png"; sourceTree = "<group>"; };
+		5ADA4C2B1FE663FB00C4642B /* 默认头像@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "默认头像@3x.png"; sourceTree = "<group>"; };
 		5AEC6EB31ED6C64900AE3354 /* CodecViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodecViewController.h; sourceTree = "<group>"; };
 		5AEC6EB41ED6C64900AE3354 /* CodecViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodecViewController.m; sourceTree = "<group>"; };
 		5AEC6EB51ED6C64900AE3354 /* CodecViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CodecViewController.xib; sourceTree = "<group>"; };
@@ -599,6 +603,7 @@
 		5A26A6A41E5D374D00EF39DF /* include */ = {
 			isa = PBXGroup;
 			children = (
+				5AA877C21FE22DDD0091DDA0 /* VideoView.h */,
 				5A26A6A51E5D374D00EF39DF /* KCTCommonClass.h */,
 				5A26A6A61E5D374D00EF39DF /* KCTError.h */,
 				5A26A6A71E5D374D00EF39DF /* KCTEvent.h */,
@@ -616,7 +621,6 @@
 			isa = PBXGroup;
 			children = (
 				5A26A6AF1E5D374D00EF39DF /* libTcp.a */,
-				5A26A6B01E5D374D00EF39DF /* libVideo.a */,
 			);
 			path = libs;
 			sourceTree = "<group>";
@@ -704,6 +708,8 @@
 		5A26A7271E5EDB1C00EF39DF /* VoipCallImage */ = {
 			isa = PBXGroup;
 			children = (
+				5ADA4C2A1FE663FB00C4642B /* 默认头像@2x.png */,
+				5ADA4C2B1FE663FB00C4642B /* 默认头像@3x.png */,
 				5A26A7281E5EDB1C00EF39DF /* 1-dow@2x.png */,
 				5A26A7291E5EDB1C00EF39DF /* 1-down@3x.png */,
 				5A26A72A1E5EDB1C00EF39DF /* 10-down@2x.png */,
@@ -1414,6 +1420,7 @@
 				5A26A7AD1E5EDB1C00EF39DF /* 11-down@2x.png in Resources */,
 				5A59B1201E66CA83006EDD0C /* connecting_tone.pcm in Resources */,
 				5A26A7B01E5EDB1C00EF39DF /* 11@3x.png in Resources */,
+				5ADA4C2D1FE663FB00C4642B /* 默认头像@3x.png in Resources */,
 				5A26A7C41E5EDB1C00EF39DF /* 5-down@3x.png in Resources */,
 				5A26A7B91E5EDB1C00EF39DF /* 2@2x.png in Resources */,
 				5A26A7ED1E5EDB1C00EF39DF /* 挂断大@2x.png in Resources */,
@@ -1455,6 +1462,7 @@
 				5A26A8081E5EDB1C00EF39DF /* 静音-down@3x.png in Resources */,
 				5A26A7E41E5EDB1C00EF39DF /* 拨号键盘-down@3x.png in Resources */,
 				5A26A7E61E5EDB1C00EF39DF /* 拨号键盘@3x.png in Resources */,
+				5ADA4C2C1FE663FB00C4642B /* 默认头像@2x.png in Resources */,
 				5A26A7BA1E5EDB1C00EF39DF /* 2@3x.png in Resources */,
 				5A26A7D91E5EDB1C00EF39DF /* 个人详情_视频聊天@2x.png in Resources */,
 				5A26A8031E5EDB1C00EF39DF /* 通话信号2@2x.png in Resources */,

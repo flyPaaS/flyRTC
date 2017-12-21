@@ -37,6 +37,7 @@
 
 
 @property (strong,nonatomic) UIView *keyBoardBackView; // WLS，2015-12-09，弹出键盘时候的背景视图
+@property (strong,nonatomic) UIButton *keyBoardBtn;
 @property (strong,nonatomic) UIButton *keyBoardHangupButton; // WLS，2015-12-09，弹出键盘时候的挂断按钮
 @property (strong,nonatomic) UIButton *hideKeyBoardButton; // WLS，2015-12-09，隐藏键盘按钮
 
@@ -179,7 +180,7 @@
         
         
     }else{
-        [self changeHangupButtonFrame];
+        [self changeHangupButtonFrame:NO];
         
     }
     
@@ -240,7 +241,7 @@
         if (i == 0) {
             self.muteButton = button;
         }else if (i == 1){
-            self.keyBoardBackView = button;
+            self.keyBoardBtn = button;
         }else{
             self.handFreeButton = button;
         }
@@ -266,9 +267,10 @@
  
  修改挂断按钮的frame
  */
-- (void)changeHangupButtonFrame{
+- (void)changeHangupButtonFrame:(BOOL)isAnswer{
     
     self.hangupButton.frame = CGRectMake(CenterPoint(GetViewWidth(self.callBackView), Adaptation(60)), Adaptation(470), Adaptation(60), Adaptation(60));
+    
     
     if (CurrentHeight == 480) {
         CGRect frame = self.hangupButton.frame;
@@ -276,6 +278,14 @@
         self.hangupButton.frame = frame;
     }
     
+    if (isAnswer) {
+        //CGPoint centerPoint = [self.callFunctionView convertPoint:self.keyBoardBtn.center toView:self.callBackView];
+        //self.hangupButton.center = centerPoint;
+        [self.hangupButton removeFromSuperview];
+        [self.callFunctionView addSubview:self.hangupButton];
+        self.hangupButton.center = self.keyBoardBtn.center;
+        self.keyBoardBtn.hidden = YES;
+    }
     
     /**
      @author WLS, 15-12-11 11:12:36
@@ -888,7 +898,7 @@
         default:
             break;
     }
-    [self.callTimeLabel setImage:[UIImage imageNamed:imageStr] forState:UIControlStateDisabled];
+    //[self.callTimeLabel setImage:[UIImage imageNamed:imageStr] forState:UIControlStateDisabled];
     
     
 }
@@ -924,7 +934,7 @@
              当通话接通后，显示功能按钮，并调整挂断按钮的位置
              */
             self.callFunctionView.hidden = NO;
-            [self changeHangupButtonFrame];
+            [self changeHangupButtonFrame:YES];
             
         }
             break;

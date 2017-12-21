@@ -242,6 +242,10 @@ void audioRouteChangeListenerCallback (
     [self.kctCallService setMicMute:on];
 }
 
+- (void)stopVideo
+{
+    [self.kctCallService stopVideo];
+}
 /**
  * 获取当前静音状态
  * @return false:正常 true:静音
@@ -368,6 +372,11 @@ void audioRouteChangeListenerCallback (
     
 }
 
+- (void)sendSwithVideoMode
+{
+    return [self.kctCallService sendSwithVideoMode];
+}
+
 
 /**
  * 视频截图
@@ -456,6 +465,14 @@ void audioRouteChangeListenerCallback (
         [self.UIDelegate responseVoipManagerStatus:KCTCallStatus_Answered callID:called data:nil withVideoflag:0];
     }
 }
+
+- (void)onSwitchVoipCall
+{
+    if (self.UIDelegate && [self.UIDelegate respondsToSelector:@selector(onSwitchVoipCall)])
+    {
+        [self.UIDelegate onSwitchVoipCall];
+    }
+}
 //呼叫失败回调
 - (void) onDialFailed:(NSString*)callId  withReason:(KCTReason *) reason
 {
@@ -465,10 +482,6 @@ void audioRouteChangeListenerCallback (
     {
         [self.UIDelegate responseVoipManagerStatus:KCTCallStatus_Failed callID:callId data:reason withVideoflag:0];
     }
-    
-
-
-    
 }
 //释放通话回调
 - (void) onHangUp:(NSString*)called withReason:(KCTReason *)reason
