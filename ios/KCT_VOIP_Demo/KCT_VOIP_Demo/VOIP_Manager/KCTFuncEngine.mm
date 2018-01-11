@@ -311,6 +311,11 @@ void audioRouteChangeListenerCallback (
     
 }
 
+- (BOOL)initCameraConfig2:(UIView*)localVideoView withRemoteVideoView:(UIView*)remoteView
+{
+    return [self.kctCallService initCameraConfig2:localVideoView withRemoteVideoView:remoteView];
+    
+}
 /**
  *  自定义视频编码和解码参数
  *

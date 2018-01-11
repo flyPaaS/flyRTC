@@ -721,6 +721,7 @@ KCTVOIPViewEngine * kctVoipViewEngine = nil;
     
     KCTVoipCallController * voipCallVC = [[KCTVoipCallController alloc] initWithCallerNo:callNumber andVoipNo:callNumber andCallType:KCTCallType_VOIP];
     voipCallVC.incomingCall = NO;
+    voipCallVC.totalSecond = self.totalSecond;
     voipCallVC.callID = callNumber;
     voipCallVC.callerName = callNumber;
     voipCallVC.callType = KCTCallType_VOIP;

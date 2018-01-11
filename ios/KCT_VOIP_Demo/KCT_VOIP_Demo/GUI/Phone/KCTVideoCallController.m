@@ -42,6 +42,7 @@
 
 
 @property (strong,nonatomic) UIView *videoLocationView; // WLS，2015-12-14，本地视频视图
+@property (strong,nonatomic) UIView *oldLocationView;
 @property (strong,nonatomic) UIView *videoRemoteView; // WLS，2015-12-14，远程视频视图
 
 
@@ -88,7 +89,7 @@
             if (!self.isTouchEvent)
             {
                 self.isMoving = YES;
-                NSLog(@"--------拖事件------");
+                //NSLog(@"--------拖事件------");
             }
         });
     }
@@ -174,28 +175,20 @@
     [self.backgroundView addSubview:self.videoRemoteView];
     
 
-    CGFloat lW = Adaptation(90);
-    CGFloat lH = Adaptation(120);
-    NSLog(@"--CGFloat---%f  %f",lW,lH);
-    self.videoLocationView = [[KCTFuncEngine getInstance] allocCameraViewWithFrame:CGRectMake(Adaptation(210), Adaptation(220), lW, lH)];
+    
+    self.videoLocationView = [[KCTFuncEngine getInstance] allocCameraViewWithFrame:self.backgroundView.bounds];
+    
     self.videoLocationView.tag = 1000;
     self.videoLocationView.backgroundColor = [UIColor clearColor];
     [self.backgroundView addSubview:self.videoLocationView];
     if (CurrentHeight !=480) {
         CGRect frame = self.videoLocationView.frame;
         //frame.origin.y = Adaptation(270);
-        frame.origin.y = Adaptation(70);
+        //frame.origin.y = Adaptation(70);
         self.videoLocationView.frame = frame;
-
     }
-    
-    self.videoLocationView.userInteractionEnabled = YES;
-    UITapGestureRecognizer * single = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
-    single.numberOfTapsRequired = 1; // 单击
-    [self.videoLocationView addGestureRecognizer:single];
-    
-    
-    
+    self.oldLocationView = self.videoLocationView;
+
     
     /**
      @author WLS, 15-12-14 14:12:47
@@ -211,7 +204,7 @@
      
      将本地视图调到 通话过程中的按钮背景视图之上。因为本地视频视图需要触发点击事件，否则点击到callbackview
      */
-    [self.backgroundView insertSubview:self.videoLocationView aboveSubview:self.callBackView];
+    //[self.backgroundView insertSubview:self.videoLocationView aboveSubview:self.callBackView];
     
     
     /**
@@ -285,10 +278,10 @@
     [self.callBackView addSubview:self.hangupButton];
     if (self.incomingCall) {
         self.answerButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.answerButton.backgroundColor = [UIColor whiteColor];
+        //self.answerButton.backgroundColor = [UIColor whiteColor];
         [self.answerButton addTarget:self action:@selector(answerCall) forControlEvents:UIControlEventTouchUpInside];
         [self.callBackView addSubview:self.answerButton];
-        
+        self.voipNumberLabel.hidden = YES;
         self.hangupButton.frame = CGRectMake((GetViewWidth(self.callBackView)-Adaptation(60)*2)/3, Adaptation(270), Adaptation(60), Adaptation(60));
         self.answerButton.frame = CGRectMake(GetViewWidth(self.hangupButton)+GetViewX(self.hangupButton)*2, Adaptation(270), GetViewWidth(self.hangupButton), GetViewHeight(self.hangupButton));
         
@@ -448,10 +441,11 @@
     
     self.incomingView = [[UIView alloc] initWithFrame:self.view.bounds];
     self.incomingView.backgroundColor = self.backgroundView.backgroundColor;
+    self.incomingView.backgroundColor = [UIColor clearColor];
     [self.backgroundView addSubview:self.incomingView];
     
     //add by wenqinglin
-    [self.backgroundView bringSubviewToFront:self.videoLocationView];
+    //[self.backgroundView bringSubviewToFront:self.videoLocationView];
     /**
      @author WLS, 15-12-11 11:21:59
      
@@ -526,7 +520,7 @@
         UIButton *swithAudioButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [swithAudioButton setImage:[UIImage imageNamed:@"摄像头"] forState:UIControlStateNormal];
         [swithAudioButton setImage:[UIImage imageNamed:@"摄像头-down"] forState:UIControlStateDisabled];
-        [swithAudioButton addTarget:self action:@selector(swithAudio) forControlEvents:UIControlEventTouchUpInside];
+        [swithAudioButton addTarget:self action:@selector(incomingSwithAudio:) forControlEvents:UIControlEventTouchUpInside];
         [swithAudioButton setTitle:@"切到语音" forState:UIControlStateNormal];
         [swithAudioButton setTitleColor:RGBACOLOR(255, 255, 255, 0.5) forState:UIControlStateNormal];
         swithAudioButton.titleLabel.font = [UIFont systemFontOfSize:GetTextFont(11)];
@@ -657,6 +651,7 @@
 {
     [super viewDidLoad];
     
+    totalSecond = 0;
     self.brightness = [UIScreen mainScreen].brightness;
     self.currentTime = [NSString stringWithFormat:@"%ld",time(NULL)];
     self.hangupMySelf = NO;
@@ -785,6 +780,8 @@
              */
             //[self closeCamera];
             //改成切语音
+            [KCTVOIPViewEngine getInstance].switchAudioModel = 0;
+            [KCTVOIPViewEngine getInstance].isSpeakerphoneOn = [[KCTFuncEngine getInstance] isSpeakerphoneOn];
             [self switchToVoipCall];
         }
             break;
@@ -906,87 +903,20 @@
 
 - (void)singleTap:(UITapGestureRecognizer *)thirdTap{
     self.isTouchEvent = YES;
-#if 1
-    if (self.isRemoteViewMax)
-    {
-        [[KCTFuncEngine getInstance] initCameraConfig:self.videoRemoteView withRemoteVideoView:self.videoLocationView];
+
+    if (!self.callFunctionView.isHidden) {
+        if (self.isRemoteViewMax)
+        {
+            [[KCTFuncEngine getInstance] initCameraConfig2:self.videoRemoteView withRemoteVideoView:self.videoLocationView];
+        }
+        else
+        {
+            [[KCTFuncEngine getInstance] initCameraConfig2:self.videoLocationView withRemoteVideoView:self.videoRemoteView];
+        }
+        
+        self.isRemoteViewMax = !self.isRemoteViewMax;
     }
-    else
-    {
-        [[KCTFuncEngine getInstance] initCameraConfig:self.videoLocationView withRemoteVideoView:self.videoRemoteView];
-    }
-    
-    self.isRemoteViewMax = !self.isRemoteViewMax;
-#endif
 }
-
-
-//- (void)singleTap3:(UITapGestureRecognizer *)thirdTap{
-//    self.isTouchEvent = YES;
-//    NSLog(@"-------点击事件--------");
-//    //self.oldVideoRemoteView = self.videoRemoteView;
-//    //self.oldVideoLocationView = self.videoLocationView;
-//    [self.viewArray addObject:self.videoRemoteView];
-//    [self.viewArray addObject:self.videoLocationView];
-//    
-//    if (self.isRemoteViewMax)
-//    {
-//        self.videoLocationView = [[KCTFuncEngine getInstance] allocCameraViewWithFrame:self.remoteRecct];
-//        self.videoLocationView.backgroundColor = [UIColor clearColor];
-//        [self.backgroundView addSubview:self.videoLocationView];
-//        if (CurrentHeight !=480) {
-//            //CGRect frame = self.videoLocationView.frame;
-//            //frame.origin.y = Adaptation(270);
-//            //self.videoLocationView.frame = frame;
-//            
-//        }
-//        
-//        [self.backgroundView insertSubview:self.callBackView aboveSubview:self.videoLocationView];
-//        
-//        self.videoRemoteView = [[KCTFuncEngine getInstance] allocCameraViewWithFrame:self.currentRect];
-//        self.videoRemoteView.backgroundColor = [UIColor clearColor];
-//        [self.backgroundView addSubview:self.videoRemoteView];
-//        self.currentDragView = self.videoRemoteView;
-//        self.videoRemoteView.userInteractionEnabled = YES;
-//        UITapGestureRecognizer * single = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
-//        single.numberOfTapsRequired = 1; // 单击
-//        [self.videoRemoteView addGestureRecognizer:single];
-//    }
-//    else
-//    {
-//        self.videoRemoteView = [[KCTFuncEngine getInstance] allocCameraViewWithFrame:self.remoteRecct];
-//        self.videoRemoteView.backgroundColor = [UIColor clearColor];
-//        [self.backgroundView addSubview:self.videoRemoteView];
-//        
-//        [self.backgroundView insertSubview:self.callBackView aboveSubview:self.videoRemoteView];
-//        
-//        self.videoLocationView = [[KCTFuncEngine getInstance] allocCameraViewWithFrame:self.currentRect];
-//        self.videoLocationView.backgroundColor = [UIColor clearColor];
-//        [self.backgroundView addSubview:self.videoLocationView];
-//        if (CurrentHeight !=480) {
-//            //CGRect frame = self.videoLocationView.frame;
-//            //frame.origin.y = Adaptation(270);
-//            //self.videoLocationView.frame = frame;
-//            
-//        }
-//        self.currentDragView = self.videoLocationView;
-//        
-//        self.videoLocationView.userInteractionEnabled = YES;
-//        UITapGestureRecognizer * single = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
-//        single.numberOfTapsRequired = 1; // 单击
-//        [self.videoLocationView addGestureRecognizer:single];
-//    }
-//    self.isRemoteViewMax = !self.isRemoteViewMax;
-//    __weak typeof(self) weakSelf = self;
-//    [[KCTFuncEngine getInstance] initCameraConfig:self.videoLocationView withRemoteVideoView:self.videoRemoteView];
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        for (int i = 0; i < weakSelf.viewArray.count; i++) {
-//            UIView *view = [weakSelf.viewArray objectAtIndex:i];
-//            [view removeFromSuperview];
-//        }
-//        [weakSelf.viewArray removeAllObjects];
-//    });
-//}
 
 
 //免提事件
@@ -1043,17 +973,22 @@
     }
 }
 
--(void)swithAudio
+//来点界面切换语音的点击事件
+-(void)incomingSwithAudio:(id)sender
 {
+    [KCTVOIPViewEngine getInstance].switchAudioModel = 1;
     [self switchToVoipCall];
     [self answerCall];
     
 }
+
+
 //切语音
 - (void)switchToVoipCall
 {
     [VideoView enableRender:FALSE];
     [[KCTFuncEngine getInstance] sendSwithVideoMode];
+    [KCTVOIPViewEngine getInstance].totalSecond = totalSecond;
     [[KCTVOIPViewEngine getInstance]swithToVoipCall:self.callerName];
     [[KCTVOIPViewEngine getInstance]releaseViewControler:self];
 }
@@ -1168,13 +1103,41 @@
     
 }
 
+//收到对方发来的透传通知，要去切换到语音
 - (void)switchVoipCall
 {
+    if (self.callFunctionView.hidden) {
+        [KCTVOIPViewEngine getInstance].switchAudioModel = 1;
+    } else {
+        [KCTVOIPViewEngine getInstance].switchAudioModel = 0;
+    }
+    
+    [KCTVOIPViewEngine getInstance].isSpeakerphoneOn = [[KCTFuncEngine getInstance] isSpeakerphoneOn];
+    
     [VideoView enableRender:FALSE];
+    [KCTVOIPViewEngine getInstance].totalSecond = totalSecond;
     [[KCTVOIPViewEngine getInstance]swithToVoipCall:self.callerName];
     [[KCTVOIPViewEngine getInstance]releaseViewControler:self];
 }
 
+- (void)resetLocationVideo {
+    CGFloat lW = Adaptation(90);
+    CGFloat lH = Adaptation(120);
+    
+    self.videoLocationView = [[KCTFuncEngine getInstance] allocCameraViewWithFrame:CGRectMake(Adaptation(210), Adaptation(70), lW, lH)];
+    self.videoLocationView.tag = 1000;
+    self.videoLocationView.backgroundColor = [UIColor clearColor];
+    [self.backgroundView addSubview:self.videoLocationView];
+    [[KCTFuncEngine getInstance] initCameraConfig:self.videoLocationView withRemoteVideoView:self.videoRemoteView];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.oldLocationView removeFromSuperview];
+        self.oldLocationView = nil;
+    });
+    self.videoLocationView.userInteractionEnabled = YES;
+    UITapGestureRecognizer * single = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
+    single.numberOfTapsRequired = 1; // 单击
+    [self.videoLocationView addGestureRecognizer:single];
+}
 
 -(void)responseVoipManagerStatus:(KCTCallStatus)event callID:(NSString*)callid data:(KCTReason *)data withVideoflag:(int)videoflag
 {
@@ -1211,7 +1174,7 @@
             self.callFunctionView.hidden = NO;
             self.switchCameraButton.hidden = YES;
             [self handfree];
-            
+            [self resetLocationVideo];
             [self changeHangupButtonFrame:YES];
             
         }
@@ -1219,7 +1182,7 @@
             
         case KCTCallStatus_Released:
         {
-            
+            [[KCTFuncEngine getInstance] switchCameraDevice:CAMERA_FRONT];
             AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
             NSLog(@"KCTVideoCallCongtroller 964");
             [app stopCall];
@@ -1300,6 +1263,7 @@
 
 - (void)updateRealtimeLabel
 {
+    totalSecond += 1;
     ssInt +=1;
     if (ssInt >= 60) {
         mmInt += 1;

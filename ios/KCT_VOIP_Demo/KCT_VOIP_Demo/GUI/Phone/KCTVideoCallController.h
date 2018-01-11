@@ -24,7 +24,7 @@
     int mmInt;
     int ssInt;
     NSTimer *timer;
-    
+    int totalSecond;
     
 }
 

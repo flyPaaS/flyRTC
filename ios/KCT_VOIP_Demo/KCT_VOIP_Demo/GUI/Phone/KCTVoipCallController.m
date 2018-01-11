@@ -94,8 +94,8 @@
       头像
      */
     self.iconView = [[UIImageView alloc] initWithFrame:CGRectMake(CenterPoint(GetViewWidth(self.callBackView), Adaptation(110)), Adaptation(90), Adaptation(110), Adaptation(110))];
-    self.iconView.layer.cornerRadius = GetViewHeight(self.iconView)/2.0;
-    self.iconView.layer.masksToBounds = YES;
+    //self.iconView.layer.cornerRadius = GetViewHeight(self.iconView)/2.0;
+    //self.iconView.layer.masksToBounds = YES;
     self.iconView.backgroundColor = [UIColor blackColor];
     self.iconView.image = [UIImage imageNamed:@"默认头像"];
     [self.callBackView addSubview:self.iconView];
@@ -509,7 +509,7 @@
         voipCallType = type;
         self.isReleaseCall = NO;
         self.beReject = NO;
-        [[KCTFuncEngine getInstance] setSpeakerphone:NO];
+        [[KCTFuncEngine getInstance] setSpeakerphone:YES];
         return self;
     }
     
@@ -545,7 +545,30 @@
     
     [self addNotification];
 
+    
 }
+
+- (void)adjustSpeakerState
+{
+    if ([KCTVOIPViewEngine getInstance].switchAudioModel) {
+        [[KCTFuncEngine getInstance] setSpeakerphone:YES];
+        self.handFreeButton.selected = YES;
+    } else {
+        //免提关：NO 免提开：YES
+        BOOL returnValue = [KCTVOIPViewEngine getInstance].isSpeakerphoneOn;
+        
+        if (returnValue)
+        {
+            [[KCTFuncEngine getInstance] setSpeakerphone:YES];
+            self.handFreeButton.selected = YES;
+        }else{
+            [[KCTFuncEngine getInstance] setSpeakerphone:NO];
+            self.handFreeButton.selected = NO;
+            
+        }
+    }
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -923,11 +946,12 @@
             
             if (![timer isValid])
             {
+                ssInt = self.totalSecond;
                 timer = [NSTimer timerWithTimeInterval:1.0f target:self selector:@selector(updateRealtimeLabel) userInfo:nil repeats:YES];
                 [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
                 [timer fire];
             }
-            
+            [self adjustSpeakerState];
             /**
              @author WLS, 15-12-11 17:12:12
              

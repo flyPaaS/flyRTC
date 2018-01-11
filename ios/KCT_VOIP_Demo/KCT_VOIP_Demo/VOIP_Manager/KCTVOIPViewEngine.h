@@ -64,6 +64,9 @@ typedef enum{
 @property (strong,nonatomic)NSMutableArray *nickNameArray; //WLS，2016-01-08，昵称数组
 @property (assign,nonatomic)BOOL isCalling; //WLS，2016-01-15，是否处于通话中
 @property (assign,nonatomic)BOOL isCallKit;
+@property (assign,nonatomic)int totalSecond;
+@property (assign,nonatomic)int switchAudioModel;//0通话过程切语音  1被叫收到来电时切语音接听
+@property (assign,nonatomic)BOOL isSpeakerphoneOn;
 
 +(KCTVOIPViewEngine *)getInstance;
 

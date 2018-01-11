@@ -126,6 +126,7 @@
  * @return NO:  YES:
  */
 -(BOOL)initCameraConfig:(UIView*)localVideoView withRemoteVideoView:(UIView*)remoteView;
+-(BOOL)initCameraConfig2:(UIView*)localVideoView withRemoteVideoView:(UIView*)remoteView;
 
 /**
  * 自定义视频编码和解码参数
