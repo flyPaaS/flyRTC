@@ -24,8 +24,7 @@ import com.kct.flyrtc.R;
 import com.kct.flyrtc.rest.RestHttpClient;
 import com.kct.flyrtc.utils.UIAction;
 import com.kct.flyrtc.utils.UIData;
-import com.yzx.api.UCSCall;
-import com.yzx.api.UCSService;
+import com.kct.sdk.KCSdk;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -49,7 +48,7 @@ public class SelectActivity extends BaseActivity {
     // 选择模式
     private int nSelectMode = 0;
     public ListView login_list = null;
-    public LoginAdapter adapter = null;
+    //public LoginAdapter adapter = null;
     public LoginAdapter adapterNew = null;
 
     @Override
@@ -57,21 +56,22 @@ public class SelectActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select);
         // 控件
-        nSelectMode = 0;
-        final CheckBox oldbtn = (CheckBox)findViewById(R.id.old_btn);
-        final CheckBox newbtn = (CheckBox)findViewById(R.id.new_btn);
-        oldbtn.setChecked(true);
-        newbtn.setChecked(false);
+        nSelectMode = 1;
+        //final CheckBox oldbtn = findViewById(R.id.old_btn);
+        //final CheckBox newbtn = findViewById(R.id.new_btn);
+        //oldbtn.setChecked(true);
+        //newbtn.setChecked(false);
 
-        adapter = new LoginAdapter(this, 0);
+        //adapter = new LoginAdapter(this, 0);
         adapterNew = new LoginAdapter(this, 1);
-        login_list = (ListView)findViewById(R.id.login_list);
-        login_list.setAdapter(adapter);
+        login_list = findViewById(R.id.login_list);
+        login_list.setAdapter(adapterNew);
         // 注册广播
         IntentFilter mIntentFilter = new IntentFilter();
         mIntentFilter.addAction(UIAction.ACTION_LOGIN_RESPONSE);
         registerReceiver(mBroadcastReceiver, mIntentFilter);
 
+        /*
         oldbtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -93,7 +93,7 @@ public class SelectActivity extends BaseActivity {
                 oldbtn.setChecked(false);
                 newbtn.setChecked(true);
             }
-        });
+        });*/
 
         // 登入第二步：选中子账户进行登入
         findViewById(R.id.login_client_bt).setOnClickListener(new View.OnClickListener() {
@@ -111,8 +111,7 @@ public class SelectActivity extends BaseActivity {
                                 if (mRestHttpClient.queryAccountLine(UIData.clientId.get(nSelect)) == 0) {
                                     // 可以登录
                                     UIData.nSelect = nSelect;
-                                    UCSCall.hangUp("");
-                                    UCSService.connect(UIData.accountSid, UIData.accountToken, UIData.clientId.get(nSelect), UIData.clientPwd.get(nSelect));
+                                    KCSdk.getInstance().Login(UIData.accountSid, UIData.accountToken, UIData.clientId.get(nSelect), UIData.clientPwd.get(nSelect));
                                 } else {
                                     handler.sendEmptyMessage(1002);
                                 }
@@ -121,8 +120,7 @@ public class SelectActivity extends BaseActivity {
                                 if (mRestHttpClient.queryAccountLine(UIData.clientIdNew.get(nSelect)) == 0) {
                                     // 可以登录
                                     UIData.nSelect = nSelect;
-                                    UCSCall.hangUp("");
-                                    UCSService.connect(UIData.accountSidNew, UIData.accountTokenNew, UIData.clientIdNew.get(nSelect), UIData.clientPwdNew.get(nSelect));
+                                    KCSdk.getInstance().Login(UIData.accountSidNew, UIData.accountTokenNew, UIData.clientIdNew.get(nSelect), UIData.clientPwdNew.get(nSelect));
                                 } else {
                                     handler.sendEmptyMessage(1002);
                                 }
@@ -194,19 +192,22 @@ public class SelectActivity extends BaseActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(UIAction.ACTION_LOGIN_RESPONSE)) {
-                int nResult = intent.getIntExtra(UIAction.RESULT_KEY, 0);
-                if (nResult == 0) {
-                    // 登录成功
-                    handler.sendEmptyMessage(1001);
-                }
-                if (nResult == 1) {
-                    // 登录失败
-                    handler.sendEmptyMessage(1000);
-                }
-                if (nResult == 2) {
-                    // 手动退出
-                    handler.sendEmptyMessage(1004);
+            String str = intent.getAction();
+            if (str != null) {
+                if (str.equals(UIAction.ACTION_LOGIN_RESPONSE)) {
+                    int nResult = intent.getIntExtra(UIAction.RESULT_KEY, 0);
+                    if (nResult == 0) {
+                        // 登录成功
+                        handler.sendEmptyMessage(1001);
+                    }
+                    if (nResult == 1) {
+                        // 登录失败
+                        handler.sendEmptyMessage(1000);
+                    }
+                    if (nResult == 2) {
+                        // 手动退出
+                        handler.sendEmptyMessage(1004);
+                    }
                 }
             }
         }
@@ -313,10 +314,10 @@ public class SelectActivity extends BaseActivity {
             if (null == convertView) {
                 viewHolder = new ViewHolder();
                 convertView = mInflater.inflate(R.layout.list_login, null);
-                viewHolder.login_list_iv = (ImageView) convertView.findViewById(R.id.login_list_iv);
-                viewHolder.login_list_cb = (CheckBox) convertView.findViewById(R.id.login_list_cb);
-                viewHolder.login_list_tv_client = (TextView) convertView.findViewById(R.id.login_list_tv_client);
-                viewHolder.login_list_tv_phone = (TextView) convertView.findViewById(R.id.login_list_tv_phone);
+                viewHolder.login_list_iv = convertView.findViewById(R.id.login_list_iv);
+                viewHolder.login_list_cb = convertView.findViewById(R.id.login_list_cb);
+                viewHolder.login_list_tv_client = convertView.findViewById(R.id.login_list_tv_client);
+                viewHolder.login_list_tv_phone = convertView.findViewById(R.id.login_list_tv_phone);
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();

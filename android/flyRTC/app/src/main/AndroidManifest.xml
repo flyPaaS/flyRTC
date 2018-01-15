@@ -59,20 +59,14 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ui.VideoCallActivity"
+            android:name=".call.VideoCallActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask">
         </activity>
-
-        <service android:name="com.yzx.service.ConnectionControllerService">
-        </service>
-
-        <receiver android:name="com.yzx.service.AlarmReceiver">
-        </receiver>
-        <receiver android:name="com.yzx.service.MsgBackReceiver">
-        </receiver>
-        <receiver android:name="com.yzx.service.RtppReceiver">
-        </receiver>
+        <activity
+            android:name=".call.AudioCallActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

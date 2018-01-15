@@ -2,7 +2,7 @@ package com.kct.flyrtc.rest;
 
 import android.annotation.SuppressLint;
 
-import com.yzx.tools.CustomLog;
+import com.kct.sdk.util.KCLog;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -62,7 +62,7 @@ public class RestHttpClient {
             HttpEntity entity = response.getEntity();
             if (entity != null) {
                 result = EntityUtils.toString(entity, "UTF-8");
-                CustomLog.i("loginRest resp = " + result);
+                KCLog.e("loginRest resp = " + result);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,7 +99,7 @@ public class RestHttpClient {
             HttpEntity entity = response.getEntity();
             if (entity != null) {
                 result = EntityUtils.toString(entity, "UTF-8");
-                CustomLog.i("loginRest resp = " + result);
+                KCLog.e("loginRest resp = " + result);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -117,7 +117,7 @@ public class RestHttpClient {
                 append("/Accounts/").
                 append(account).
                 append("/userState").toString();
-        String data = account +  ":2";
+        String data = account +  ":4";
 
         HttpPost httppost = new HttpPost(url);
         httppost.setHeader("Accept", "application/json");

@@ -25,14 +25,18 @@ public class CallActivity extends Activity {
         // 初始化
         PowerManager mPowerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
         KeyguardManager mKeyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
-        mWakeLock = mPowerManager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.SCREEN_DIM_WAKE_LOCK, "CallActivity_" + getClass().getName());
-        if (!mWakeLock.isHeld()) {
-            mWakeLock.acquire();
+        if (mPowerManager != null) {
+            mWakeLock = mPowerManager.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.SCREEN_DIM_WAKE_LOCK, "CallActivity_" + getClass().getName());
+            if (!mWakeLock.isHeld()) {
+                mWakeLock.acquire(1000);
+            }
+            // 初始化键盘锁，可以锁定或解开键盘锁
+            if (mKeyguardManager != null) {
+                mKeyguardLock = mKeyguardManager.newKeyguardLock("");
+                // 禁用显示键盘锁定
+                mKeyguardLock.disableKeyguard();
+            }
         }
-        // 初始化键盘锁，可以锁定或解开键盘锁
-        mKeyguardLock = mKeyguardManager.newKeyguardLock("");
-        // 禁用显示键盘锁定
-        mKeyguardLock.disableKeyguard();
     }
 
     @Override

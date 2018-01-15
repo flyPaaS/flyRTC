@@ -16,6 +16,7 @@
     <string name="login_client">OK,立即体验</string>
     <string name="login_client_line">该号码已经上线</string>
     <string name="login_out">账号已退出</string>
+    <string name="login_out_1">登录账号已过期，请从新选择账号登录</string>
 
     <string name="videe_net">网络断开请等待重连</string>
 
@@ -28,5 +29,11 @@
 
     <string name="sdk_version">SDK_VERSION:</string>
     <string name="demo_version">DEMO_VERSION:</string>
+
+    <string name="video_ctrl_1">静音</string>
+    <string name="video_ctrl_2">切语音</string>
+    <string name="video_ctrl_3">扬声器</string>
+    <string name="video_ctrl_4">切换摄像头</string>
+    <string name="video_ctrl_5">切到语音</string>
 
 </resources>

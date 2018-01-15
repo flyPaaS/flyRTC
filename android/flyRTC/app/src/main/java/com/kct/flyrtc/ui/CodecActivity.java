@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.kct.flyrtc.R;
 import com.kct.flyrtc.utils.UIData;
-import com.yzx.api.UCSService;
+import com.kct.sdk.KCSdk;
 
 import java.util.ArrayList;
 
@@ -35,7 +35,7 @@ public class CodecActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        RelativeLayout rls_back = (RelativeLayout) findViewById(R.id.rls_back);
+        RelativeLayout rls_back = findViewById(R.id.rls_back);
         rls_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,18 +43,18 @@ public class CodecActivity extends BaseActivity {
             }
         });
 
-        TextView codec = (TextView)findViewById(R.id.rls_codec);
+        TextView codec = findViewById(R.id.rls_codec);
         codec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 设置
-                UCSService.SetCodec(UIData.nVideoCodec, UIData.nAudioCodec);
+                KCSdk.getInstance().SetCodec(UIData.nVideoCodec, UIData.nAudioCodec);
                 finish();
             }
         });
 
-        video_list_1 = (ListView)findViewById(R.id.video_list_1);
-        video_list_2 = (ListView)findViewById(R.id.video_list_2);
+        video_list_1 = findViewById(R.id.video_list_1);
+        video_list_2 = findViewById(R.id.video_list_2);
         videoAdapter = new VideoAdapter(this);
         audioAdapter = new AudioAdapter(this);
         video_list_1.setAdapter(videoAdapter);
@@ -141,8 +141,8 @@ public class CodecActivity extends BaseActivity {
             if (null == convertView) {
                 holder = new VideoHolder();
                 convertView = mInflater.inflate(R.layout.list_codec, null);
-                holder.videocb = (CheckBox) convertView.findViewById(R.id.login_list_cb);
-                holder.videocodec = (TextView) convertView.findViewById(R.id.login_list_tv_client);
+                holder.videocb = convertView.findViewById(R.id.login_list_cb);
+                holder.videocodec = convertView.findViewById(R.id.login_list_tv_client);
                 convertView.setTag(holder);
             } else {
                 holder = (VideoHolder)convertView.getTag();
@@ -242,8 +242,8 @@ public class CodecActivity extends BaseActivity {
             if (null == convertView) {
                 holder = new AudioHolder();
                 convertView = mInflater.inflate(R.layout.list_codec, null);
-                holder.audiocb = (CheckBox) convertView.findViewById(R.id.login_list_cb);
-                holder.audiocodec = (TextView) convertView.findViewById(R.id.login_list_tv_client);
+                holder.audiocb = convertView.findViewById(R.id.login_list_cb);
+                holder.audiocodec = convertView.findViewById(R.id.login_list_tv_client);
                 convertView.setTag(holder);
             } else {
                 holder = (AudioHolder)convertView.getTag();

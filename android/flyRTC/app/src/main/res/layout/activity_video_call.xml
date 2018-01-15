@@ -1,164 +1,252 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#000000">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/remotelayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@mipmap/converse_bg"
-        android:orientation="horizontal" >
-    </LinearLayout>
+        android:layout_height="match_parent" >
+    </RelativeLayout>
 
     <TextView
-        android:id="@+id/converse_network_status"
+        android:id="@+id/video_call_tips"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dip"
-        android:clickable="false"
+        android:layout_marginTop="120dp"
         android:text=""
         android:textColor="#ffffff"
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/converse_network"
+        android:id="@+id/video_call_client"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dip"
-        android:clickable="false"
-        android:text=""
+        android:layout_height="30dp"
+        android:gravity="center"
         android:textColor="#ffffff"
-        android:textSize="24sp" />
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/video_call_status"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@+id/video_call_client"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="14sp" />
 
     <LinearLayout
+        android:id="@+id/video_layout_4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
         android:focusable="false"
-        android:orientation="vertical" >
+        android:gravity="center"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/converse_client"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="100dip"
-            android:clickable="false"
-            android:text=""
-            android:textColor="#ffffff"
-            android:textSize="24sp" />
+        <ImageButton
+            android:id="@+id/video_call_hangup2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:contentDescription="@string/app_name"
+            android:background="@drawable/converse_call_hangup" />
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/converse_information"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:clickable="false"
-            android:textColor="#ffffff"
-            android:textSize="18sp" />
+    <LinearLayout
+        android:id="@+id/video_layout_3"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_above="@+id/video_layout_4"
+        android:focusable="false"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="80dip"
-            android:focusable="false"
-            android:gravity="center"
-            android:orientation="horizontal" >
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <ImageButton
-                android:id="@+id/converse_call_mute"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="15dip"
+                android:id="@+id/video_call_mute"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
                 android:background="@mipmap/converse_mute"
-                android:visibility="gone" />
+                android:contentDescription="@string/app_name" />
 
-            <ImageButton
-                android:id="@+id/converse_call_video"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/converse_video"
-                android:visibility="gone" />
-
-            <ImageButton
-                android:id="@+id/converse_call_speaker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dip"
-                android:background="@mipmap/converse_speaker"
-                android:visibility="gone" />
-
-            <ImageButton
-                android:id="@+id/converse_call_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dip"
-                android:background="@mipmap/converse_switch"
-                android:visibility="gone" />
+            <TextView
+                android:id="@+id/video_call_mute_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/video_ctrl_1"
+                android:textColor="#ffffff"
+                android:textSize="12sp">
+            </TextView>
         </LinearLayout>
 
-        <RelativeLayout
-            android:id="@+id/video_call_rl"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="70dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="40dip"
-            android:focusable="false" >
+            android:layout_marginStart="20dp"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/locallayout"
-                android:layout_width="96dip"
-                android:layout_height="144dip"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:background="#7F7F7F"
-                android:orientation="horizontal" >
-            </LinearLayout>
+            <ImageButton
+                android:id="@+id/video_call_video"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@mipmap/converse_video"
+                android:contentDescription="@string/app_name" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/video_call_video_text"
                 android:layout_width="match_parent"
-                android:layout_height="120dip"
-                android:layout_centerHorizontal="true"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="horizontal" >
+                android:text="@string/video_ctrl_2"
+                android:textColor="#ffffff"
+                android:textSize="12sp">
+            </TextView>
+        </LinearLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" >
+        <LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:orientation="vertical">
 
-                    <ImageButton
-                        android:id="@+id/video_call_answer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:background="@drawable/converse_call_answer"
-                        android:visibility="gone" />
-                </RelativeLayout>
+            <ImageButton
+                android:id="@+id/video_call_speaker"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/app_name"
+                android:background="@mipmap/converse_speaker" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" >
+            <TextView
+                android:id="@+id/video_call_speaker_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/video_ctrl_3"
+                android:textColor="#ffffff"
+                android:textSize="12sp">
+            </TextView>
+        </LinearLayout>
 
-                    <ImageButton
-                        android:id="@+id/video_call_hangup"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:background="@drawable/converse_call_hangup"
-                        android:visibility="gone" />
-                </RelativeLayout>
+        <LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:orientation="vertical">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" >
-                </RelativeLayout>
-            </LinearLayout>
-        </RelativeLayout>
+            <ImageButton
+                android:id="@+id/video_camera_switch"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/app_name"
+                android:background="@mipmap/converse_switch" />
+
+            <TextView
+                android:id="@+id/video_camera_switch_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/video_ctrl_4"
+                android:textColor="#ffffff"
+                android:textSize="12sp">
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/video_layout_2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_above="@+id/video_layout_3"
+        android:focusable="false"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/video_call_status2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/video_layout_1"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_above="@+id/video_layout_2"
+        android:layout_marginBottom="60dp"
+        android:focusable="false"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="25dp"
+            android:orientation="vertical">
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="25dp"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/video_call_video2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"
+                android:background="@mipmap/converse_video"
+                android:contentDescription="@string/app_name" />
+
+            <TextView
+                android:id="@+id/video_call_video_text2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/video_ctrl_5"
+                android:textColor="#ffffff"
+                android:textSize="12sp">
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/video_layout_0"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_above="@+id/video_layout_1"
+        android:focusable="false"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/video_call_hangup"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="30dp"
+            android:contentDescription="@string/app_name"
+            android:background="@drawable/converse_call_hangup" />
+
+        <ImageButton
+            android:id="@+id/video_call_answer"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="30dp"
+            android:contentDescription="@string/app_name"
+            android:background="@drawable/converse_call_answer" />
     </LinearLayout>
 </RelativeLayout>

@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,12 +18,16 @@ import android.widget.Toast;
 
 import com.kct.flyrtc.R;
 import com.kct.flyrtc.app.MainApplication;
+import com.kct.flyrtc.call.VideoCallActivity;
 import com.kct.flyrtc.utils.UIAction;
 import com.kct.flyrtc.utils.UIData;
-import com.yzx.preference.UserData;
-import com.yzx.tcp.TcpTools;
+import com.kct.sdk.KCBase;
+import com.kct.sdk.KCSdk;
+import com.kct.sdk.util.KCLog;
 
 import java.util.ArrayList;
+
+import static com.kct.sdk.KCBase.ICE_RTPP;
 
 /**
  * Created by zhouwq on 2017/3/8/008.
@@ -33,23 +35,22 @@ import java.util.ArrayList;
  */
 
 public class VideoActivity extends BaseActivity {
-    // 是否显示对象
-    private boolean bShow = true;
-    // 是否掉线过
-    private boolean bLine = true;
-
     public ListView video_list = null;
     public VideoAdapter adapter = null;
     public VideoAdapter adapterNew = null;
+    // 对象
+    public MainApplication mMainApplication = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
+        mMainApplication = (MainApplication) getApplication();
+        mMainApplication.bReCon = true;
         // 控件
         adapter = new VideoAdapter(this, 0);
         adapterNew = new VideoAdapter(this, 1);
-        video_list = (ListView)findViewById(R.id.video_list);
+        video_list = findViewById(R.id.video_list);
         int nMode = getIntent().getIntExtra("mode", 0);
         if (nMode == 0) {
             video_list.setAdapter(adapter);
@@ -57,18 +58,19 @@ public class VideoActivity extends BaseActivity {
             video_list.setAdapter(adapterNew);
         }
         // 返回
-        RelativeLayout rl_back = (RelativeLayout) findViewById(R.id.rl_back);
+        RelativeLayout rl_back = findViewById(R.id.rl_back);
         rl_back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent mIntent = new Intent(UIAction.ACTION_LOGIN_RESPONSE);
                 mIntent.putExtra(UIAction.RESULT_KEY, 2);
                 sendBroadcast(mIntent);
-                TcpTools.tcpDisconnection();
+                // 退出
+                KCSdk.getInstance().LoginOut();
                 finish();
             }
         });
 
-        TextView codec = (TextView)findViewById(R.id.rl_codec);
+        TextView codec = findViewById(R.id.rl_codec);
         codec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,57 +86,29 @@ public class VideoActivity extends BaseActivity {
         registerReceiver(mBroadcastReceiver, mIntentFilter);
     }
 
-    @SuppressLint("HandlerLeak")
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == 1000) {
-                TcpTools.tcpConnection();
-            }
-            super.handleMessage(msg);
-        }
-    };
-
     @Override
     protected void onResume() {
-        super.onResume();
-        bShow = true;
-        if (!bLine) {
-            handler.sendEmptyMessageDelayed(1000, 3000);
-            bLine = true;
+        KCSdk.getInstance().SwitchVideo(1, KCBase.RotateType.RETATE_270);
+        KCSdk.getInstance().StopVideo(31);
+        if (!mMainApplication.bConnect) {
+            // 网络断开
+            KCSdk.getInstance().ChangeICE(ICE_RTPP); // 0:P2P 1:RTPP
+            mMainApplication.mHandler.removeMessages(1000);
+            mMainApplication.mHandler.sendEmptyMessageDelayed(1000, 0);
+            KCLog.e("网络断开，启动重连");
         }
+        super.onResume();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        bShow = false;
     }
-
-    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(UIAction.ACTION_LOGIN_RESPONSE)) {
-                int nResult = intent.getIntExtra(UIAction.RESULT_KEY, 0);
-                if (nResult == 3) {
-                    bLine = false;
-                    // 读错误连接断开
-                    if (UserData.UGO_CALL_STATUS == 0) {
-                        if (bShow) {
-                            handler.sendEmptyMessageDelayed(1000, 3000);
-                        }
-                    } else {
-                        handler.sendEmptyMessageDelayed(1000, 3000);
-                    }
-                }
-            }
-        }
-    };
 
     @Override
     protected void onDestroy() {
         unregisterReceiver(mBroadcastReceiver);
+        mMainApplication.bReCon = false;
         super.onDestroy();
     }
 
@@ -143,9 +117,28 @@ public class VideoActivity extends BaseActivity {
         Intent mIntent = new Intent(UIAction.ACTION_LOGIN_RESPONSE);
         mIntent.putExtra(UIAction.RESULT_KEY, 2);
         sendBroadcast(mIntent);
-        TcpTools.tcpDisconnection();
+        // 退出
+        KCSdk.getInstance().LoginOut();
         super.onBackPressed();
     }
+
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String strAction = intent.getAction();
+            if (strAction != null) {
+                if (strAction.equals(UIAction.ACTION_NETWORK_STATE)) {
+                    if (intent.getIntExtra(UIAction.RESULT_KEY, 0) == 100) {
+                        // 说明SSID已经过期，退出
+                        Toast.makeText(VideoActivity.this, getString(R.string.login_out_1), Toast.LENGTH_SHORT).show();
+                        KCSdk.getInstance().LoginOut();
+                        finish();
+                    }
+                }
+            }
+        }
+    };
 
     class VideoAdapter extends BaseAdapter {
         private LayoutInflater mInflater;
@@ -227,10 +220,10 @@ public class VideoActivity extends BaseActivity {
             if (null == convertView) {
                 viewHolder = new ViewHolder();
                 convertView = mInflater.inflate(R.layout.list_video, null);
-                viewHolder.video_list_iv = (ImageView) convertView.findViewById(R.id.common_list_iv);
-                viewHolder.video_list_bt = (RelativeLayout) convertView.findViewById(R.id.common_list_rl);
-                viewHolder.video_list_tv_client = (TextView) convertView.findViewById(R.id.common_list_tv_client);
-                viewHolder.video_list_tv_phone = (TextView) convertView.findViewById(R.id.common_list_tv_phone);
+                viewHolder.video_list_iv = convertView.findViewById(R.id.common_list_iv);
+                viewHolder.video_list_bt = convertView.findViewById(R.id.common_list_rl);
+                viewHolder.video_list_tv_client = convertView.findViewById(R.id.common_list_tv_client);
+                viewHolder.video_list_tv_phone = convertView.findViewById(R.id.common_list_tv_phone);
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();

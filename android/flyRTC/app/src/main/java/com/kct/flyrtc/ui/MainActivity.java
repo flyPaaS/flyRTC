@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import com.kct.flyrtc.R;
+import com.kct.flyrtc.utils.AppStatusManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        AppStatusManager.getInstance().setAppStatus(1);
         // 启动
         new Handler().postDelayed(new Runnable() {
             @Override

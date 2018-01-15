@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.kct.flyrtc.R;
 import com.kct.flyrtc.rest.RestHttpClient;
 import com.kct.flyrtc.utils.UIData;
-import com.yzx.api.UCSService;
+import com.kct.sdk.KCSdk;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,10 +45,10 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // 控件
-        login_admin = (EditText) findViewById(R.id.login_admin);
-        login_pwd = (EditText) findViewById(R.id.login_pwd);
+        login_admin = findViewById(R.id.login_admin);
+        login_pwd = findViewById(R.id.login_pwd);
         // 显示版本
-        String version = getString(R.string.sdk_version) + UCSService.getSDKVersion() + "\r\n" + getString(R.string.demo_version) + getSoftVersion(this);
+        String version = getString(R.string.sdk_version) + KCSdk.getInstance().getSDKVersion() + "\r\n" + getString(R.string.demo_version) + getSoftVersion(this);
         ((TextView) findViewById(R.id.package_version)).setText(Html.fromHtml(version));
         // 登入第一步：获得子账号信息
         findViewById(R.id.login_btn).setOnClickListener(
@@ -65,6 +65,7 @@ public class LoginActivity extends BaseActivity {
                                     UIData.clearData();
                                     boolean bLogin = false;
                                     RestHttpClient mRestHttpClient = new RestHttpClient();
+                                    /*
                                     String json = mRestHttpClient.loginRest(login_admin.getText().toString(), login_pwd.getText().toString());
                                     // 分析结果
                                     try {
@@ -97,9 +98,9 @@ public class LoginActivity extends BaseActivity {
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
-                                    }
+                                    }*/
 
-                                    json = mRestHttpClient.loginNewRest(login_admin.getText().toString(), login_pwd.getText().toString());
+                                    String json = mRestHttpClient.loginNewRest(login_admin.getText().toString(), login_pwd.getText().toString());
                                     // 分析结果
                                     try {
                                         JSONObject jsonInput = new JSONObject(json);

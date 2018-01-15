@@ -6,25 +6,33 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 
-import com.kct.flyrtc.ui.VideoCallActivity;
+import com.kct.flyrtc.call.VideoCallActivity;
 import com.kct.flyrtc.utils.UIAction;
-import com.reason.UcsReason;
-import com.yzx.api.UCSCall;
-import com.yzx.api.UCSService;
-import com.yzx.listenerInterface.CallStateListener;
-import com.yzx.listenerInterface.ConnectionListener;
-import com.yzx.tcp.TcpTools;
-import com.yzx.tools.CustomLog;
+import com.kct.sdk.KCSdk;
+import com.kct.sdk.listen.KCEventListen;
+import com.kct.sdk.util.KCLog;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static com.kct.sdk.KCBase.CALL_ALERT;
+import static com.kct.sdk.KCBase.CALL_ANETWORK;
+import static com.kct.sdk.KCBase.CALL_ANSWER;
+import static com.kct.sdk.KCBase.CALL_AUDIO_MODE;
+import static com.kct.sdk.KCBase.CALL_HANDUP;
+import static com.kct.sdk.KCBase.CALL_INCOME;
+import static com.kct.sdk.KCBase.CALL_OUTFAIL;
+import static com.kct.sdk.KCBase.CALL_VNETWORK;
+import static com.kct.sdk.KCBase.ICE_RTPP;
+import static com.kct.sdk.KCBase.TCP_CONNECT;
+import static com.kct.sdk.KCBase.TCP_DISCONNECT;
 
 /**
  * Created by zhouwq on 2017/3/8/008.
  * 应用程序类
  */
 
-public class MainApplication extends Application implements ConnectionListener, CallStateListener {
+public class MainApplication extends Application implements KCEventListen {
     // 通话计时
     private int second = 0;
     private int minute = 0;
@@ -32,154 +40,50 @@ public class MainApplication extends Application implements ConnectionListener, 
     private Timer timer = null;
     // TCP连接状态
     public boolean bConnect = false;
+    // 是否重连标记
+    public boolean bReCon = false;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        // 添加连接监听器
-        UCSService.addConnectionListener(this);
-        // 添加电话监听器
-        UCSCall.addCallStateListener(this);
-        // 启动未接听时视频预览
-        UCSCall.setCameraPreViewStatu(this, true);
-        // 初始化SDK
-        UCSService.initAction(this);
-        UCSService.init(this, true);
+        KCSdk.getInstance().Init(this);
+        KCSdk.getInstance().AddCallBack(this);
     }
 
     @Override
     public void onTerminate() {
-        UCSCall.removeCallStateListener(this);
-        UCSService.removeConnectionListener(this);
-        UCSService.uninit();
+        KCSdk.getInstance().RemoveCallBack(this);
+        KCSdk.getInstance().Free();
         super.onTerminate();
     }
 
     @SuppressLint("HandlerLeak")
-    private Handler handler = new Handler() {
+    public Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 1000) {
-                TcpTools.reTcpConnection();
+                if (bReCon) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            KCSdk.getInstance().TcpConnect();
+                        }
+                    }).start();
+                }
+            }
+            if (msg.what == 1001) {
+                if (bReCon) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            KCSdk.getInstance().NextTcpConnect();
+                        }
+                    }).start();
+                }
             }
             super.handleMessage(msg);
         }
     };
-
-    @Override
-    public void onDialFailed(String s, com.reason.UcsReason ucsReason) {
-        // 拨打失败回调
-        CustomLog.e("onDialFailed = " + s);
-        stopCallTimer();
-        voipSwitch(ucsReason);
-    }
-
-    @Override
-    public void onIncomingCall(String s, String s1, String s2, String s3, String s4) {
-        CustomLog.e("onIncomingCall = " + s2);
-        Intent intent = new Intent();
-        intent.setClass(this, VideoCallActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("phoneNumber", s2);
-        intent.putExtra("inCall", true);
-        intent.putExtra("nickName", s3);
-        startActivity(intent);
-    }
-
-    @Override
-    public void onHangUp(String s, com.reason.UcsReason ucsReason) {
-        CustomLog.e("onHangUp = " + s);
-        // 分析挂断原因
-        stopCallTimer();
-        voipSwitch(ucsReason);
-    }
-
-    @Override
-    public void onAlerting(String s) {
-        // 对方正在响铃回调
-        CustomLog.e("onAlerting = " + s);
-        Intent mIntent = new Intent(UIAction.ACTION_DIAL_STATE);
-        mIntent.putExtra(UIAction.DAIL_STATE_ALERT, 1);
-        sendBroadcast(mIntent);
-    }
-
-    @Override
-    public void onAnswer(String s) {
-        // 对方接通电话
-        CustomLog.e("onAnswer = " + s);
-        Intent mIntent = new Intent(UIAction.ACTION_ANSWER);
-        sendBroadcast(mIntent);
-        // 启动计时
-        startCallTimer();
-    }
-
-    @Override
-    public void onNetWorkState(int i) {
-        Intent mIntent = new Intent(UIAction.ACTION_NETWORK_STATE);
-        mIntent.putExtra(UIAction.NETWORK_STATE, i);
-        sendBroadcast(mIntent);
-    }
-
-    @Override
-    public void onDTMF(int i) {
-        CustomLog.i("onDTMF = " + i);
-    }
-
-    @Override
-    public void onCameraCapture(String s) {
-        CustomLog.i("onCameraCapture = "+ s);
-    }
-
-    @Override
-    public void onConnectionSuccessful() {
-        CustomLog.e("onConnectionSuccessful");
-        Intent mIntent = new Intent(UIAction.ACTION_LOGIN_RESPONSE);
-        mIntent.putExtra(UIAction.RESULT_KEY, 0);
-        sendBroadcast(mIntent);
-        bConnect = true;
-    }
-
-    @Override
-    public void onConnectionFailed(com.reason.UcsReason ucsReason) {
-        CustomLog.e("onConnectionFailed");
-        switch (ucsReason.getReason()) {
-            case 300501:
-                // Socket 读失败
-                Intent mIntent = new Intent(UIAction.ACTION_LOGIN_RESPONSE);
-                mIntent.putExtra(UIAction.RESULT_KEY, 3);
-                sendBroadcast(mIntent);
-                break;
-            case 300503:
-                // Socket 写失败
-                break;
-            case 300506:
-                // Socket 连接失败 主机IP地址不对
-            case 300507:
-                // Socket 连接失败 IO错误
-            case 300508:
-                // Socket 连接失败 其它错误
-                handler.sendEmptyMessageDelayed(1000, 3000);
-                break;
-            default:
-                // 发送失败广播
-                mIntent = new Intent(UIAction.ACTION_LOGIN_RESPONSE);
-                mIntent.putExtra(UIAction.RESULT_KEY, 1);
-                sendBroadcast(mIntent);
-                break;
-        }
-        // 通知TCP网络断开
-        Intent mIntent = new Intent(UIAction.ACTION_NETWORK_STATE);
-        mIntent.putExtra(UIAction.NETWORK_CONNECT, 1);
-        sendBroadcast(mIntent);
-        bConnect = false;
-    }
-
-    // 分析状态
-    private void voipSwitch(UcsReason reason) {
-        Intent mIntent = new Intent(UIAction.ACTION_DIAL_STATE);
-        mIntent.putExtra(UIAction.DAIL_STATE, reason.getMsg());
-        sendBroadcast(mIntent);
-    }
 
     // 通话走时
     public void startCallTimer() {
@@ -232,6 +136,124 @@ public class MainApplication extends Application implements ConnectionListener, 
         if (timer != null) {
             timer.cancel();
             timer = null;
+        }
+    }
+
+    @Override
+    public void CallBackFunc(int i, int i1, int i2, String s) {
+        if (i == TCP_CONNECT) {
+            KCLog.e("TCP_CONNECT");
+            Intent mIntent = new Intent(UIAction.ACTION_LOGIN_RESPONSE);
+            mIntent.putExtra(UIAction.RESULT_KEY, 0);
+            sendBroadcast(mIntent);
+            bConnect = true;
+        }
+        if (i == TCP_DISCONNECT) {
+            KCLog.e("TCP_DISCONNECT code = " + i1 + ", param = " + i2);
+            bConnect = false;
+            if (i1 == 0) {
+                if (i2 == 0) {
+                    // 正常退出
+                }
+                if (i2 == 1) {
+                    // TCP连接失败,换一个服务器登录
+                    mHandler.removeMessages(1001);
+                    mHandler.sendEmptyMessageDelayed(1001, 500);
+                }
+                if (i2 == 2) {
+                    // TCP心跳失败,重连
+                    mHandler.removeMessages(1000);
+                    mHandler.sendEmptyMessageDelayed(1000, 500);
+                }
+                if (i2 == 3) {
+                    // 读失败，网络断开
+                    KCSdk.getInstance().ChangeICE(ICE_RTPP); // 0:P2P 1:RTPP
+                    mHandler.removeMessages(1000);
+                    mHandler.sendEmptyMessageDelayed(1000, 500);
+                }
+                if (i2 == 4) {
+                    // 写失败，网络断开
+                    KCSdk.getInstance().ChangeICE(ICE_RTPP); // 0:P2P 1:RTPP
+                    mHandler.removeMessages(1000);
+                    mHandler.sendEmptyMessageDelayed(1000, 500);
+                }
+                if (i2 == 5) {
+                    // SSID过期，需要退出从新登录
+                    Intent mIntent = new Intent(UIAction.ACTION_LOGIN_RESPONSE);
+                    mIntent.putExtra(UIAction.RESULT_KEY, 100);
+                    sendBroadcast(mIntent);
+                }
+            } else if (i1 == 1) {
+                // 账号认证失败
+                Intent mIntent = new Intent(UIAction.ACTION_LOGIN_RESPONSE);
+                mIntent.putExtra(UIAction.RESULT_KEY, 1);
+                sendBroadcast(mIntent);
+            } else if (i1 == 2) {
+                // 获取服务器地址失败
+                Intent mIntent = new Intent(UIAction.ACTION_LOGIN_RESPONSE);
+                mIntent.putExtra(UIAction.RESULT_KEY, 1);
+                sendBroadcast(mIntent);
+            } else if (i1 == 3) {
+                // 获取信令服务器地址失败
+                Intent mIntent = new Intent(UIAction.ACTION_LOGIN_RESPONSE);
+                mIntent.putExtra(UIAction.RESULT_KEY, 1);
+                sendBroadcast(mIntent);
+            }
+        }
+        if (i == CALL_OUTFAIL) {
+            KCLog.e("CALL_OUTFAIL");
+            // 停止计时
+            stopCallTimer();
+            // 发送报告
+            Intent mIntent = new Intent(UIAction.ACTION_DIAL_STATE);
+            mIntent.putExtra(UIAction.DAIL_STATE, s);
+            sendBroadcast(mIntent);
+        }
+        if (i == CALL_INCOME) {
+            KCLog.e("CALL_INCOME");
+            Intent intent = new Intent();
+            intent.setClass(this, VideoCallActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("phoneNumber", s);
+            intent.putExtra("inCall", true);
+            startActivity(intent);
+        }
+        if (i == CALL_ANSWER) {
+            KCLog.e("CALL_ANSWER");
+            Intent mIntent = new Intent(UIAction.ACTION_ANSWER);
+            sendBroadcast(mIntent);
+            // 启动计时
+            startCallTimer();
+        }
+        if (i == CALL_ALERT) {
+            KCLog.e("CALL_ALERT");
+            Intent mIntent = new Intent(UIAction.ACTION_DIAL_STATE);
+            mIntent.putExtra(UIAction.DAIL_STATE_ALERT, 1);
+            sendBroadcast(mIntent);
+        }
+        if (i == CALL_HANDUP) {
+            KCLog.e("CALL_HANDUP");
+            // 停止计时
+            stopCallTimer();
+            // 发送报告
+            Intent mIntent = new Intent(UIAction.ACTION_DIAL_STATE);
+            mIntent.putExtra(UIAction.DAIL_STATE, s);
+            sendBroadcast(mIntent);
+        }
+        if (i == CALL_ANETWORK) {
+            //Intent mIntent = new Intent(UIAction.ACTION_NETWORK_STATE);
+            //mIntent.putExtra(UIAction.NETWORK_STATE, i);
+            //sendBroadcast(mIntent);
+        }
+        if (i == CALL_VNETWORK) {
+            Intent mIntent = new Intent(UIAction.ACTION_NETWORK_STATE);
+            mIntent.putExtra(UIAction.NETWORK_STATE, i);
+            mIntent.putExtra(UIAction.NETWORK_STRING, s);
+            sendBroadcast(mIntent);
+        }
+        if (i == CALL_AUDIO_MODE) {
+            Intent mIntent = new Intent(UIAction.ACTION_AUDIO_MODE);
+            sendBroadcast(mIntent);
         }
     }
 }
