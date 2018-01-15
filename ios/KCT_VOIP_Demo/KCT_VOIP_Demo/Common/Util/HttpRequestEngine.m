@@ -128,7 +128,7 @@ static HttpRequestEngine *detailInstance = nil;
 
 - (void)getLoginStateWithSid:(NSString *)sid clientNum:(NSString *)clientNum stateBlock:(loginStateBlock)stateBlock {
     NSString *url = [NSString stringWithFormat:@"%@/2014-06-30/Accounts/%@/userState",kRestApiBaseURL,sid];
-    NSString *userInfoKey = @"4";
+    NSString *userInfoKey = @"2";
     NSString *bodyStr = [NSString stringWithFormat:@"%@:%@",clientNum,userInfoKey];
     NSData *bodyData = [bodyStr dataUsingEncoding:NSUTF8StringEncoding];
 //    NSMutableDictionary *bodyDict = [[NSMutableDictionary alloc] init];

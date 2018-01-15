@@ -527,6 +527,7 @@ KCTVOIPViewEngine * kctVoipViewEngine = nil;
             incomingVideolView.callID = callid;
             incomingVideolView.isActivity = NO;
             self.incomingVideoViewController = incomingVideolView;
+            //usleep(500);
             [self pushToTheViewController:incomingVideolView];
             
             
@@ -534,6 +535,8 @@ KCTVOIPViewEngine * kctVoipViewEngine = nil;
             if ([self needShake:nil]&&[InfoManager sharedInfoManager].isMessageNotificationOpen) {
                 //modify by wenqinglin
                 //AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+                AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+                [audioSession setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
                 [self.player play];
             }
 
@@ -639,7 +642,14 @@ KCTVOIPViewEngine * kctVoipViewEngine = nil;
 }
 
 
-
+- (void)onSwitchVoipCall
+{
+    if (self.callType == KCT_videoCall){
+        [self.videoViewController switchVoipCall];
+    }else{
+        [self.incomingVideoViewController switchVoipCall];
+    }
+}
 
 /**
  @author WLS, 15-12-15 17:12:47
@@ -703,6 +713,21 @@ KCTVOIPViewEngine * kctVoipViewEngine = nil;
             
         }
     }];
+}
+
+- (void)swithToVoipCall:(NSString *)callNumber
+{
+    self.callType = KCT_voipCall;
+    
+    KCTVoipCallController * voipCallVC = [[KCTVoipCallController alloc] initWithCallerNo:callNumber andVoipNo:callNumber andCallType:KCTCallType_VOIP];
+    voipCallVC.incomingCall = NO;
+    voipCallVC.totalSecond = self.totalSecond;
+    voipCallVC.callID = callNumber;
+    voipCallVC.callerName = callNumber;
+    voipCallVC.callType = KCTCallType_VOIP;
+    self.callViewController = voipCallVC;
+    [self pushToTheViewController:voipCallVC];
+    [self.callViewController responseVoipManagerStatus:KCTCallStatus_Answered callID:callNumber data:nil withVideoflag:0];
 }
 
 

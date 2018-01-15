@@ -77,7 +77,7 @@
  * @param on NO:正常 YES:静音
  */
 - (void)setMicMute:(BOOL)on;
-
+- (void)stopVideo;
 /**
  * 获取当前静音状态
  * @return NO 正常 YES 静音
@@ -102,6 +102,12 @@
  * @param isIpv6 NO:不是IPv6  YES:是IPv6
  */
 - (void)setIpv6:(BOOL)isIpv6;
+
+/**
+ * 设置音视频的编解码格式。
+ * @param videoIndex：0： h264软编软解；1：h264硬编硬解  2：h265软编软解  3：h265硬编硬解；audioCodecIndex暂时未使用
+ */
+
 - (void)setVideoCodecWithIndex:(NSInteger)videoIndex audioCodecIndex:(NSInteger)audioIndex;
 
 #pragma mark - -------------------视频能力------------------------
@@ -120,6 +126,7 @@
  * @return NO:  YES:
  */
 -(BOOL)initCameraConfig:(UIView*)localVideoView withRemoteVideoView:(UIView*)remoteView;
+-(BOOL)initCameraConfig2:(UIView*)localVideoView withRemoteVideoView:(UIView*)remoteView;
 
 /**
  * 自定义视频编码和解码参数
@@ -156,7 +163,7 @@
  * @return YES 成功 NO 失败
  */
 - (BOOL)switchVideoMode:(KCTCameraType)type;
-
+- (void)sendSwithVideoMode;
 /**
  * 视频截图
  * @param islocal: 0 是远端截图 1 是本地截图。

@@ -24,7 +24,7 @@
     int mmInt;
     int ssInt;
     NSTimer *timer;
-    
+    int totalSecond;
     
 }
 
@@ -57,5 +57,5 @@
 
 - (void)networkDetailChange:(NSString *)currentNetworkDetail;
 
-
+- (void)switchVoipCall;
 @end

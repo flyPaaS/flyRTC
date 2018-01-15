@@ -31,6 +31,34 @@
 
 @implementation AppDelegate
 
+static void UncaughtExceptionHandler(NSException *exception) {
+    NSLog(@"CRASH: %@", exception);
+    NSLog(@"Stack Trace: %@", [exception callStackSymbols]);
+    // 异常的堆栈信息
+    
+    NSArray *stackArray = [exception callStackSymbols];
+    
+    // 出现异常的原因
+    
+    NSString *reason = [exception reason];
+    
+    // 异常名称
+    
+    NSString *name = [exception name];
+    
+    NSString *syserror = [NSString stringWithFormat:@"mailto:wenqinglin@flypaas.com?subject=bug报告&body=感谢您的配合!<br><br><br>"
+                          
+                          "Error Detail:<br>%@<br>--------------------------<br>%@<br>---------------------<br>%@",
+                          
+                          name,reason,[stackArray componentsJoinedByString:@"<br>"]];
+    
+    
+    
+    NSURL *url = [NSURL URLWithString:[syserror stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
+    [[UIApplication sharedApplication] openURL:url];
+}
+
 
 #pragma mark-
 #pragma mark---------UIApplication Delegate------------
@@ -78,6 +106,8 @@
     voipRegistry.desiredPushTypes = [NSSet setWithObject:PKPushTypeVoIP];
     
     [self initProvider];
+    
+    NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     return YES;
 }
 

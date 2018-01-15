@@ -37,6 +37,7 @@
 
 
 @property (strong,nonatomic) UIView *keyBoardBackView; // WLS，2015-12-09，弹出键盘时候的背景视图
+@property (strong,nonatomic) UIButton *keyBoardBtn;
 @property (strong,nonatomic) UIButton *keyBoardHangupButton; // WLS，2015-12-09，弹出键盘时候的挂断按钮
 @property (strong,nonatomic) UIButton *hideKeyBoardButton; // WLS，2015-12-09，隐藏键盘按钮
 
@@ -93,8 +94,8 @@
       头像
      */
     self.iconView = [[UIImageView alloc] initWithFrame:CGRectMake(CenterPoint(GetViewWidth(self.callBackView), Adaptation(110)), Adaptation(90), Adaptation(110), Adaptation(110))];
-    self.iconView.layer.cornerRadius = GetViewHeight(self.iconView)/2.0;
-    self.iconView.layer.masksToBounds = YES;
+    //self.iconView.layer.cornerRadius = GetViewHeight(self.iconView)/2.0;
+    //self.iconView.layer.masksToBounds = YES;
     self.iconView.backgroundColor = [UIColor blackColor];
     self.iconView.image = [UIImage imageNamed:@"默认头像"];
     [self.callBackView addSubview:self.iconView];
@@ -179,7 +180,7 @@
         
         
     }else{
-        [self changeHangupButtonFrame];
+        [self changeHangupButtonFrame:NO];
         
     }
     
@@ -240,7 +241,7 @@
         if (i == 0) {
             self.muteButton = button;
         }else if (i == 1){
-            self.keyBoardBackView = button;
+            self.keyBoardBtn = button;
         }else{
             self.handFreeButton = button;
         }
@@ -266,9 +267,10 @@
  
  修改挂断按钮的frame
  */
-- (void)changeHangupButtonFrame{
+- (void)changeHangupButtonFrame:(BOOL)isAnswer{
     
     self.hangupButton.frame = CGRectMake(CenterPoint(GetViewWidth(self.callBackView), Adaptation(60)), Adaptation(470), Adaptation(60), Adaptation(60));
+    
     
     if (CurrentHeight == 480) {
         CGRect frame = self.hangupButton.frame;
@@ -276,6 +278,14 @@
         self.hangupButton.frame = frame;
     }
     
+    if (isAnswer) {
+        //CGPoint centerPoint = [self.callFunctionView convertPoint:self.keyBoardBtn.center toView:self.callBackView];
+        //self.hangupButton.center = centerPoint;
+        [self.hangupButton removeFromSuperview];
+        [self.callFunctionView addSubview:self.hangupButton];
+        self.hangupButton.center = self.keyBoardBtn.center;
+        self.keyBoardBtn.hidden = YES;
+    }
     
     /**
      @author WLS, 15-12-11 11:12:36
@@ -499,7 +509,7 @@
         voipCallType = type;
         self.isReleaseCall = NO;
         self.beReject = NO;
-        [[KCTFuncEngine getInstance] setSpeakerphone:NO];
+        [[KCTFuncEngine getInstance] setSpeakerphone:YES];
         return self;
     }
     
@@ -535,7 +545,30 @@
     
     [self addNotification];
 
+    
 }
+
+- (void)adjustSpeakerState
+{
+    if ([KCTVOIPViewEngine getInstance].switchAudioModel) {
+        [[KCTFuncEngine getInstance] setSpeakerphone:YES];
+        self.handFreeButton.selected = YES;
+    } else {
+        //免提关：NO 免提开：YES
+        BOOL returnValue = [KCTVOIPViewEngine getInstance].isSpeakerphoneOn;
+        
+        if (returnValue)
+        {
+            [[KCTFuncEngine getInstance] setSpeakerphone:YES];
+            self.handFreeButton.selected = YES;
+        }else{
+            [[KCTFuncEngine getInstance] setSpeakerphone:NO];
+            self.handFreeButton.selected = NO;
+            
+        }
+    }
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -888,7 +921,7 @@
         default:
             break;
     }
-    [self.callTimeLabel setImage:[UIImage imageNamed:imageStr] forState:UIControlStateDisabled];
+    //[self.callTimeLabel setImage:[UIImage imageNamed:imageStr] forState:UIControlStateDisabled];
     
     
 }
@@ -913,18 +946,19 @@
             
             if (![timer isValid])
             {
+                ssInt = self.totalSecond;
                 timer = [NSTimer timerWithTimeInterval:1.0f target:self selector:@selector(updateRealtimeLabel) userInfo:nil repeats:YES];
                 [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
                 [timer fire];
             }
-            
+            [self adjustSpeakerState];
             /**
              @author WLS, 15-12-11 17:12:12
              
              当通话接通后，显示功能按钮，并调整挂断按钮的位置
              */
             self.callFunctionView.hidden = NO;
-            [self changeHangupButtonFrame];
+            [self changeHangupButtonFrame:YES];
             
         }
             break;

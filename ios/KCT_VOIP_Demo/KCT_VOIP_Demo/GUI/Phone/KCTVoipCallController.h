@@ -36,7 +36,7 @@
 @property (nonatomic,retain) NSString *voipNo;
 @property (retain,nonatomic) NSString *callerName;
 @property (assign,nonatomic) KCTCallTypeEnum callType;
-
+@property (assign,nonatomic) int totalSecond;
 
 
 @property (assign,nonatomic) BOOL incomingCall; //WLS，2015-12-09，(处于被叫界面)

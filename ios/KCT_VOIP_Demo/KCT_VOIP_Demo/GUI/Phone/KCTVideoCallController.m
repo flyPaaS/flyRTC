@@ -13,13 +13,17 @@
 #import "KCTCommonClass.h"
 #import "KCTPubEnum.h"
 #import <mach/mach.h>
+#import "VideoView.h"
+
 
 @class KCTVideoAttr;
 @class Resolutions;
 @class VideoView;
 
 @interface KCTVideoCallController ()
-
+{
+    NSTimeInterval anserTime;
+}
 
 @property (strong,nonatomic) UIImageView * backgroundView; // WLS，2015-12-14，背景视图
 
@@ -27,7 +31,8 @@
 @property (strong,nonatomic) UIView *callBackView; // WLS，2015-12-14，通话中所有按钮的背景视图
 @property (strong,nonatomic) UIButton *hangupButton; // WLS，2015-12-14，挂断按钮
 @property (strong,nonatomic) UILabel *voipNumberLabel; // WLS，2015-12-14，对方号码标题
-@property (strong,nonatomic) UIButton *callTimeLabel; // WLS，2015-12-14，通话时间标题
+@property (strong,nonatomic) UIButton *callStatueBtn; // WLS，2015-12-14，通话时间标题
+@property (strong,nonatomic) UILabel *callTimerLabel;
 @property (strong,nonatomic) UIView *callFunctionView; // WLS，2015-12-14，通话中功能按钮视图
 @property (strong,nonatomic) UIButton *handFreeButton; // WLS，2015-12-14，免提按钮
 @property (strong,nonatomic) UIButton *closeCameraButton; // WLS，2015-12-14，关闭摄像头按钮
@@ -37,6 +42,7 @@
 
 
 @property (strong,nonatomic) UIView *videoLocationView; // WLS，2015-12-14，本地视频视图
+@property (strong,nonatomic) UIView *oldLocationView;
 @property (strong,nonatomic) UIView *videoRemoteView; // WLS，2015-12-14，远程视频视图
 
 
@@ -45,9 +51,107 @@
 
 @property (strong,nonatomic) UIView * incomingView; // WLS，2015-12-19，来电时候的界面
 @property (strong,nonatomic) UILabel * informationLabel; // 展示信息的label
+
+@property(nonatomic,assign) BOOL isMoving;
+@property(nonatomic,assign) BOOL isTouchEvent;
+@property(nonatomic,assign) BOOL isRemoteViewMax;
+@property(nonatomic,assign) float brightness;
+
 @end
 
 @implementation KCTVideoCallController
+
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [super touchesBegan:touches withEvent:event];
+    self.isTouchEvent = NO;
+    
+    UITouch *touch = [touches anyObject];
+    
+    CGPoint point = [touch locationInView:self.view];
+    
+    CALayer *touchedLayer = [self.view.layer hitTest:point];
+    
+    if (touch.view == self.callTimerLabel && self.informationLabel.hidden == NO)
+    {
+        
+        self.informationLabel.hidden = YES;
+        return;
+    }
+    if (touch.view == self.callTimerLabel) {
+        
+        return;
+    }
+    
+    if(touchedLayer == self.videoLocationView.layer || touch.view == self.videoLocationView)
+    {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * USEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (!self.isTouchEvent)
+            {
+                self.isMoving = YES;
+                //NSLog(@"--------拖事件------");
+            }
+        });
+    }
+    else
+    {
+        if (!self.callFunctionView.hidden) {
+            /**
+             @author WLS, 15-12-14 17:12:16
+             
+             通话中，已接听
+             */
+            self.callBackView.hidden = !self.callBackView.hidden;
+        }
+    }
+}
+
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [super touchesMoved:touches withEvent:event];
+    
+    if(!self.isMoving){
+        return;
+    }
+    
+    UITouch *touch = [touches anyObject];
+    
+    CGPoint current = [touch locationInView:self.view];
+    CGPoint previous = [touch previousLocationInView:self.view];
+    CGPoint center = self.videoLocationView.center;
+    CGPoint offset = CGPointMake(current.x - previous.x, current.y - previous.y);
+    
+    float maxCenterX,maxCenterY,minCenterX,minCenterY;
+    float width = self.videoLocationView.frame.size.width;
+    float height = self.videoLocationView.frame.size.height;
+    
+    maxCenterX = self.view.frame.size.width - width/2;
+    minCenterX = width/2;
+    maxCenterY = self.view.frame.size.height - height/2;
+    minCenterY = height/2;
+    
+    float x = center.x + offset.x;
+    float y = center.y + offset.y;
+    if (x > maxCenterX) {
+        x = maxCenterX;
+    }
+    if (x < minCenterX) {
+        x = minCenterX;
+    }
+    if (y > maxCenterY) {
+        y = maxCenterY;
+    }
+    if (y < minCenterY) {
+        y = minCenterY;
+    }
+    self.videoLocationView.center = CGPointMake(x,y);
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [super touchesEnded:touches withEvent:event];
+    
+    self.isMoving = NO;
+}
+
 
 
 
@@ -69,21 +173,22 @@
     self.videoRemoteView = [[KCTFuncEngine getInstance] allocCameraViewWithFrame:self.backgroundView.bounds];
     self.videoRemoteView.backgroundColor = [UIColor clearColor];
     [self.backgroundView addSubview:self.videoRemoteView];
+    
 
-    self.videoLocationView = [[KCTFuncEngine getInstance] allocCameraViewWithFrame:CGRectMake(Adaptation(220), Adaptation(220), Adaptation(90), Adaptation(120))];
+    
+    self.videoLocationView = [[KCTFuncEngine getInstance] allocCameraViewWithFrame:self.backgroundView.bounds];
+    
+    self.videoLocationView.tag = 1000;
     self.videoLocationView.backgroundColor = [UIColor clearColor];
     [self.backgroundView addSubview:self.videoLocationView];
     if (CurrentHeight !=480) {
         CGRect frame = self.videoLocationView.frame;
-        frame.origin.y = Adaptation(270);
+        //frame.origin.y = Adaptation(270);
+        //frame.origin.y = Adaptation(70);
         self.videoLocationView.frame = frame;
-
     }
-    
-    
-    
-    
-    
+    self.oldLocationView = self.videoLocationView;
+
     
     /**
      @author WLS, 15-12-14 14:12:47
@@ -99,7 +204,7 @@
      
      将本地视图调到 通话过程中的按钮背景视图之上。因为本地视频视图需要触发点击事件，否则点击到callbackview
      */
-    [self.backgroundView insertSubview:self.videoLocationView aboveSubview:self.callBackView];
+    //[self.backgroundView insertSubview:self.videoLocationView aboveSubview:self.callBackView];
     
     
     /**
@@ -119,25 +224,39 @@
      
      对方通话状态或者时间
      */
-    self.callTimeLabel = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.callTimeLabel.enabled = NO;
-    self.callTimeLabel.frame = CGRectMake(Adaptation(10), GetViewHeight(self.voipNumberLabel)+GetViewY(self.voipNumberLabel)+ Adaptation(5), Adaptation(200),GetViewHeight(self.voipNumberLabel));
-    self.callTimeLabel.titleLabel.font = [UIFont systemFontOfSize:GetTextFont(13)];
-    self.callTimeLabel.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [self.callTimeLabel setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
-    [self.callTimeLabel setTitle:@"呼叫请求中" forState:UIControlStateDisabled];
-    [self.backgroundView addSubview:self.callTimeLabel];
+    self.callStatueBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.callStatueBtn.enabled = NO;
+    
+    self.callStatueBtn.frame = CGRectMake(Adaptation(10), GetViewHeight(self.voipNumberLabel)+GetViewY(self.voipNumberLabel)+ Adaptation(5), Adaptation(200),GetViewHeight(self.voipNumberLabel));
+    self.callStatueBtn.titleLabel.font = [UIFont systemFontOfSize:GetTextFont(13)];
+    self.callStatueBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [self.callStatueBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
+    //[self.callStatueBtn setTitle:@"呼叫请求中" forState:UIControlStateDisabled];
+    [self.backgroundView addSubview:self.callStatueBtn];
     if (self.incomingCall) {
         /**
          @author WLS, 15-12-11 11:21:59
          
          如果处于来电状态 则通话状态的标题暂时先隐藏 ，等到通话建立起来，在显示
          */
-        self.callTimeLabel.hidden = YES;
+        self.callStatueBtn.hidden = YES;
         
     }
     
-    
+    self.callTimerLabel = [[UILabel alloc] initWithFrame:CGRectMake(CenterPoint(GetViewWidth(self.callBackView), Adaptation(120)), Adaptation(380), Adaptation(120), Adaptation(26))];
+    self.callTimerLabel.font = [UIFont systemFontOfSize:GetTextFont(21)];
+    self.callTimerLabel.textColor = [UIColor whiteColor];
+    self.callTimerLabel.textAlignment = NSTextAlignmentCenter;
+    self.callTimerLabel.text = @"00:00";
+    [self.callBackView addSubview:self.callTimerLabel];
+    self.callTimerLabel.hidden = YES;
+    self.callTimerLabel.userInteractionEnabled = YES;
+    // 添加1个手指5次点击事件
+    UITapGestureRecognizer * thirdTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(thirdTap:)];
+    thirdTap.numberOfTapsRequired = 3;
+    thirdTap.numberOfTouchesRequired = 1;
+    [self.callTimerLabel addGestureRecognizer:thirdTap];
+    //self.callTimeLabel.backgroundColor = [UIColor redColor];
     
     /**
      @author WLS, 15-12-14 14:14:47
@@ -159,12 +278,12 @@
     [self.callBackView addSubview:self.hangupButton];
     if (self.incomingCall) {
         self.answerButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.answerButton.backgroundColor = [UIColor whiteColor];
+        //self.answerButton.backgroundColor = [UIColor whiteColor];
         [self.answerButton addTarget:self action:@selector(answerCall) forControlEvents:UIControlEventTouchUpInside];
         [self.callBackView addSubview:self.answerButton];
-        
-        self.hangupButton.frame = CGRectMake((GetViewWidth(self.callBackView)-Adaptation(60)*2)/3, Adaptation(470), Adaptation(60), Adaptation(60));
-        self.answerButton.frame = CGRectMake(GetViewWidth(self.hangupButton)+GetViewX(self.hangupButton)*2, Adaptation(470), GetViewWidth(self.hangupButton), GetViewHeight(self.hangupButton));
+        self.voipNumberLabel.hidden = YES;
+        self.hangupButton.frame = CGRectMake((GetViewWidth(self.callBackView)-Adaptation(60)*2)/3, Adaptation(270), Adaptation(60), Adaptation(60));
+        self.answerButton.frame = CGRectMake(GetViewWidth(self.hangupButton)+GetViewX(self.hangupButton)*2, Adaptation(270), GetViewWidth(self.hangupButton), GetViewHeight(self.hangupButton));
         
         if (CurrentHeight == 480) {
             CGRect frame = self.hangupButton.frame;
@@ -178,7 +297,7 @@
         }
 
     }else{
-        [self changeHangupButtonFrame];
+        [self changeHangupButtonFrame:NO];
         
     }
     
@@ -217,7 +336,7 @@
 
     
     
-    self.callFunctionView = [[UIView alloc] initWithFrame:CGRectMake(Adaptation(30), Adaptation(395), GetViewWidth(self.callBackView) - Adaptation(60) , Adaptation(60))];
+    self.callFunctionView = [[UIView alloc] initWithFrame:CGRectMake(Adaptation(10), Adaptation(415), GetViewWidth(self.callBackView) - Adaptation(20) , Adaptation(60))];
     if (CurrentHeight == 480) {
         CGRect frame = self.callFunctionView.frame;
         frame.origin.y = Adaptation(330);
@@ -226,13 +345,13 @@
     }
     self.callFunctionView.backgroundColor = [UIColor clearColor];
     [self.callBackView addSubview:self.callFunctionView];
+    //self.callBackView.backgroundColor = [UIColor blueColor];
     
-    
-    CGFloat spaceWidth = (GetViewWidth(self.callFunctionView)  - GetViewHeight(self.callFunctionView)*3)/2.0;
-    NSArray * imageArray = @[@"静音",@"摄像头",@"扬声器"];
-    NSArray * selectImageArray = @[@"静音-down",@"摄像头-down",@"扬声器-down"];
-    NSArray * titleArray = @[@"静音",@"摄像头",@"扬声器"];
-    for (int i = 0; i<3; i++) {
+    CGFloat spaceWidth = (GetViewWidth(self.callFunctionView)  - GetViewHeight(self.callFunctionView)*4)/3.0;
+    NSArray * imageArray = @[@"静音",@"摄像头",@"扬声器",@"前置摄影头切换"];
+    NSArray * selectImageArray = @[@"静音-down",@"摄像头-down",@"扬声器-down",@"前置摄影头切换"];
+    NSArray * titleArray = @[@"静音",@"切语音",@"扬声器",@"切换摄像头"];
+    for (int i = 0; i< 4; i++) {
         
         UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(i * (GetViewHeight(self.callFunctionView)+spaceWidth), 0, GetViewHeight(self.callFunctionView), GetViewHeight(self.callFunctionView));
@@ -252,8 +371,11 @@
             self.muteButton = button;
         }else if (i == 1){
             self.closeCameraButton = button;
-        }else{
+        }else if (i == 2){
             self.handFreeButton = button;
+        }else
+        {
+            
         }
         
     }
@@ -277,9 +399,14 @@
  
  修改挂断按钮的frame
  */
-- (void)changeHangupButtonFrame{
+- (void)changeHangupButtonFrame:(BOOL)isCalling{
     
-    self.hangupButton.frame = CGRectMake(CenterPoint(GetViewWidth(self.callBackView), Adaptation(60)), Adaptation(470), Adaptation(60), Adaptation(60));
+    if (isCalling) {
+        self.hangupButton.frame = CGRectMake(CenterPoint(GetViewWidth(self.callBackView), Adaptation(60)), Adaptation(490), Adaptation(60), Adaptation(60));
+    } else {
+        self.hangupButton.frame = CGRectMake(CenterPoint(GetViewWidth(self.callBackView), Adaptation(60)), Adaptation(270), Adaptation(60), Adaptation(60));
+    }
+    
     
     if (CurrentHeight == 480) {
         CGRect frame = self.hangupButton.frame;
@@ -314,10 +441,11 @@
     
     self.incomingView = [[UIView alloc] initWithFrame:self.view.bounds];
     self.incomingView.backgroundColor = self.backgroundView.backgroundColor;
+    self.incomingView.backgroundColor = [UIColor clearColor];
     [self.backgroundView addSubview:self.incomingView];
     
     //add by wenqinglin
-    [self.backgroundView bringSubviewToFront:self.videoLocationView];
+    //[self.backgroundView bringSubviewToFront:self.videoLocationView];
     /**
      @author WLS, 15-12-11 11:21:59
      
@@ -327,7 +455,7 @@
     iconView.layer.cornerRadius = GetViewHeight(iconView)/2.0;
     iconView.layer.masksToBounds = YES;
     iconView.image = [UIImage imageNamed:@"默认头像"];
-    [self.incomingView addSubview:iconView];
+    //[self.incomingView addSubview:iconView];
     
     if (CurrentHeight == 480) {
         CGRect frame = iconView.frame;
@@ -341,9 +469,9 @@
      
      来电号码或者被叫号码
      */
-    UILabel * voipNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, Adaptation(215),GetViewWidth(self.incomingView), Adaptation(20))];
+    UILabel * voipNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, Adaptation(30),GetViewWidth(self.incomingView), Adaptation(20))];
     voipNumberLabel.font = [UIFont systemFontOfSize:GetTextFont(21)];
-    voipNumberLabel.textAlignment = NSTextAlignmentCenter;
+    voipNumberLabel.textAlignment = NSTextAlignmentLeft;
     voipNumberLabel.textColor = [UIColor whiteColor];
     voipNumberLabel.text = self.callerName;
     [self.incomingView addSubview:voipNumberLabel];
@@ -362,10 +490,13 @@
      */
     UIButton * callTimeLabel = [UIButton buttonWithType:UIButtonTypeCustom];
     callTimeLabel.enabled = NO;
-    callTimeLabel.frame = CGRectMake(GetViewX(voipNumberLabel), GetViewHeight(voipNumberLabel)+GetViewY(voipNumberLabel)+ Adaptation(5), GetViewWidth(voipNumberLabel), Adaptation(20));
+    callTimeLabel.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    callTimeLabel.frame = CGRectMake(GetViewX(voipNumberLabel), GetViewHeight(voipNumberLabel)+GetViewY(voipNumberLabel)+ Adaptation(10), GetViewWidth(voipNumberLabel), Adaptation(20));
+    //callTimeLabel.backgroundColor= [UIColor redColor];
+//    callTimeLabel.frame = CGRectMake(GetViewX(voipNumberLabel), GetViewHeight(voipNumberLabel)+GetViewY(voipNumberLabel)+ Adaptation(5), GetViewWidth(voipNumberLabel), Adaptation(20));
     callTimeLabel.titleLabel.font = [UIFont systemFontOfSize:GetTextFont(13)];
-    [callTimeLabel setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
-    [callTimeLabel setTitle:@"视频聊天" forState:UIControlStateDisabled];
+    //[callTimeLabel setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+    [callTimeLabel setTitle:@"视频电话来电" forState:UIControlStateDisabled];
     if ([[KCTTcpClient sharedTcpClientManager] getCurrentNetWorkStatus]==KCTReachableVia2G) {
         [callTimeLabel setTitle:@"视频聊天(当前网络状态差)" forState:UIControlStateDisabled];
         
@@ -385,14 +516,28 @@
     [hangupButton setImage:[UIImage imageNamed:@"挂断-down"] forState:UIControlStateDisabled];
     [self.incomingView addSubview:hangupButton];
     if (self.incomingCall) {
+        
+        UIButton *swithAudioButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [swithAudioButton setImage:[UIImage imageNamed:@"摄像头"] forState:UIControlStateNormal];
+        [swithAudioButton setImage:[UIImage imageNamed:@"摄像头-down"] forState:UIControlStateDisabled];
+        [swithAudioButton addTarget:self action:@selector(incomingSwithAudio:) forControlEvents:UIControlEventTouchUpInside];
+        [swithAudioButton setTitle:@"切到语音" forState:UIControlStateNormal];
+        [swithAudioButton setTitleColor:RGBACOLOR(255, 255, 255, 0.5) forState:UIControlStateNormal];
+        swithAudioButton.titleLabel.font = [UIFont systemFontOfSize:GetTextFont(11)];
+        swithAudioButton.imageEdgeInsets = UIEdgeInsetsMake(5,10,21,swithAudioButton.titleLabel.bounds.size.width);
+        swithAudioButton.titleEdgeInsets = UIEdgeInsetsMake(40, -swithAudioButton.titleLabel.bounds.size.width-40, 0, 0);
+        [self.incomingView addSubview:swithAudioButton];
+        
         UIButton *answerButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [answerButton setImage:[UIImage imageNamed:@"接听"] forState:UIControlStateNormal];
         [answerButton setImage:[UIImage imageNamed:@"接听-down"] forState:UIControlStateDisabled];
         [answerButton addTarget:self action:@selector(answerCall) forControlEvents:UIControlEventTouchUpInside];
         [self.incomingView addSubview:answerButton];
         
-        hangupButton.frame = CGRectMake((GetViewWidth(self.incomingView)-Adaptation(60)*2)/3, Adaptation(470), Adaptation(60), Adaptation(60));
-        answerButton.frame = CGRectMake(GetViewWidth(hangupButton)+GetViewX(hangupButton)*2, Adaptation(470), GetViewWidth(hangupButton), GetViewHeight(hangupButton));
+        hangupButton.frame = CGRectMake((GetViewWidth(self.incomingView)-Adaptation(60)*2)/3, Adaptation(270), Adaptation(60), Adaptation(60));
+        answerButton.frame = CGRectMake(GetViewWidth(hangupButton)+GetViewX(hangupButton)*2, Adaptation(270), GetViewWidth(hangupButton), GetViewHeight(hangupButton));
+        swithAudioButton.frame = CGRectMake(GetViewWidth(hangupButton)+GetViewX(hangupButton)*2, Adaptation(350), GetViewHeight(self.callFunctionView), GetViewHeight(self.callFunctionView));
+        
         if (CurrentHeight == 480) {
             CGRect frame = hangupButton.frame;
             frame.origin.y = Adaptation(410);
@@ -409,7 +554,7 @@
 
 - (UILabel *)informationLabel{
     if (_informationLabel == nil) {
-        _informationLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,GetViewY(self.callTimeLabel)+Adaptation(5), CurrentWidth, Adaptation(300))];
+        _informationLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,GetViewY(self.callStatueBtn)+Adaptation(5), CurrentWidth, Adaptation(300))];
 //        _informationLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, GetViewHeight(self.callTimeLabel)+GetViewY(self.callTimeLabel)+Adaptation(5), CurrentWidth, Adaptation(300))];
         _informationLabel.numberOfLines = 0;
         _informationLabel.hidden = YES;
@@ -433,8 +578,11 @@
     [self.voipNumberLabel removeFromSuperview];
     self.voipNumberLabel = nil;
     
-    [self.callTimeLabel removeFromSuperview];
-    self.callTimeLabel = nil;
+    [self.callStatueBtn removeFromSuperview];
+    self.callStatueBtn = nil;
+    
+    [self.callTimerLabel removeFromSuperview];
+    self.callTimerLabel = nil;
     
     [self.handFreeButton removeFromSuperview];
     self.handFreeButton = nil;
@@ -503,15 +651,17 @@
 {
     [super viewDidLoad];
     
+    totalSecond = 0;
+    self.brightness = [UIScreen mainScreen].brightness;
     self.currentTime = [NSString stringWithFormat:@"%ld",time(NULL)];
     self.hangupMySelf = NO;
-    
+    self.isRemoteViewMax = YES;
     self.backgroundView = [[UIImageView alloc] initWithFrame:self.view.bounds];
     self.backgroundView.backgroundColor = RGBACOLOR(22, 32, 39, 1);
     self.backgroundView.userInteractionEnabled = YES;
     [self.view addSubview:self.backgroundView];
     
-    
+    [VideoView enableRender:TRUE];
     [self makeVideoCallView];
     
     if (self.incomingCall) {
@@ -545,11 +695,7 @@
     
     
     [self addNotification];
-    // 添加1个手指5次点击事件
-    UITapGestureRecognizer * thirdTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(thirdTap:)];
-    thirdTap.numberOfTapsRequired = 3;
-    thirdTap.numberOfTouchesRequired = 1;
-    [self.videoLocationView addGestureRecognizer:thirdTap];
+    
     // 添加信息label
     [self.view addSubview:self.informationLabel];
 }
@@ -587,7 +733,7 @@
     
     [self removeNotification];
     
-    
+    [[UIScreen mainScreen] setBrightness:self.brightness];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -632,7 +778,11 @@
              
              关闭摄像头
              */
-            [self closeCamera];
+            //[self closeCamera];
+            //改成切语音
+            [KCTVOIPViewEngine getInstance].switchAudioModel = 0;
+            [KCTVOIPViewEngine getInstance].isSpeakerphoneOn = [[KCTFuncEngine getInstance] isSpeakerphoneOn];
+            [self switchToVoipCall];
         }
             break;
         case 2:{
@@ -642,6 +792,28 @@
              免提
              */
             [self handfree];
+        }
+            break;
+        case 3:
+        {
+            /**
+             @author WLS, 15-12-14 15:12:42
+             
+             后置摄像头
+             */
+            [[KCTFuncEngine getInstance] switchCameraDevice:CAMERA_REAR];
+            button.tag = 4;
+        }
+            break;
+        case 4:
+        {
+            /**
+             @author WLS, 15-12-14 15:12:49
+             
+             前置摄像头
+             */
+            [[KCTFuncEngine getInstance] switchCameraDevice:CAMERA_FRONT];
+            button.tag = 3;
         }
             break;
         default:
@@ -685,8 +857,12 @@
  接听电话
  */
 - (void)answerCall{
-    
-    [[KCTFuncEngine getInstance] answer:self.callID];
+    NSTimeInterval interval = [NSDate timeIntervalSinceReferenceDate];
+    if (interval- anserTime > 1) {
+        [[KCTFuncEngine getInstance] answer:self.callID];
+    }
+    //printf("-AA---%lf\n",interval- anserTime);
+    anserTime = interval;
 }
 
 
@@ -725,35 +901,24 @@
     self.informationLabel.hidden = NO;
 }
 
+- (void)singleTap:(UITapGestureRecognizer *)thirdTap{
+    self.isTouchEvent = YES;
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
-    
-    UITouch * touch = [touches anyObject];
-    if (touch.view == self.videoLocationView && self.informationLabel.hidden == NO) {
+    if (!self.callFunctionView.isHidden) {
+        if (self.isRemoteViewMax)
+        {
+            [[KCTFuncEngine getInstance] initCameraConfig2:self.videoRemoteView withRemoteVideoView:self.videoLocationView];
+        }
+        else
+        {
+            [[KCTFuncEngine getInstance] initCameraConfig2:self.videoLocationView withRemoteVideoView:self.videoRemoteView];
+        }
         
-        self.informationLabel.hidden = YES;
-        return;
+        self.isRemoteViewMax = !self.isRemoteViewMax;
     }
-    
-    if (self.callFunctionView.hidden) {
-        /**
-         @author WLS, 15-12-14 17:12:16
-         
-         不处于通话中，未接听
-         */
-        
-    }else{
-        /**
-         @author WLS, 15-12-14 17:12:16
-         
-         通话中，已接听
-         */
-        self.callBackView.hidden = !self.callBackView.hidden;
-        
-    }
-    
 }
+
+
 //免提事件
 - (void)handfree
 {
@@ -806,6 +971,26 @@
         self.muteButton.selected = NO;;
         [[KCTFuncEngine getInstance] setMicMute:NO];//设置为非静音
     }
+}
+
+//来点界面切换语音的点击事件
+-(void)incomingSwithAudio:(id)sender
+{
+    [KCTVOIPViewEngine getInstance].switchAudioModel = 1;
+    [self switchToVoipCall];
+    [self answerCall];
+    
+}
+
+
+//切语音
+- (void)switchToVoipCall
+{
+    [VideoView enableRender:FALSE];
+    [[KCTFuncEngine getInstance] sendSwithVideoMode];
+    [KCTVOIPViewEngine getInstance].totalSecond = totalSecond;
+    [[KCTVOIPViewEngine getInstance]swithToVoipCall:self.callerName];
+    [[KCTVOIPViewEngine getInstance]releaseViewControler:self];
 }
 
 
@@ -908,7 +1093,7 @@
         default:
             break;
     }
-    [self.callTimeLabel setImage:[UIImage imageNamed:imageStr] forState:UIControlStateDisabled];
+    
     self.informationLabel.text = networdDes;
 }
 
@@ -918,26 +1103,62 @@
     
 }
 
+//收到对方发来的透传通知，要去切换到语音
+- (void)switchVoipCall
+{
+    if (self.callFunctionView.hidden) {
+        [KCTVOIPViewEngine getInstance].switchAudioModel = 1;
+    } else {
+        [KCTVOIPViewEngine getInstance].switchAudioModel = 0;
+    }
+    
+    [KCTVOIPViewEngine getInstance].isSpeakerphoneOn = [[KCTFuncEngine getInstance] isSpeakerphoneOn];
+    
+    [VideoView enableRender:FALSE];
+    [KCTVOIPViewEngine getInstance].totalSecond = totalSecond;
+    [[KCTVOIPViewEngine getInstance]swithToVoipCall:self.callerName];
+    [[KCTVOIPViewEngine getInstance]releaseViewControler:self];
+}
+
+- (void)resetLocationVideo {
+    CGFloat lW = Adaptation(90);
+    CGFloat lH = Adaptation(120);
+    
+    self.videoLocationView = [[KCTFuncEngine getInstance] allocCameraViewWithFrame:CGRectMake(Adaptation(210), Adaptation(70), lW, lH)];
+    self.videoLocationView.tag = 1000;
+    self.videoLocationView.backgroundColor = [UIColor clearColor];
+    [self.backgroundView addSubview:self.videoLocationView];
+    [[KCTFuncEngine getInstance] initCameraConfig:self.videoLocationView withRemoteVideoView:self.videoRemoteView];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.oldLocationView removeFromSuperview];
+        self.oldLocationView = nil;
+    });
+    self.videoLocationView.userInteractionEnabled = YES;
+    UITapGestureRecognizer * single = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTap:)];
+    single.numberOfTapsRequired = 1; // 单击
+    [self.videoLocationView addGestureRecognizer:single];
+}
 
 -(void)responseVoipManagerStatus:(KCTCallStatus)event callID:(NSString*)callid data:(KCTReason *)data withVideoflag:(int)videoflag
 {
-    
-    
-    self.callTimeLabel.hidden = NO;
+    //self.callStatueBtn.hidden = NO;
     
     switch (event)
     {
         case KCTCallStatus_Alerting:{
-            [self.callTimeLabel setTitle:@"对方正在响铃" forState:UIControlStateDisabled];
+            [self.callStatueBtn setTitle:@"对方正在响铃" forState:UIControlStateDisabled];
             
         }
             break;
         case KCTCallStatus_Answered:
         {
             self.isCallNow = YES;
-            
-            [self.callTimeLabel setTitle:@"00:00" forState:UIControlStateDisabled];
-            
+            //[[UIScreen mainScreen] setBrightness:1.0];
+            //[self.callStatueBtn setTitle:@"00:00" forState:UIControlStateDisabled];
+            self.callTimerLabel.text = @"00:00";
+            self.callTimerLabel.hidden = NO;
+            self.callStatueBtn.hidden = YES;
+            self.voipNumberLabel.hidden = YES;
             if (![timer isValid])
             {
                 timer = [NSTimer timerWithTimeInterval:1.0f target:self selector:@selector(updateRealtimeLabel) userInfo:nil repeats:YES];
@@ -951,17 +1172,17 @@
              当通话接通后，显示功能按钮，并调整挂断按钮的位置
              */
             self.callFunctionView.hidden = NO;
-            self.switchCameraButton.hidden = NO;
+            self.switchCameraButton.hidden = YES;
             [self handfree];
-            
-            [self changeHangupButtonFrame];
+            [self resetLocationVideo];
+            [self changeHangupButtonFrame:YES];
             
         }
             break;
             
         case KCTCallStatus_Released:
         {
-            
+            [[KCTFuncEngine getInstance] switchCameraDevice:CAMERA_FRONT];
             AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
             NSLog(@"KCTVideoCallCongtroller 964");
             [app stopCall];
@@ -969,7 +1190,7 @@
             [self setCallDuration];
             
             self.hangupButton.enabled = NO;
-            [self.callTimeLabel setImage:nil forState:UIControlStateDisabled];
+            [self.callStatueBtn setImage:nil forState:UIControlStateDisabled];
 //            if (self.incomingCall) {
 //                [self.callTimeLabel setTitle:@"已挂机" forState:UIControlStateDisabled];
 //                
@@ -980,7 +1201,8 @@
             
             
             if (data.reason == 402016) {
-                [self.callTimeLabel setTitle:@"对方已挂机" forState:UIControlStateDisabled];
+                [self.callStatueBtn setTitle:@"对方已挂机" forState:UIControlStateDisabled];
+                self.callStatueBtn.hidden = YES;
             }else if (data.reason == 402012) {
                 /**
                  @author WLS, 15-12-21 11:12:04
@@ -988,15 +1210,15 @@
                  被叫拒绝接听
                  */
                 self.beReject = YES;
-                [self.callTimeLabel setTitle:@"对方拒绝接听" forState:UIControlStateDisabled];
+                [self.callStatueBtn setTitle:@"对方拒绝接听" forState:UIControlStateDisabled];
             }else if (data.reason == 402013){
                 
-                [self.callTimeLabel setTitle:data.msg forState:UIControlStateDisabled];
+                [self.callStatueBtn setTitle:data.msg forState:UIControlStateDisabled];
                 
             }else{
                 
                 if (!_isCallNow && !self.hangupMySelf && !self.incomingCall) {
-                    [self.callTimeLabel setTitle:@"对方无应答" forState:UIControlStateDisabled];
+                    [self.callStatueBtn setTitle:@"对方无应答" forState:UIControlStateDisabled];
                 }
             }
             [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(backFront) userInfo:nil repeats:NO];
@@ -1007,10 +1229,10 @@
         {
             self.hangupButton.enabled = NO;
             
-            [self.callTimeLabel setImage:nil forState:UIControlStateDisabled];
-            [self.callTimeLabel setTitle:data.msg forState:UIControlStateDisabled];
+            [self.callStatueBtn setImage:nil forState:UIControlStateDisabled];
+            [self.callStatueBtn setTitle:data.msg forState:UIControlStateDisabled];
             if (data.reason==402050) {
-                [self.callTimeLabel setTitle:@"对方无应答" forState:UIControlStateDisabled];
+                [self.callStatueBtn setTitle:@"对方无应答" forState:UIControlStateDisabled];
             }
             
             [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(backFront) userInfo:nil repeats:NO];
@@ -1026,8 +1248,8 @@
             break;
         case KCTCallStatus_Pasused:
         {
-            [self.callTimeLabel setImage:nil forState:UIControlStateDisabled];
-            [self.callTimeLabel setTitle:@"呼叫保持" forState:UIControlStateDisabled];
+            [self.callStatueBtn setImage:nil forState:UIControlStateDisabled];
+            [self.callStatueBtn setTitle:@"呼叫保持" forState:UIControlStateDisabled];
         }
             break;
         default:
@@ -1041,6 +1263,7 @@
 
 - (void)updateRealtimeLabel
 {
+    totalSecond += 1;
     ssInt +=1;
     if (ssInt >= 60) {
         mmInt += 1;
@@ -1059,13 +1282,15 @@
         
     }
     if (hhInt > 0) {
-        [self.callTimeLabel setTitle:[NSString stringWithFormat:@"%02d:%02d:%02d",hhInt,mmInt,ssInt] forState:UIControlStateDisabled];
-        self.callDuration = self.callTimeLabel.titleLabel.text;
+        //[self.callStatueBtn setTitle:[NSString stringWithFormat:@"%02d:%02d:%02d",hhInt,mmInt,ssInt] forState:UIControlStateDisabled];
+        self.callTimerLabel.text = [NSString stringWithFormat:@"%02d:%02d:%02d",hhInt,mmInt,ssInt];
+        self.callDuration = self.callTimerLabel.text;
     }
     else
     {
-        [self.callTimeLabel setTitle:[NSString stringWithFormat:@"%02d:%02d",mmInt,ssInt] forState:UIControlStateDisabled];
-        self.callDuration = self.callTimeLabel.titleLabel.text;
+        //[self.callStatueBtn setTitle:[NSString stringWithFormat:@"%02d:%02d",mmInt,ssInt] forState:UIControlStateDisabled];
+        self.callTimerLabel.text = [NSString stringWithFormat:@"%02d:%02d",mmInt,ssInt];
+        self.callDuration = self.callTimerLabel.text;
         
     }
 }
@@ -1091,10 +1316,10 @@
          
          如果处于通话状态，挂断或者是异常挂断，保存通话时间
          */
-        if ([self.callTimeLabel.titleLabel.text isEqualToString:@"正在挂机"]||
-            [self.callTimeLabel.titleLabel.text componentsSeparatedByString:@":"].count <=1) {
+        if ([self.callStatueBtn.titleLabel.text isEqualToString:@"正在挂机"]||
+            [self.callStatueBtn.titleLabel.text componentsSeparatedByString:@":"].count <=1) {
         }else{
-            self.callDuration = self.callTimeLabel.titleLabel.text;
+            self.callDuration = self.callStatueBtn.titleLabel.text;
             
         }
     }
