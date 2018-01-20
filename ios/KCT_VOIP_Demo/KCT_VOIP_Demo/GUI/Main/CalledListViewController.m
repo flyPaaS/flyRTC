@@ -62,6 +62,8 @@
     [rightButton addTarget:self action:@selector(codecSetting:) forControlEvents:(UIControlEventTouchUpInside)];
     UIBarButtonItem *rItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = rItem;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginFail:) name:@"loginFail" object:nil];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -70,10 +72,32 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 #pragma mark ---------private function------------
+
+- (void)loginFail:(NSNotification *)notification {
+    NSNumber *result = notification.object;
+    if ([result intValue] == 12) {
+        [mytoast showWithText:@"Ssid超时"];
+    } else if ([result intValue] == 13) {
+        [mytoast showWithText:@"当前其他人正在用此账号登录，待会重试"];
+    }
+    
+    [self loginout];
+}
+
+
 - (void)exitapp:(id)sender
 {
     [mytoast showWithText:@"账号已退出"];
+    [self loginout];
+}
+
+- (void)loginout {
     [self.navigationController popViewControllerAnimated:YES];
     [[KCTTcpClient sharedTcpClientManager] login_uninitWithFlag:YES];
 }
