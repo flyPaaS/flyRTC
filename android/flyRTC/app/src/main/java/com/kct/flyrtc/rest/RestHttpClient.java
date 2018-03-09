@@ -31,7 +31,8 @@ public class RestHttpClient {
     // 获取rest服务器地址
     private StringBuffer getUrl() {
         // 外网
-        return new StringBuffer("http://60.205.137.243:80");
+        //return new StringBuffer("http://60.205.137.243:80");
+        return new StringBuffer("http://flycan.flypaas.com:80");
         // 内网
         //return  new StringBuffer("http://192.168.0.8:8445");
     }

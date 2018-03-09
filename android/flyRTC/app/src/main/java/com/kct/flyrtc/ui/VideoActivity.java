@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gl.softphone.VideoEncParam;
 import com.kct.flyrtc.R;
 import com.kct.flyrtc.app.MainApplication;
 import com.kct.flyrtc.call.VideoCallActivity;
@@ -79,6 +80,22 @@ public class VideoActivity extends BaseActivity {
                 startActivity(mIntent);
             }
         });
+
+        // 设置default视频参数
+        VideoEncParam encParam = new VideoEncParam();
+        encParam.bitrates = new int[3][3];
+        encParam.usWidth = 240;   //推荐使用240x320，或者360x480
+        encParam.usHeight = 320;
+        encParam.ucUseHwEnc = 0;   //硬编码
+        encParam.ucUseHwDec = 0;   //硬解码
+        encParam.usMinBitrate = 50;
+        encParam.usMaxBitrate = 2000;
+        encParam.ucmaxFramerate = 20;
+        encParam.usStartBitrate = 500;
+        encParam.bitrates[1][0] = 250;  // the bitrate threshold for 240x320 to 360x480
+        encParam.bitrates[1][1] = 550;  // the bitrate threshold for 360x480 to 480x640
+        encParam.bitrates[1][2] = 1050;  // the bitrate threshold for 480x640 to 720x960
+        KCSdk.getInstance().SetEncoderPara(encParam);
 
         // 注册广播
         IntentFilter mIntentFilter = new IntentFilter();
