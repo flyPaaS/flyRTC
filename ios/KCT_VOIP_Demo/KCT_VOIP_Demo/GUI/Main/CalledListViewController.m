@@ -7,8 +7,8 @@
 //
 
 #import "CalledListViewController.h"
-
-
+#import <AVFoundation/AVCaptureDevice.h>
+#import<AVFoundation/AVMediaFormat.h>
 
 @interface CalledListViewController ()<CodecViewControllerDelegate>
 {
@@ -104,6 +104,14 @@
 
 - (void)cellButtonClick:(id)sender
 {
+    if (![self cameraAuthorization]) {
+        return;
+    }
+    
+    if (![self microphoneAuthorization]) {
+        return;
+    }
+    
     UIButton *button = (UIButton *)sender;
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:button.tag inSection:0];
     self.currentIndexPath = indexPath;
@@ -128,6 +136,36 @@
     NSString *client_number = [uidDict objectForKey:@"client_number"];
     [self makeCallWithNumber:client_number];
 }
+
+- (BOOL)cameraAuthorization {
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (authStatus == AVAuthorizationStatusRestricted || authStatus ==AVAuthorizationStatusDenied) {
+        UIAlertView * alart = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"请您设置允许APP访问您的相机->设置->隐私->相机" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alart show];
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL)microphoneAuthorization {
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+    if (authStatus == AVAuthorizationStatusRestricted || authStatus ==AVAuthorizationStatusDenied) {
+        UIAlertView * alart = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"请您设置允许APP访问您的麦克风->设置->隐私->麦克风" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alart show];
+        return NO;
+    }
+    return YES;
+}
+
+
+//根据被点击按钮的索引处理点击事件
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    }
+}
+
 
 - (void)codecSetting:(id)sender
 {

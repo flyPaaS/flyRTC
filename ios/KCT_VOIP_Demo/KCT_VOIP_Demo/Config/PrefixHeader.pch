@@ -17,7 +17,7 @@
 //#define kLocalAreaNetworkEnvironment
 #endif
 
-#define NSLog(...)
+//#define NSLog(...)
 
 #import "Contact.h"
 #import "KeyHeaders.h"

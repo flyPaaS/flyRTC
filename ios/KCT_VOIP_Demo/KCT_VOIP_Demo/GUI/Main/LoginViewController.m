@@ -7,7 +7,7 @@
 //
 
 
-
+#import <CoreTelephony/CTCellularData.h>
 
 
 
@@ -40,7 +40,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    //[self checkNetWorkPermission];
     _defaults = [NSUserDefaults standardUserDefaults];
     _isRember = [_defaults boolForKey:kIsRemberPwdKey];
     [self changeRemeberBtnState:_isRember];
@@ -240,12 +240,35 @@
 }
 
 - (IBAction)loginPress:(id)sender {
+    
     _isAutoLogin = NO;
     LoginTableViewCell *row0 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     LoginTableViewCell *row1 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     NSString *userId = row0.textField.text;
     NSString *pwd = row1.textField.text;
     [self loginWithUser:userId pwd:pwd];
+}
+
+- (int)checkNetWorkPermission
+{
+    CTCellularData *cellularData = [[CTCellularData alloc]init];
+    cellularData.cellularDataRestrictionDidUpdateNotifier = ^(CTCellularDataRestrictedState state)
+    {
+        if (state == kCTCellularDataRestricted) {
+            UIAlertView * alart = [[UIAlertView alloc]initWithTitle:@"温馨提示" message:@"请您设置允许APP访问您的相机->设置->隐私->相机" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            [alart show];
+        }
+    };
+    return 0;
+}
+
+
+//根据被点击按钮的索引处理点击事件
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    }
 }
 
 
