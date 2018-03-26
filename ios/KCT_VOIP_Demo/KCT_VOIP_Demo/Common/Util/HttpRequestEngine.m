@@ -15,7 +15,7 @@
 #define kRestApiBaseURL   @"http://192.168.0.8:80"
 //#define kRestApiBaseURL   @"http://192.168.0.112:80"
 #else
-#define kRestApiBaseURL   @"http://60.205.137.243:80"
+#define kRestApiBaseURL   @"http://flycan.flypaas.com:80"
 
 #endif
 
