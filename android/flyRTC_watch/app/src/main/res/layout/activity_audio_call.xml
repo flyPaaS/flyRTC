@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <LinearLayout
+        android:id="@+id/audio_layout_1"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:focusable="false"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/audio_call_mute"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@mipmap/converse_mute"
+            android:contentDescription="@string/app_name" />
+
+        <ImageButton
+            android:id="@+id/audio_call_hangup"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:visibility="gone"
+            android:contentDescription="@string/app_name"
+            android:background="@drawable/converse_call_hangup" />
+
+        <ImageButton
+            android:id="@+id/audio_call_speaker"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:contentDescription="@string/app_name"
+            android:background="@mipmap/converse_speaker" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/audio_layout_2"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_above="@+id/audio_layout_1"
+        android:layout_marginBottom="5dp"
+        android:focusable="false"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/audio_call_status"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/audio_layout_3"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_above="@+id/audio_layout_2"
+        android:focusable="false"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/audio_call_client"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/audio_call_title"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/audio_layout_3"
+        android:contentDescription="@string/app_name"
+        android:background="@mipmap/audio_title" />
+
+</RelativeLayout>

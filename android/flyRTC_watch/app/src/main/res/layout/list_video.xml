@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="20dp"
+    android:background="#ffffff">
+
+	<LinearLayout
+		android:id="@+id/common_list_iv"
+		android:layout_width="20dp"
+		android:layout_height="match_parent"
+		android:layout_alignParentStart="true"
+		android:gravity="center"
+		android:orientation="vertical">
+
+		<ImageView
+			android:id="@+id/common_list_image"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_gravity="center"
+			android:background="@mipmap/head1_small"/>
+	</LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/common_list_rl"
+	    android:layout_width="20dp"
+		android:layout_height="match_parent"
+		android:layout_alignParentEnd="true"
+		android:gravity="center"
+		android:orientation="vertical">
+
+		<ImageView
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+			android:layout_gravity="center"
+	        android:background="@drawable/common_in"/>
+	</RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@id/common_list_iv"
+        android:layout_toStartOf="@id/common_list_rl"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/common_list_tv_client"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:gravity="center"
+            android:textColor="#1f1f1f"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/common_list_tv_phone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+			android:visibility="gone"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:gravity="center"
+            android:textColor="#999999"
+            android:textSize="12sp" />
+    </LinearLayout>
+</RelativeLayout>
