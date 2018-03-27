@@ -84,12 +84,12 @@ public class VideoActivity extends BaseActivity {
         // 设置default视频参数
         VideoEncParam encParam = new VideoEncParam();
         encParam.bitrates = new int[3][3];
-        encParam.usWidth = 240;   //推荐使用240x320，或者360x480
-        encParam.usHeight = 320;
-        encParam.ucUseHwEnc = 0;   //硬编码
-        encParam.ucUseHwDec = 0;   //硬解码
+        encParam.usWidth = 360;   // 推荐使用240x320，或者360x480
+        encParam.usHeight = 480;
+        encParam.ucUseHwEnc = 0;   // 硬编码
+        encParam.ucUseHwDec = 0;   // 硬解码
         encParam.usMinBitrate = 50;
-        encParam.usMaxBitrate = 2000;
+        encParam.usMaxBitrate = 500;
         encParam.ucmaxFramerate = 20;
         encParam.usStartBitrate = 500;
         encParam.bitrates[1][0] = 250;  // the bitrate threshold for 240x320 to 360x480

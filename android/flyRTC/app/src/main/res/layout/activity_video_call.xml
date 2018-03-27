@@ -7,14 +7,14 @@
     <RelativeLayout
         android:id="@+id/remotelayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
     </RelativeLayout>
 
     <TextView
         android:id="@+id/video_call_tips"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
+        android:layout_height="320dp"
+        android:layout_marginTop="80dp"
         android:text=""
         android:textColor="#ffffff"
         android:textSize="14sp" />
@@ -185,7 +185,6 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_above="@+id/video_layout_2"
-        android:layout_marginBottom="60dp"
         android:focusable="false"
         android:gravity="center"
         android:orientation="horizontal">

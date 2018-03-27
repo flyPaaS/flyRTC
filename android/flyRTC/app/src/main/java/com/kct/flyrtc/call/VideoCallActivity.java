@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
@@ -101,6 +102,8 @@ public class VideoCallActivity extends CallActivity {
         ViewCtrl();
         // 初始化视频
         KCSdk.getInstance().InitVideo(locallayout, remotelayout, this);
+        // 全屏显示
+        KCSdk.getInstance().SetCurBig(true);
         // 判断是不是来电
         if (getIntent().hasExtra("phoneNumber")) {
             phoneNumber = getIntent().getStringExtra("phoneNumber");
@@ -110,8 +113,6 @@ public class VideoCallActivity extends CallActivity {
         if (getIntent().hasExtra("inCall")) {
             inCall = getIntent().getBooleanExtra("inCall", false);
         }
-        // 全屏显示
-        KCSdk.getInstance().SetCurBig(true);
         // 判断来电
         if (inCall) {
             nCallStatus = 2;
@@ -161,6 +162,7 @@ public class VideoCallActivity extends CallActivity {
         KCSdk.getInstance().StopCallRinging();
         KCSdk.getInstance().StopVideo(31);
         mWindowManager.removeViewImmediate(locallayout);
+        //mWindowManager.removeViewImmediate(remotelayout);
         super.onDestroy();
     }
 
@@ -395,17 +397,30 @@ public class VideoCallActivity extends CallActivity {
     };
 
     private void ViewCtrl() {
-        // 视频
+        // 计算长宽
+        DisplayMetrics mDisplayMetrics = getResources().getDisplayMetrics();
+        int screenWidth = mDisplayMetrics.widthPixels;
+        // 远端视频
         remotelayout = findViewById(R.id.remotelayout);
+        //remotelayout = new RelativeLayout(this);
+        //mLayoutParams.gravity = Gravity.START | Gravity.TOP;
+        //mLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
+        //DisplayMetrics mDisplayMetrics = getResources().getDisplayMetrics();
+        //int screenWidth = mDisplayMetrics.widthPixels;
+        //mLayoutParams.x = 0;
+        //mLayoutParams.y = 0;
+        //mLayoutParams.width = screenWidth / 2;
+        //mLayoutParams.height = mLayoutParams.width * 4 / 3;
+        //mLayoutParams.alpha = 1.0f;
+        //mWindowManager.addView(remotelayout, mLayoutParams);
+        // 本地视频
         locallayout = new RelativeLayout(this);
         mLayoutParams.gravity = Gravity.START | Gravity.TOP;
         mLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
-        DisplayMetrics mDisplayMetrics = getResources().getDisplayMetrics();
-        int screenWidth = mDisplayMetrics.widthPixels;
-        mLayoutParams.x = screenWidth - 300;
-        mLayoutParams.y = 100;
-        mLayoutParams.width = 240;
-        mLayoutParams.height = 320;
+        mLayoutParams.x = screenWidth - (screenWidth / 3);
+        mLayoutParams.y = 0;
+        mLayoutParams.width = screenWidth / 3;
+        mLayoutParams.height = mLayoutParams.width * 4 / 3;
         mLayoutParams.alpha = 1.0f;
         mWindowManager.addView(locallayout, mLayoutParams);
         locallayout.setOnTouchListener(new TouchListener(this, mWindowManager, mLayoutParams));
@@ -441,6 +456,7 @@ public class VideoCallActivity extends CallActivity {
         // Tips显示
         converse_call_tips = findViewById(R.id.video_call_tips);
         converse_call_tips.setVisibility(View.GONE);
+        converse_call_tips.setMovementMethod(ScrollingMovementMethod.getInstance());
 
         // 静音
         converse_call_mute.setOnClickListener(new View.OnClickListener() {
@@ -621,6 +637,7 @@ public class VideoCallActivity extends CallActivity {
                         video_speaker_text.setVisibility(View.GONE);
                         video_switch_text.setVisibility(View.GONE);
                         video_call_status2.setVisibility(View.GONE);
+                        locallayout.setVisibility(View.GONE);
                         bShowCtrl = true;
                     } else {
                         video_call_hangup2.setVisibility(View.VISIBLE);
@@ -633,6 +650,7 @@ public class VideoCallActivity extends CallActivity {
                         video_speaker_text.setVisibility(View.VISIBLE);
                         video_switch_text.setVisibility(View.VISIBLE);
                         video_call_status2.setVisibility(View.VISIBLE);
+                        locallayout.setVisibility(View.VISIBLE);
                         bShowCtrl = false;
                     }
                 }

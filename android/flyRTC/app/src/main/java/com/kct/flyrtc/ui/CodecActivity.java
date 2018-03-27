@@ -222,6 +222,11 @@ public class CodecActivity extends BaseActivity {
             st.setCodecName("AAC");
             st.setIscheck(UIData.nAudioCodec == 1);
             clients.add(st);
+
+            st = new AudioClient();
+            st.setCodecName("G729");
+            st.setIscheck(UIData.nAudioCodec == 2);
+            clients.add(st);
         }
 
         public int getCount() {
