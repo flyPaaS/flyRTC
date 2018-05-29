@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gl.softphone.UGoAPIParam;
+import com.gl.softphone.UGoManager;
 import com.kct.flyrtc.R;
 import com.kct.flyrtc.utils.UIAction;
 import com.kct.sdk.KCSdk;
@@ -334,6 +335,13 @@ public class VideoFragment extends Fragment {
         video_call_answer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int nHas = UGoManager.getInstance().pub_UGoGetCamera();
+                boolean bLocalHas = KCSdk.getInstance().IsHasCamera();
+                if (nHas == 0 && !bLocalHas) {
+                    // 先切换音频
+                    KCSdk.getInstance().ChangeCallMode();
+                    mActivity.SetPage(1);
+                }
                 KCSdk.getInstance().StopCallRinging();
                 KCSdk.getInstance().StopRinging();
                 KCSdk.getInstance().Answer();

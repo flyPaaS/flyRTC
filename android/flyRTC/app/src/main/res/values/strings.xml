@@ -17,6 +17,8 @@
     <string name="login_client_line">该号码已经上线</string>
     <string name="login_out">账号已退出</string>
     <string name="login_out_1">登录账号已过期，请从新选择账号登录</string>
+    <string name="login_out_2">该账号已经被人登录</string>
+    <string name="login_out_3">该账号已经被人登录，你被强制下线</string>
 
     <string name="videe_net">网络断开请等待重连</string>
 

@@ -23,7 +23,6 @@ import static com.kct.sdk.KCBase.CALL_HANDUP;
 import static com.kct.sdk.KCBase.CALL_INCOME;
 import static com.kct.sdk.KCBase.CALL_OUTFAIL;
 import static com.kct.sdk.KCBase.CALL_VNETWORK;
-import static com.kct.sdk.KCBase.ICE_RTPP;
 import static com.kct.sdk.KCBase.TCP_CONNECT;
 import static com.kct.sdk.KCBase.TCP_DISCONNECT;
 
@@ -167,13 +166,13 @@ public class MainApplication extends Application implements KCEventListen {
                 }
                 if (i2 == 3) {
                     // 读失败，网络断开
-                    KCSdk.getInstance().ChangeICE(ICE_RTPP); // 0:P2P 1:RTPP
+                    //KCSdk.getInstance().ChangeICE(ICE_RTPP); // 0:P2P 1:RTPP
                     mHandler.removeMessages(1000);
                     mHandler.sendEmptyMessageDelayed(1000, 500);
                 }
                 if (i2 == 4) {
                     // 写失败，网络断开
-                    KCSdk.getInstance().ChangeICE(ICE_RTPP); // 0:P2P 1:RTPP
+                    //KCSdk.getInstance().ChangeICE(ICE_RTPP); // 0:P2P 1:RTPP
                     mHandler.removeMessages(1000);
                     mHandler.sendEmptyMessageDelayed(1000, 500);
                 }
@@ -181,6 +180,18 @@ public class MainApplication extends Application implements KCEventListen {
                     // SSID过期，需要退出从新登录
                     Intent mIntent = new Intent(UIAction.ACTION_LOGIN_RESPONSE);
                     mIntent.putExtra(UIAction.RESULT_KEY, 100);
+                    sendBroadcast(mIntent);
+                }
+                if (i2 == 6) {
+                    // 已经被别人登录
+                    Intent mIntent = new Intent(UIAction.ACTION_LOGIN_RESPONSE);
+                    mIntent.putExtra(UIAction.RESULT_KEY, 101);
+                    sendBroadcast(mIntent);
+                }
+                if (i2 == 7) {
+                    // 强制下线了
+                    Intent mIntent = new Intent(UIAction.ACTION_LOGIN_RESPONSE);
+                    mIntent.putExtra(UIAction.RESULT_KEY, 102);
                     sendBroadcast(mIntent);
                 }
             } else if (i1 == 1) {

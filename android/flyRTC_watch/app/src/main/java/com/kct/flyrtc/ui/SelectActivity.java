@@ -21,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kct.flyrtc.R;
-import com.kct.flyrtc.rest.RestHttpClient;
 import com.kct.flyrtc.utils.UIAction;
 import com.kct.flyrtc.utils.UIData;
 import com.kct.sdk.KCSdk;
@@ -114,24 +113,24 @@ public class SelectActivity extends BaseActivity {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            RestHttpClient mRestHttpClient = new RestHttpClient();
+                            //RestHttpClient mRestHttpClient = new RestHttpClient();
                             if (nSelectMode == 0) {
-                                if (mRestHttpClient.queryAccountLine(UIData.clientId.get(nSelect)) == 0) {
+                                //if (mRestHttpClient.queryAccountLine(UIData.clientId.get(nSelect)) == 0) {
                                     // 可以登录
                                     UIData.nSelect = nSelect;
                                     KCSdk.getInstance().Login(UIData.accountSid, UIData.accountToken, UIData.clientId.get(nSelect), UIData.clientPwd.get(nSelect));
-                                } else {
-                                    handler.sendEmptyMessage(1002);
-                                }
+                                //} else {
+                                //    handler.sendEmptyMessage(1002);
+                                //}
                             }
                             if (nSelectMode == 1) {
-                                if (mRestHttpClient.queryAccountLine(UIData.clientIdNew.get(nSelect)) == 0) {
+                                //if (mRestHttpClient.queryAccountLine(UIData.clientIdNew.get(nSelect)) == 0) {
                                     // 可以登录
                                     UIData.nSelect = nSelect;
                                     KCSdk.getInstance().Login(UIData.accountSidNew, UIData.accountTokenNew, UIData.clientIdNew.get(nSelect), UIData.clientPwdNew.get(nSelect));
-                                } else {
-                                    handler.sendEmptyMessage(1002);
-                                }
+                                //} else {
+                                //    handler.sendEmptyMessage(1002);
+                                //}
                             }
                         }
                     }).start();

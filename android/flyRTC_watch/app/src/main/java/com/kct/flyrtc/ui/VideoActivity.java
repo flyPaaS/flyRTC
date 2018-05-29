@@ -28,8 +28,6 @@ import com.kct.sdk.util.KCLog;
 
 import java.util.ArrayList;
 
-import static com.kct.sdk.KCBase.ICE_RTPP;
-
 /**
  * Created by zhouwq on 2017/3/8/008.
  * 视频拨号界面
@@ -116,7 +114,7 @@ public class VideoActivity extends BaseActivity {
         KCSdk.getInstance().StopVideo(31);
         if (!mMainApplication.bConnect) {
             // 网络断开
-            KCSdk.getInstance().ChangeICE(ICE_RTPP); // 0:P2P 1:RTPP
+            //KCSdk.getInstance().ChangeICE(ICE_RTPP); // 0:P2P 1:RTPP
             mMainApplication.mHandler.removeMessages(1000);
             mMainApplication.mHandler.sendEmptyMessageDelayed(1000, 0);
             KCLog.e("网络断开，启动重连");
@@ -145,10 +143,22 @@ public class VideoActivity extends BaseActivity {
         public void onReceive(Context context, Intent intent) {
             String strAction = intent.getAction();
             if (strAction != null) {
-                if (strAction.equals(UIAction.ACTION_NETWORK_STATE)) {
+                if (strAction.equals(UIAction.ACTION_LOGIN_RESPONSE)) {
                     if (intent.getIntExtra(UIAction.RESULT_KEY, 0) == 100) {
                         // 说明SSID已经过期，退出
                         Toast.makeText(VideoActivity.this, getString(R.string.login_out_1), Toast.LENGTH_SHORT).show();
+                        KCSdk.getInstance().LoginOut();
+                        finish();
+                    }
+                    if (intent.getIntExtra(UIAction.RESULT_KEY, 0) == 101) {
+                        // 已经被别人登录
+                        Toast.makeText(VideoActivity.this, getString(R.string.login_out_2), Toast.LENGTH_SHORT).show();
+                        KCSdk.getInstance().LoginOut();
+                        finish();
+                    }
+                    if (intent.getIntExtra(UIAction.RESULT_KEY, 0) == 102) {
+                        // 强制下线了
+                        Toast.makeText(VideoActivity.this, getString(R.string.login_out_3), Toast.LENGTH_SHORT).show();
                         KCSdk.getInstance().LoginOut();
                         finish();
                     }

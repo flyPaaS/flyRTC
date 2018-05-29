@@ -37,7 +37,7 @@ public class CallViewPager extends ViewPager {
         setOnPageChangeListener(listener);
     }
 
-    public  OnPageChangeListener listener = new OnPageChangeListener() {
+    public OnPageChangeListener listener = new OnPageChangeListener() {
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
